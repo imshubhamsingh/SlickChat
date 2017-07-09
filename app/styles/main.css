@@ -2,6 +2,13 @@ body {
   padding: 0;
 }
 
+#canvas {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
 .page-wrapper {
   max-width:550px;
   margin-right: auto;

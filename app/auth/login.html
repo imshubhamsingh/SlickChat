@@ -1,7 +1,7 @@
 <div class="page-wrapper">
 
   <div class="page-header">
-    <h1><a ui-sref="home"><img class="logo-img" src="images/logo.png" /></a> Log In</h1>
+    <h1><a ui-sref="home"><img class="logo-img" src="images/logo.png" width="20%"/></a> Log In</h1>
   </div>
 
   <!--<form ng-submit="authCtrl.login()">-->
@@ -18,15 +18,15 @@
 
       <div class="panel-body">
         <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="errorMessage">{{errorMessage}}</div>
-        <form id="loginForm" role="form">
+        <form id="loginForm" role="form" ng-submit="authCtrl.login()">
           <div class="input-group input-group-lg">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="email" type="text" class="form-control" value="" placeholder="E-mail">
+            <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="authCtrl.user.email">
           </div>
           <br>
           <div class="input-group input-group-lg">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="password" type="password" class="form-control" placeholder="Password">
+            <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="authCtrl.user.password">
           </div>
           <div class="input-group rememberme">
             <div class="checkbox">
@@ -37,12 +37,12 @@
             </div>
           </div>
           <div class="button-group">
-            <button id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" ng-click="submit()">Login</button>
+            <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" ng-click="submit()" value="Login">
           </div>
           <br>
           <div class="form-group">
             <div class="row control">
-              <span class="col-sm-6"><a href="#" ui-sref="register">Create account</a> - <a data-target="#pwdModal" data-toggle="modal">Forgot password?</a></span>
+              <span class="col-sm-12"><a href="#" ui-sref="register">Create account</a> - <a data-target="#pwdModal" data-toggle="modal">Forgot password?</a></span>
             </div>
           </div>
         </form>

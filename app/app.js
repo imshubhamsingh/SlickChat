@@ -1,15 +1,7 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name angularfireSlackApp
- * @description
- * # angularfireSlackApp
- *
- * Main module of the application.
- */
 angular
-  .module('angularfireSlackApp', [
+  .module('ChitChatApp', [
     'firebase',
     'angular-md5',
     'ui.router'
@@ -96,11 +88,11 @@ angular
         }
     }).state('channels.create', {
         url: '/create',
-        templateUrl: 'channels/create.html',
+        templateUrl: 'channels/channels/create.html',
         controller: 'ChannelsCtrl as channelsCtrl'
     }).state('channels.messages', {
         url: '/{channelId}/messages',
-        templateUrl: 'channels/messages.html',
+        templateUrl: 'channels/messages/messages.html',
         controller: 'MessagesCtrl as messagesCtrl',
         resolve: {
             messages: function($stateParams, Messages){
@@ -112,7 +104,7 @@ angular
         }
     }).state('channels.direct', {
         url: '/{uid}/messages/direct',
-        templateUrl: 'channels/messages.html',
+        templateUrl: 'channels/messages/messages.html',
         controller: 'MessagesCtrl as messagesCtrl',
         resolve: {
             messages: function($stateParams, Messages, profile){

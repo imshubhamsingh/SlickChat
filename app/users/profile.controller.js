@@ -2,7 +2,7 @@
  * Created by shubham on 8/7/17.
  */
 
-angular.module('angularfireSlackApp')
+angular.module('ChitChatApp')
     .controller('ProfileCtrl', function($state, md5, auth, profile){
         var profileCtrl = this;
         profileCtrl.profile = profile;

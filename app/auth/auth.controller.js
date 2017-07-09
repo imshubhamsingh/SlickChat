@@ -2,7 +2,7 @@
  * Created by shubham on 8/7/17.
  */
 
-angular.module('angularfireSlackApp')
+angular.module('ChitChatApp')
     .controller('AuthCtrl', function (Auth,$state) {
         var authCtrl = this;
         authCtrl.user = {
