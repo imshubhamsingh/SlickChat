@@ -17,16 +17,16 @@
 
 
       <div class="panel-body">
-        <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="errorMessage">{{errorMessage}}</div>
+        <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="authCtrl.errorMessage">{{authCtrl.errorMessage}}</div>
         <form id="loginForm" role="form" ng-submit="authCtrl.login()">
           <div class="input-group input-group-lg">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="authCtrl.user.email">
+            <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="authCtrl.userLogin.email">
           </div>
           <br>
           <div class="input-group input-group-lg">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="authCtrl.user.password">
+            <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="authCtrl.userLogin.password">
           </div>
           <div class="input-group rememberme">
             <div class="checkbox">
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="button-group">
-            <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" ng-click="submit()" value="Login">
+            <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" value="Login">
           </div>
           <br>
           <div class="form-group">

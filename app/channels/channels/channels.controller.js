@@ -3,7 +3,7 @@
  */
 
 angular.module('ChitChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users, profile, channels){
+    .controller('ChannelsCtrl', function($state, Auth, Users, profile,cognitoService){
         var channelsCtrl = this;
         channelsCtrl.profile = profile;
         channelsCtrl.channels = channels;
@@ -14,9 +14,10 @@ angular.module('ChitChatApp')
         Users.setOnline(profile.$id);
 
         channelsCtrl.logout = function(){
-            Auth.$signOut().then(function(){
-                $state.go('home');
-            });
+            cognitoService.getUser(cognitoService.getUserPool(),Auth.getUserEmail()).signOut();
+            Auth.setUserEmail('');
+            Auth.setUserPassword('');
+            $state.go('home');
         };
 
         channelsCtrl.newChannel = {
