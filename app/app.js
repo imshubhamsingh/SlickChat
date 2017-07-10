@@ -110,6 +110,8 @@ angular
                 console.log(currentUser);
                 if(currentUser === null){
                     $state.go('home');
+                }else{
+                    $state.go('channels.welcome')
                 }
             }
             // channels: function (Channels){
@@ -154,6 +156,10 @@ angular
             password: null,
             activation: false
         }
+    }).state('channels.welcome', {
+        url: '/create',
+        templateUrl: 'channels/home/welcome.html',
+        controller: 'ChannelsCtrl as channelsCtrl'
     }).state('channels.create', {
         url: '/create',
         templateUrl: 'channels/channels/create.html',
