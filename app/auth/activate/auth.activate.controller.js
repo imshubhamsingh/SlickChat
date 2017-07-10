@@ -28,7 +28,7 @@ angular.module('ChitChatApp')
                     $scope.$apply();
                     return;
                 }
-                $state.go('channels');
+                $state.go('channels',{email: $stateParams.email, password: $stateParams.password, activation: true});
             });
         }
     });

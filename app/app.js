@@ -61,7 +61,8 @@ angular
                 }
         },
         params: {
-            email: null
+            email: null,
+            password: null
         }
     }).state('profile', {
         url: '/profile',
@@ -84,9 +85,29 @@ angular
         controller: 'ChannelsCtrl as channelsCtrl',
         templateUrl: 'channels/index.html',
         resolve: {
-            requireAuth: function($state,cognitoService){
+            requireAuth: function($state,cognitoService,$stateParams){
+              var params = $stateParams;
+              if(params.activation){
+                var cognitoUser = cognitoService.getUser(params.email);
+                var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
+
+                cognitoUser.authenticateUser(authenticationDetails, {
+                    onSuccess: function (result) {
+                        var accessToken = result.getAccessToken().getJwtToken();
+                        // loginCtrl.accessToken = accessToken
+                        $state.go('channels');
+                        params.activation = false;
+                    },
+                    onFailure: function (err) {
+                        console.log('Your email address or password is incorrect.');
+                        $scope.$apply();
+                    }
+                });
+              }
                 var userPool = cognitoService.getUserPool();
                 var currentUser = userPool.getCurrentUser();
+
+                console.log(currentUser);
                 if(currentUser === null){
                     $state.go('home');
                 }
@@ -127,6 +148,11 @@ angular
             //         }
             //     });
             // }
+        },
+        params: {
+            email: null,
+            password: null,
+            activation: false
         }
     }).state('channels.create', {
         url: '/create',
@@ -168,5 +194,3 @@ angular
         authDomain: 'slackclone-830fc.firebaseapp.com',
         databaseURL: 'https://slackclone-830fc.firebaseio.com/'
     });
-
-

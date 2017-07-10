@@ -32,7 +32,7 @@ angular.module('ChitChatApp')
                     $scope.$apply();
                     return;
                 } else {
-                    $state.go('activate',{email:registerCtrl.userRegister.email});
+                    $state.go('activate',{email:registerCtrl.userRegister.email, password:registerCtrl.userRegister.password});
                 }
             });
         };
