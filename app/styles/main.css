@@ -35,27 +35,30 @@ body {
   vertical-align: top;
   height:100%;
   background:#4d394b;
+  background-color: #382962;
   position:relative;
   overflow-y:scroll;
   padding-bottom:100px;
+  padding-left: 0.9%
 }
 
 .sidebar .app-name {
-  background:#3E313C;
-  padding:15px 0px 15px 15px;
+  /*background:#3E313C;*/
+  padding:30px 0px 15px 11px;
 }
 
 .sidebar .app-name h2{
   color:#fff;
-  font-size:18px;
+  font-size:2em;
   font-weight:bold;
   margin-top:0px;
   margin-bottom:0px;
+
 }
 
 .sidebar .channel-list {
   margin-top:20px;
-  background:#4d394b;
+  /*background:#4d394b;*/
   position:relative;
 }
 
@@ -101,7 +104,8 @@ body {
   position:fixed;
   bottom:0;
   padding:15px;
-  background:#3E313C;
+  /*left: -0.1%;*/
+  /*background:#3E313C;*/
   width:19.5%;
 }
 
@@ -121,8 +125,8 @@ body {
 
 .sidebar .my-info .user-info .user-name {
   color:#fff;
-  font-size:16px;
-  font-weight:bold;
+  font-size:1.5em;
+  font-weight:500;
 }
 
 .sidebar .my-info .user-info .options {
@@ -145,7 +149,7 @@ body {
   vertical-align: middle;
 }
 
-.sidebar .presence.online {
+.sidebar .presence .online {
   background: #99d04a;
 }
 
@@ -202,9 +206,10 @@ body {
   padding-left:5px;
 }
 
-.message-pane .message-wrap .message-info .user-name {
+.message-pane .message-wrap .message-info .user-name{
   color:#555459;
-  font-weight:900;
+  font-weight:100;
+  font-size: 3.5em;
 }
 
 .message-pane .message-wrap .message-info .user-name span{

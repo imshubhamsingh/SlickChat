@@ -11,12 +11,14 @@ angular.module('SlickChatApp')
         // },function (response) {
         //   console.log(response);
         // });
-        // 
+        //
         // var x = $resource('http://gnaman.pythonanywhere.com', {user: '1'});
         // console.log("This is the response", x);
 
         var userPool = cognitoService.getUserPool();
         var currentUser = userPool.getCurrentUser();
+
+        // channelsCtrl.profile.online = true;
 
         channelsCtrl.profile = "";
         channelsCtrl.channels = "";
@@ -45,7 +47,7 @@ angular.module('SlickChatApp')
                     }
                     if(result[i].getName() === "email"){
                         channelsCtrl.userEmail = result[i].getValue();
-                        channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail)
+                        channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail) + '?d=retro';
                         console.log(channelsCtrl.getGravatar)
                     }
                 }
@@ -54,7 +56,7 @@ angular.module('SlickChatApp')
 
         console.log(channelsCtrl.displayName);
 
-        //Users.setOnline(profile.$id);
+        // Users.setOnline(profile.$id);
 
         channelsCtrl.newChannel = {
             name: ''
