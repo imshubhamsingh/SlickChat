@@ -53,8 +53,8 @@ angular
       })
       .state('login', {
           url: '/login',
-          controller: 'AuthCtrl as authCtrl',
-          templateUrl: 'auth/login.html',
+          controller: 'LoginCtrl as loginCtrl',
+          templateUrl: 'auth/login/login.html',
           resolve: {
               // requireNoAuth: function($state, Auth){
               //     return Auth.$requireSignIn().then(function(auth){
@@ -66,8 +66,8 @@ angular
           }
       }).state('register', {
           url: '/register',
-          controller: 'AuthCtrl as authCtrl',
-          templateUrl: 'auth/register.html',
+          controller: 'RegisterCtrl as registerCtrl',
+          templateUrl: 'auth/register/register.html',
           resolve: {
               // requireNoAuth: function($state, Auth){
               //     return Auth.$requireSignIn().then(function(auth){
@@ -79,8 +79,8 @@ angular
           }
       }).state('activate', {
         url: '/activate',
-        controller: 'AuthCtrl as authCtrl',
-        templateUrl: 'auth/activate.html',
+        controller: 'ActivateCtrl as activateCtrl',
+        templateUrl: 'auth/activate/activate.html',
         resolve: {
                 // requireNoAuth: function($state, Auth){
                 //     return Auth.$requireSignIn().then(function(auth){

@@ -4,7 +4,7 @@
 
 angular.module('ChitChatApp')
     .service('cognitoService', function () {
-
+        var aws  = this;
     this.getUserPool = function () {
         var poolData = {
             UserPoolId: 'us-east-2_CZJVWbjFC',
@@ -14,10 +14,10 @@ angular.module('ChitChatApp')
         return userPool;
     };
 
-    this.getUser = function (userPool, username) {
+    this.getUser = function (username) {
         var userData = {
             Username: username,
-            Pool: userPool
+            Pool: aws.getUserAttributes()
         };
         var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
 

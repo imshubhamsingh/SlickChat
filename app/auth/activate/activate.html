@@ -8,16 +8,16 @@
 
 
         <div class="panel-body">
-            <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="authCtrl.errorMessage">{{authCtrl.errorMessage}}</div>
-            <form id="loginForm" role="form" ng-submit="authCtrl.activate()">
+            <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="activateCtrl.errorMessage">{{activateCtrl.errorMessage}}</div>
+            <form id="loginForm" role="form" ng-submit="activateCtrl.activate()">
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="authCtrl.userActivate.email">
+                    <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="activateCtrl.userActivate.email">
                 </div>
                 <br>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="authCtrl.userActivate.pin">
+                    <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="activateCtrl.userActivate.pin">
                 </div>
                 <br>
                 <div class="button-group">
