@@ -40,12 +40,12 @@ body {
   padding-bottom:100px;
 }
 
-.sidebar .slack-name {
+.sidebar .app-name {
   background:#3E313C;
   padding:15px 0px 15px 15px;
 }
 
-.sidebar .slack-name h2{
+.sidebar .app-name h2{
   color:#fff;
   font-size:18px;
   font-weight:bold;
