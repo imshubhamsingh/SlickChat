@@ -4,7 +4,8 @@ angular
   .module('SlickChatApp', [
     'firebase',
     'angular-md5',
-    'ui.router'
+    'ui.router',
+    'ngResource'
   ])
   .config(function ($stateProvider, $urlRouterProvider,FirebaseConfig) {
     $stateProvider
@@ -157,7 +158,7 @@ angular
             activation: false
         }
     }).state('channels.welcome', {
-        url: '/create',
+        url: '/',
         templateUrl: 'channels/home/welcome.html',
         controller: 'ChannelsCtrl as channelsCtrl'
     }).state('channels.create', {

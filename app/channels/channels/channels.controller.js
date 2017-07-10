@@ -3,8 +3,17 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5){
+    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,$http,$resource){
         var channelsCtrl = this;
+        // $sce.trustAsResourceUrl('http://gnaman.pythonanywhere.com')
+        // $http.jsonp('http://gnaman.pythonanywhere.com').then(function(response){
+        //   console.log(response);
+        // },function (response) {
+        //   console.log(response);
+        // });
+        // 
+        // var x = $resource('http://gnaman.pythonanywhere.com', {user: '1'});
+        // console.log("This is the response", x);
 
         var userPool = cognitoService.getUserPool();
         var currentUser = userPool.getCurrentUser();

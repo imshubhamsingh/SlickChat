@@ -2,12 +2,12 @@
   "name": "angularfireslack",
   "version": "0.0.0",
   "dependencies": {
+    "cors": "^2.8.3",
     "express": "^4.15.3",
     "express-history-api-fallback": "^2.2.1",
     "path": "^0.12.7"
   },
   "repository": {},
-  "devDependencies": {},
   "engines": {
     "node": ">=0.10.0"
   },

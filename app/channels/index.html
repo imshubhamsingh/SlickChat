@@ -11,12 +11,12 @@
                 <a ui-sref="channels.messages({channelId: channel.$id})" ui-sref-active="selected"># {{ channel.name }}</a>
             </div>
             <div class="channel create">
-                <a ui-sref="channels.create">+ create channel</a>
+                <a ui-sref="channels.create">+ Create Channel</a>
             </div>
         </div>
 
         <div class="channel-list">
-            <div class="list-head">Direct Messages</div>
+            <div class="list-head">DIRECT MESSAGES</div>
             <div class="channel" ng-repeat="user in channelsCtrl.users">
                 <a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.direct({uid: user.$id})" ui-sref-active="selected">
                     <span class="presence" ng-class="{online: channelsCtrl.profile.online}"></span>
