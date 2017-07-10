@@ -31,7 +31,7 @@ angular
                   var userPool = cognitoService.getUserPool();
                   var currentUser = userPool.getCurrentUser();
                   if(currentUser !== null){
-                      $state.go('channels');
+                      $state.go('channels.welcome');
                   }
               }
           }
@@ -86,33 +86,13 @@ angular
         controller: 'ChannelsCtrl as channelsCtrl',
         templateUrl: 'channels/index.html',
         resolve: {
-            requireAuth: function($state,cognitoService,$stateParams){
-              var params = $stateParams;
-              if(params.activation){
-                var cognitoUser = cognitoService.getUser(params.email);
-                var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
-
-                cognitoUser.authenticateUser(authenticationDetails, {
-                    onSuccess: function (result) {
-                        var accessToken = result.getAccessToken().getJwtToken();
-                        // loginCtrl.accessToken = accessToken
-                        $state.go('channels');
-                        params.activation = false;
-                    },
-                    onFailure: function (err) {
-                        console.log('Your email address or password is incorrect.');
-                        $scope.$apply();
-                    }
-                });
-              }
+            requireAuth: function($state,cognitoService){
                 var userPool = cognitoService.getUserPool();
                 var currentUser = userPool.getCurrentUser();
 
-                console.log(currentUser);
+                console.log("Logged In");
                 if(currentUser === null){
                     $state.go('home');
-                }else{
-                    $state.go('channels.welcome')
                 }
             }
             // channels: function (Channels){
@@ -160,11 +140,43 @@ angular
     }).state('channels.welcome', {
         url: '/',
         templateUrl: 'channels/home/welcome.html',
-        controller: 'ChannelsCtrl as channelsCtrl'
+        controller: 'ChannelsCtrl as channelsCtrl',
+        resolve:  {
+            requireAuth: function($state,cognitoService,$stateParams){
+                var params = $stateParams;
+                if(params.activation){
+                    var cognitoUser = cognitoService.getUser(params.email);
+                    var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
+
+                    cognitoUser.authenticateUser(authenticationDetails, {
+                        onSuccess: function (result) {
+                            //var accessToken = result.getAccessToken().getJwtToken();
+                            // loginCtrl.accessToken = accessToken
+                            params.activation = false;
+                            console.log("Logged In ");
+                            $state.go('channels.welcome');
+                        },
+                        onFailure: function (err) {
+                            $state.go('home');
+                        }
+                    });
+                }
+                var userPool = cognitoService.getUserPool();
+                var currentUser = userPool.getCurrentUser();
+
+                console.log("Logged In");
+                if(currentUser === null){
+                    $state.go('home');
+                }
+            }
+        }
     }).state('channels.create', {
         url: '/create',
         templateUrl: 'channels/channels/create.html',
-        controller: 'ChannelsCtrl as channelsCtrl'
+        controller: 'ChannelsCtrl as channelsCtrl',
+        resolve:{
+
+        }
     }).state('channels.messages', {
         url: '/{channelId}/messages',
         templateUrl: 'channels/messages/messages.html',

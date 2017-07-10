@@ -17,7 +17,7 @@ angular.module('SlickChatApp')
                 onSuccess: function (result) {
                     var accessToken = result.getAccessToken().getJwtToken();
                     loginCtrl.accessToken = accessToken;
-                    $state.go('channels');
+                    $state.go('channels.welcome');
                 },
                 onFailure: function (err) {
                     loginCtrl.errorMessage = 'Your email address or password is incorrect.';

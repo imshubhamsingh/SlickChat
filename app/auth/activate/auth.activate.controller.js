@@ -28,7 +28,7 @@ angular.module('SlickChatApp')
                     $scope.$apply();
                     return;
                 }
-                $state.go('channels',{email: $stateParams.email, password: $stateParams.password, activation: true});
+                $state.go('channels.welcome',{email: $stateParams.email, password: $stateParams.password, activation: true});
             });
         }
     });
