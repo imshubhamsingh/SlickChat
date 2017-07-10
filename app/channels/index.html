@@ -27,17 +27,17 @@
 
 
         <div class="my-info">
-            <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar(channelsCtrl.profile.$id) }}" />
+            <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar}}" />
             <div class="user-info">
                 <div class="user-name">
                     <span class="presence" ng-class="{online: channelsCtrl.profile.online}"></span>
-                    {{ channelsCtrl.profile.displayName }}
+                    {{ channelsCtrl.displayName }}
                 </div>
 
                 <div class="options">
                     <a ui-sref="profile">edit profile</a>
                     /
-                    <a href="#" ng-click="channelsCtrl.logout()">logout</a>
+                    <a ng-click="channelsCtrl.logout()">logout</a>
                 </div>
             </div>
         </div>

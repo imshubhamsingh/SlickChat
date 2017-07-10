@@ -12,43 +12,13 @@ angular
           url: '/',
           templateUrl: 'home/home.html',
           resolve: {
-              // requireNoAuth: function($state, Auth){
-              //     return Auth.$requireSignIn().then(function(auth){
-              //         $state.go('channels');
-              //     }, function(error){
-              //         return;
-              //     });
-              // }
-              // requireNoAuth: function ($state, Auth,cognitoService) {
-              //     var authenticationDetails = cognitoService.getAuthenticationDetails(Auth.getUserEmail(), Auth.getUserPassword());
-              //     var userPool = cognitoService.getUserPool();
-              //     var cognitoUser = cognitoService.getUser(userPool, Auth.getUserEmail());
-              //     cognitoUser.authenticateUser(authenticationDetails, {
-              //         onSuccess: function (result) {
-              //             console.log('access token + ' + result.getAccessToken().getJwtToken());
-              //
-              //             //POTENTIAL: Region needs to be set if not already set previously elsewhere.
-              //             AWS.config.region = '<region>';
-              //
-              //             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-              //                 IdentityPoolId : '...', // your identity pool id here
-              //                 Logins : {
-              //                     // Change the key below according to the specific region your user pool is in.
-              //                     'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : result.getIdToken().getJwtToken()
-              //                 }
-              //             });
-              //             $state.go('channels');
-              //             // Instantiate aws sdk service objects now that the credentials have been updated.
-              //             // example: var s3 = new AWS.S3();
-              //
-              //         },
-              //         onFailure: function(err) {
-              //             alert(err);
-              //         }
-              //     });
-              //
-              //
-              // }
+              requireNoAuth: function($state,cognitoService){
+                  var userPool = cognitoService.getUserPool();
+                  var currentUser = userPool.getCurrentUser();
+                  if(currentUser !== null){
+                      $state.go('channels');
+                  }
+              }
           }
       })
       .state('login', {
@@ -56,39 +26,39 @@ angular
           controller: 'LoginCtrl as loginCtrl',
           templateUrl: 'auth/login/login.html',
           resolve: {
-              // requireNoAuth: function($state, Auth){
-              //     return Auth.$requireSignIn().then(function(auth){
-              //         $state.go('home');
-              //     }, function(error){
-              //         return;
-              //     });
-              // }
+              requireNoAuth: function($state,cognitoService){
+                  var userPool = cognitoService.getUserPool();
+                  var currentUser = userPool.getCurrentUser();
+                  if(currentUser !== null){
+                      $state.go('channels');
+                  }
+              }
           }
       }).state('register', {
           url: '/register',
           controller: 'RegisterCtrl as registerCtrl',
           templateUrl: 'auth/register/register.html',
           resolve: {
-              // requireNoAuth: function($state, Auth){
-              //     return Auth.$requireSignIn().then(function(auth){
-              //         $state.go('home');
-              //     }, function(error){
-              //         return;
-              //     });
-              // }
+               requireNoAuth: function($state,cognitoService){
+                   var userPool = cognitoService.getUserPool();
+                   var currentUser = userPool.getCurrentUser();
+                   if(currentUser !== null){
+                       $state.go('channels');
+                   }
+               }
           }
       }).state('activate', {
         url: '/activate',
         controller: 'ActivateCtrl as activateCtrl',
         templateUrl: 'auth/activate/activate.html',
         resolve: {
-                // requireNoAuth: function($state, Auth){
-                //     return Auth.$requireSignIn().then(function(auth){
-                //         $state.go('home');
-                //     }, function(error){
-                //         return;
-                //     });
-                // }
+                requireNoAuth: function($state, cognitoService){
+                    var userPool = cognitoService.getUserPool();
+                    var currentUser = userPool.getCurrentUser();
+                    if(currentUser !== null){
+                        $state.go('channels');
+                    }
+                }
         }
     }).state('profile', {
         url: '/profile',
@@ -111,6 +81,13 @@ angular
         controller: 'ChannelsCtrl as channelsCtrl',
         templateUrl: 'channels/index.html',
         resolve: {
+            requireAuth: function($state,cognitoService){
+                var userPool = cognitoService.getUserPool();
+                var currentUser = userPool.getCurrentUser();
+                if(currentUser === null){
+                    $state.go('home');
+                }
+            }
             // channels: function (Channels){
             //     return Channels.$loaded();
             // },
@@ -127,26 +104,26 @@ angular
             //         $state.go('home');
             //     });
             // }
-            profile: function (Auth,cognitoService,$state) {
-                var userPool = cognitoService.getUserPool();
-                var cognitoUser = cognitoService.getUser(userPool, Auth.getUserEmail());
-                var authenticationDetails = cognitoService.getAuthenticationDetails(Auth.getUserEmail(), Auth.getUserPassword());
-
-                cognitoUser.authenticateUser(authenticationDetails, {
-                    onSuccess: function (result) {
-                        var accessToken = result.getAccessToken().getJwtToken();
-                        authCtrl.accessToken = accessToken;
-
-                        var currentUser = userPool.getCurrentUser();
-                        console.log(currentUser);
-
-                        $state.go('channels');
-                    },
-                    onFailure: function (err) {
-                        $state.go('home');
-                    }
-                });
-            }
+            // profile: function (Auth,cognitoService,$state) {
+            //     var userPool = cognitoService.getUserPool();
+            //     var cognitoUser = cognitoService.getUser(userPool, Auth.getUserEmail());
+            //     var authenticationDetails = cognitoService.getAuthenticationDetails(Auth.getUserEmail(), Auth.getUserPassword());
+            //
+            //     cognitoUser.authenticateUser(authenticationDetails, {
+            //         onSuccess: function (result) {
+            //             var accessToken = result.getAccessToken().getJwtToken();
+            //             authCtrl.accessToken = accessToken;
+            //
+            //             var currentUser = userPool.getCurrentUser();
+            //             console.log(currentUser);
+            //
+            //             $state.go('channels');
+            //         },
+            //         onFailure: function (err) {
+            //             $state.go('home');
+            //         }
+            //     });
+            // }
         }
     }).state('channels.create', {
         url: '/create',

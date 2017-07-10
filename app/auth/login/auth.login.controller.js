@@ -17,16 +17,11 @@ angular.module('ChitChatApp')
                 onSuccess: function (result) {
                     var accessToken = result.getAccessToken().getJwtToken();
                     loginCtrl.accessToken = accessToken;
-
-                    var currentUser = userPool.getCurrentUser();
-                    console.log(currentUser);
-
                     $state.go('channels');
                 },
                 onFailure: function (err) {
                     loginCtrl.errorMessage = 'Your email address or password is incorrect.';
                     $scope.$apply();
-
                 }
             });
         };

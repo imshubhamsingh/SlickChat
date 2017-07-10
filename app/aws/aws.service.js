@@ -17,7 +17,7 @@ angular.module('ChitChatApp')
     this.getUser = function (username) {
         var userData = {
             Username: username,
-            Pool: aws.getUserAttributes()
+            Pool: aws.getUserPool()
         };
         var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
 

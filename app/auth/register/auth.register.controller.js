@@ -29,6 +29,7 @@ angular.module('ChitChatApp')
                 if (err) {
                     console.log(err);
                     registerCtrl.errorMessage = err.message;
+                    $scope.$apply();
                     return;
                 } else {
                     $state.go('activate');

@@ -3,22 +3,49 @@
  */
 
 angular.module('ChitChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users, profile,cognitoService){
+    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5){
         var channelsCtrl = this;
-        channelsCtrl.profile = profile;
-        channelsCtrl.channels = channels;
-        channelsCtrl.getDisplayName = Users.getDisplayName;
-        channelsCtrl.getGravatar = Users.getGravatar;
-        channelsCtrl.users = Users.all;
 
-        Users.setOnline(profile.$id);
+        var userPool = cognitoService.getUserPool();
+        var currentUser = userPool.getCurrentUser();
 
-        channelsCtrl.logout = function(){
-            cognitoService.getUser(cognitoService.getUserPool(),Auth.getUserEmail()).signOut();
-            Auth.setUserEmail('');
-            Auth.setUserPassword('');
-            $state.go('home');
-        };
+        channelsCtrl.profile = "";
+        channelsCtrl.channels = "";
+        channelsCtrl.getDisplayName = "";
+        channelsCtrl.getGravatar = "";
+        channelsCtrl.users = "";
+        channelsCtrl.displayName ="";
+        channelsCtrl.userEmail = "";
+        currentUser.getSession(function(err, session) {
+                if (err) {
+                    alert(err);
+                    return;
+                }
+                console.log('session validity: ' + session.isValid());
+            });
+            currentUser.getUserAttributes(function(err, result) {
+                if (err) {
+                    alert(err);
+                    return;
+                }
+                console.log(result);
+
+                for (var i = 0; i < result.length; i++) {
+                    if(result[i].getName() === "name"){
+                        channelsCtrl.displayName = result[i].getValue();
+                    }
+                    if(result[i].getName() === "email"){
+                        channelsCtrl.userEmail = result[i].getValue();
+                        channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail)
+                        console.log(channelsCtrl.getGravatar)
+                    }
+                }
+                $scope.$apply();
+            });
+
+        console.log(channelsCtrl.displayName);
+
+        //Users.setOnline(profile.$id);
 
         channelsCtrl.newChannel = {
             name: ''
@@ -29,12 +56,14 @@ angular.module('ChitChatApp')
             });
         };
         channelsCtrl.logout = function(){
-            channelsCtrl.profile.online = null;
-            channelsCtrl.profile.$save().then(function(){
-                Auth.$signOut().then(function(){
-                    $state.go('home');
-                });
-            });
+            // channelsCtrl.profile.online = null;
+            // channelsCtrl.profile.$save().then(function(){
+            //     Auth.$signOut().then(function(){
+            //         $state.go('home');
+            //     });
+            // });
+            cognitoService.getUser(channelsCtrl.userEmail).signOut();
+            $state.go('home');
         };
 
     });
