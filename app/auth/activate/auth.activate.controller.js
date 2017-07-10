@@ -7,16 +7,17 @@
  */
 
 angular.module('ChitChatApp')
-    .controller('ActivateCtrl', function (Auth,$state,cognitoService) {
+    .controller('ActivateCtrl', function (Auth,$state,cognitoService,$stateParams,$scope) {
         var activateCtrl = this;
 
         activateCtrl.userActivate = {
-            email: '',
+            email: $stateParams.email,
             pin: ''
         };
 
         activateCtrl.activate = function () {
             var userPool = cognitoService.getUserPool();
+            console.log($stateParams);
 
             var cognitoUser = cognitoService.getUser(activateCtrl.userActivate.email);
             var activationKey = activateCtrl.userActivate.pin;

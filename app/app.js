@@ -59,6 +59,9 @@ angular
                         $state.go('channels');
                     }
                 }
+        },
+        params: {
+            email: null
         }
     }).state('profile', {
         url: '/profile',

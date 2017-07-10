@@ -12,12 +12,12 @@
             <form id="loginForm" role="form" ng-submit="activateCtrl.activate()">
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="activateCtrl.userActivate.email">
+                    <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="activateCtrl.userActivate.email" disabled>
                 </div>
                 <br>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="activateCtrl.userActivate.pin">
+                    <input id="user.password" type="password" class="form-control" placeholder="Pin" ng-model="activateCtrl.userActivate.pin">
                 </div>
                 <br>
                 <div class="button-group">
