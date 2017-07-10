@@ -2,7 +2,7 @@
  * Created by shubham on 9/7/17.
  */
 
-angular.module('ChitChatApp')
+angular.module('SlickChatApp')
     .service('cognitoService', function () {
         var aws  = this;
     this.getUserPool = function () {

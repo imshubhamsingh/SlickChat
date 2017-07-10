@@ -2,7 +2,7 @@
  * Created by shubham on 8/7/17.
  */
 
-angular.module('ChitChatApp')
+angular.module('SlickChatApp')
     .factory('Messages', function($firebaseArray){
         var channelMessagesRef = firebase.database().ref('channelMessages');
         var userMessagesRef = firebase.database().ref('userMessages');

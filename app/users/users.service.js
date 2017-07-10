@@ -2,7 +2,7 @@
  * Created by shubham on 8/7/17.
  */
 
-angular.module('ChitChatApp')
+angular.module('SlickChatApp')
     .factory('Users', function($firebaseArray, $firebaseObject){
         var usersRef = firebase.database().ref('users');
         var connectedRef = firebase.database().ref('.info/connected');

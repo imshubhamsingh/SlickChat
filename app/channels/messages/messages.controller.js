@@ -2,7 +2,7 @@
  * Created by shubham on 8/7/17.
  */
 
-angular.module('ChitChatApp')
+angular.module('SlickChatApp')
     .controller('MessagesCtrl', function(profile, channelName, messages){
         var messagesCtrl = this;
 

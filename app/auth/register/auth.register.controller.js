@@ -2,7 +2,7 @@
  * Created by shubham on 10/7/17.
  */
 
-angular.module('ChitChatApp')
+angular.module('SlickChatApp')
     .controller('RegisterCtrl', function (Auth,$state,cognitoService,$scope) {
         var registerCtrl = this;
         registerCtrl.userRegister = {

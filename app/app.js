@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('ChitChatApp', [
+  .module('SlickChatApp', [
     'firebase',
     'angular-md5',
     'ui.router'

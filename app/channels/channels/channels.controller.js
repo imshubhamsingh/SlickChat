@@ -2,7 +2,7 @@
  * Created by shubham on 8/7/17.
  */
 
-angular.module('ChitChatApp')
+angular.module('SlickChatApp')
     .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5){
         var channelsCtrl = this;
 
