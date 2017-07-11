@@ -1,26 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
 body {
   padding: 0;
+  font-family: "Lato", Helvetica, sans-serif;
 }
 
-/*#canvas {*/
-  /*position: fixed;*/
-  /*z-index: -1;*/
-  /*top: 0;*/
-  /*left: 0;*/
-/*}*/
-
 .page-wrapper {
-  max-width:550px;
+  max-width: 550px;
   margin-right: auto;
   margin-left: auto;
-  padding:15px;
+  padding: 15px;
 }
 
 .page-wrapper .logo-img {
-  margin-top:-10px;
+  margin-top: -10px;
+}
+
+.rememberme {
+  margin-left: -69px !important;
 }
 
 
+/*
 .main {
   position:absolute;
   top:0;
@@ -44,8 +44,8 @@ body {
   min-width: 200px;
 }
 
-.sidebar .app-name {
-  /*background:#3E313C;*/
+.channels .box >.app-name {
+  background:#3E313C;
   padding:30px 0px 15px 11px;
 }
 
@@ -60,7 +60,7 @@ body {
 
 .sidebar .channel-list {
   margin-top:20px;
-  /*background:#4d394b;*/
+  background:#4d394b;
   position:relative;
 }
 
@@ -108,7 +108,9 @@ body {
   padding:15px;
 
   /*left: -0.1%;*/
-  /*background:#3E313C;*/
+
+
+/*background:#3E313C;
 }
 
 .sidebar .my-info .user-pic {
@@ -224,4 +226,209 @@ body {
   color:#ccc;
   font-weight: normal;
   font-size:10px;
+}
+/*slickChat Css */
+
+
+/**,
+*:before,
+*:after {
+  box-sizing: border-box;
+}*/
+
+.box {
+  text-decoration: none;
+  color: #fff;
+  padding: 1em;
+}
+
+input {
+  width: 100%;
+  padding: 1em;
+  outline: none;
+  border: 1px solid #f2f2f2;
+}
+
+.message-list {
+  margin: 0;
+  padding: 0;
+}
+
+.message-list li {
+  padding: .2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: #f2f2f2;
+}
+
+.header {
+  background-color: #ffffff;
+}
+
+.teams {
+  background-color: #362233;
+}
+
+.channels {
+  background-color: #52364E;
+}
+
+.messages {
+  background-color: #ffffff;
+}
+
+.write {
+  background-color: #f2f2f2;
+}
+
+.app-layout {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 0px 210px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "teams channels header" "teams channels messages" "teams channels input";
+}
+
+.teams {
+  grid-area: teams;
+}
+
+.channels {
+  grid-area: channels;
+}
+
+.channelText {
+  margin-top: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.directMsg {
+  margin-top: 35px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.channels .box>.app-name {
+  background: #3E313C;
+  padding: 30px 0px 15px 11px;
+}
+
+.navbar-nav>li>a {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  line-height: 18px !important;
+  text-decoration: none;
+  color: #b3b3b3;
+}
+
+.navbar-nav>a.active {
+  color: #8a0e0b;
+  background: rgb(76, 150, 137);
+}
+
+.navbar-nav>li>a:hover {
+  text-decoration: none;
+  background-color: rgb(62, 49, 60);
+  width: 95%;
+  border-radius: 0 6px 6px 0px;
+}
+
+.navbar-nav>li>a:focus {
+  text-decoration: none;
+  background-color: rgb(76, 150, 137);
+  width: 95%;
+  border-radius: 0 6px 6px 0px;
+  color: white;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  position: absolute;
+  width: 93%;
+  background-color: #f9f9f9;
+  margin-left: 3%;
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.header {
+  grid-area: header;
+  color: #333;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.channels.box .my-info {
+  position: fixed;
+  bottom: 0;
+  padding: 15px;
+  margin-left: -18px;
+}
+
+.channels.box .my-info .user-pic {
+  display: inline-block;
+  vertical-align: top;
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+}
+
+.channels.box .my-info .user-info {
+  padding-left: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.channels.box .my-info .user-info .user-name {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.channels.box .my-info .user-info .options {
+  color: #999;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.channels.box .my-info .user-info .options a {
+  color: #999;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.channels.box .presence {
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background: #ab9ba9;
+  vertical-align: middle;
+}
+
+.channels.box .presence .online {
+  background: #99d04a !important;
+}
+
+.messages {
+  grid-area: messages;
+  padding: 0 1em;
+  overflow-y: scroll;
+}
+
+.input {
+  grid-area: input;
+}
+
+.dropdown-menu {
+  margin-top: -17px;
+  margin-left: 239px;
 }

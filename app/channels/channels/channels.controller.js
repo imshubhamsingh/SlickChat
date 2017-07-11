@@ -37,6 +37,7 @@ angular.module('SlickChatApp')
             currentUser.getUserAttributes(function(err, result) {
                 if (err) {
                     alert(err);
+                    console.log('error during Get Attribute')
                     return;
                 }
                 console.log(result);

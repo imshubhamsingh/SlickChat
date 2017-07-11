@@ -1,5 +1,5 @@
-<div class="main">
-    <div class="sidebar">
+<!-- <div class="app-layout">
+    <div class="channel box">
 
         <div class="app-name">
             <h2>SlickChat</h2>
@@ -38,13 +38,84 @@
                 <div class="options">
                     <a ui-sref="profile">Edit Profile</a>
                     /
-                    <a ng-click="channelsCtrl.logout()">Logout</a>
+                    <a ng-href="channelsCtrl.logout()">Logout</a>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="message-pane">
+    <div class='header box'>Header</div>
+    <div class="messages box">
         <ui-view></ui-view>
     </div>
+    <div class='input box'>
+      <input type='text' placeholder='Have you tried the CSS Grid Layout Module?'>
+    </div>
+</div> -->
+
+<div class='app-layout'>
+  <div class='teams box'>Teams</div>
+  <div class='channels box'>
+    <div class="app-name"style="margin-top: -28px;margin-bottom: 45px;">
+      <h2 style="font-weight: 900;">SlickChat</h2>
+      <h6 style="margin-top: -7px; color: #A9A9A9;">It's Slick!</h6>
+    </div>
+    <div class="channel-list">
+      <div class="list-head channelText">Channels</div>
+      <div class="channel" ng-repeat="channel in channelsCtrl.channels">
+        <a ui-sref="channels.messages({channelId: channel.$id})" ui-sref-active="selected"># {{ channel.name }}</a>
+      </div>
+      <div class="channel create">
+        <ul class="nav navbar-nav">
+          <li class="active channel"><a href="#"># angular</a>
+          </li>
+          <li class="channel"><a href="#"># atom</a></li>
+          <li>
+            <a class="dropdown" style="cursor:pointer" data-toggle="collapse" data-target="#createChannel">+ create channel</a>
+            <div class="dropdown-content collapse" id="createChannel">
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">#</span>
+                <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#createChannel">Create</button>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="channel-list">
+      <div class="list-head directMsg">direct messages</div>
+      <div class="channel" ng-repeat="user in channelsCtrl.users">
+        <a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.direct({uid: user.$id})" ui-sref-active="selected">
+                    <span class="presence" ng-class="{online: channelsCtrl.profile.online}"></span>
+                    {{ user.displayName }}
+          </a>
+      </div>
+    </div>
+    <div class="my-info">
+      <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar}}" />
+      <div class="user-info">
+        <div class="user-name">
+          <i class="fa fa-circle" aria-hidden="true" style="color:#99d04a"></i> {{ channelsCtrl.displayName }}
+        </div>
+
+        <div class="options">
+          <a ui-sref="profile">Edit Profile</a> /
+          <a ng-click="channelsCtrl.logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='header box'>Header</div>
+  <div class='messages box'>
+    <ul class='message-list'>
+      <ui-view></ui-view>
+    </ul>
+  </div>
+  <div class='input'>
+    <input type='text' placeholder='Type Something here'>
+  </div>
 </div>
