@@ -44,6 +44,7 @@ angular.module('SlickChatApp')
                 for (var i = 0; i < result.length; i++) {
                     if(result[i].getName() === "name"){
                         channelsCtrl.displayName = result[i].getValue();
+                        channelsCtrl.displayName = channelsCtrl.displayName.split(' ')[0];
                     }
                     if(result[i].getName() === "email"){
                         channelsCtrl.userEmail = result[i].getValue();
