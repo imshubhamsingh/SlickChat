@@ -322,11 +322,24 @@ input {
   color: #b3b3b3;
 }
 
-.navbar-nav>a.active {
-  color: #8a0e0b;
+.navbar-nav>.active {
+  color: #fff;
   background: rgb(76, 150, 137);
+  width: 95%;
+  border-radius: 0 6px 6px 0px;
 }
-
+.navbar-nav>.active>a:hover {
+  color: #fff;
+  background: transparent;
+  width: 95%;
+  border-radius: 0 6px 6px 0px;
+}
+.navbar-nav>.active>a {
+  color: #fff;
+  background: transparent;
+  width: 95%;
+  border-radius: 0 6px 6px 0px;
+}
 .navbar-nav>li>a:hover {
   text-decoration: none;
   background-color: rgb(62, 49, 60);
