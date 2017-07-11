@@ -342,6 +342,14 @@ input {
   color: white;
 }
 
+.navbar-nav>.active {
+  text-decoration: none;
+  background-color: rgb(76, 150, 137);
+  width: 95%;
+  border-radius: 0 6px 6px 0px;
+  color: white;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -422,6 +430,34 @@ input {
   grid-area: messages;
   padding: 0 1em;
   overflow-y: scroll;
+}
+
+.message-wrap .user-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 4px;
+  margin-top: 3px;
+}
+
+.message-wrap .message-info {
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 48px;
+  margin-top: -41px;
+}
+
+.message-wrap .message-info .user-name {
+  color: #555459;
+  font-weight: 400;
+}
+
+.message-wrap .message-info .user-name span {
+  color: #ccc;
+  font-weight: normal;
+  font-size: 10px;
 }
 
 .input {
