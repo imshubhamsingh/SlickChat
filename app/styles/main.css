@@ -39,7 +39,9 @@ body {
   position:relative;
   overflow:hidden;
   padding-bottom:100px;
-  padding-left: 0.9%
+  padding-left: 0.9%;
+  max-width: 100%;
+  min-width: 200px;
 }
 
 .sidebar .app-name {
@@ -104,9 +106,9 @@ body {
   position:fixed;
   bottom:0;
   padding:15px;
+
   /*left: -0.1%;*/
   /*background:#3E313C;*/
-  width:19.5%;
 }
 
 .sidebar .my-info .user-pic {
@@ -160,6 +162,12 @@ body {
   width:80%;
   overflow-y:scroll;
   padding:55px 15px 65px 15px;
+}
+
+@media (min-device-width : 1020px) {
+  .message-pane {
+    margin-left: 201px;
+  }
 }
 
 .message-pane .header {
