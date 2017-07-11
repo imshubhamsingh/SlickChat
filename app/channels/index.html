@@ -5,20 +5,23 @@
       <h2 style="font-weight: 900;">SlickChat</h2>
       <h6 style="margin-top: -7px; color: #A9A9A9;">It's Slick!</h6>
     </div>
+    <div class="list-head channelText">Channels</div>
     <div class="channel-list">
-      <div class="list-head channelText">Channels</div>
       <div class="channel" ng-repeat="channel in channelsCtrl.channels">
-        <a ui-sref="channels.messages({channelId: channel.$id})" ui-sref-active="selected"># {{ channel.name }}</a>
+        <a ui-sref="channels.messages({channelId: channel.$id})" ui-sref-active="selected"> # {{ channel.name }}</a>
       </div>
-      <div class="channel create">
-        <ul class="nav navbar-nav">
-          <li class="channel  active"><a href="#"># project</a>
+      <a style="color: #9999A9;" class="dropdown" style="cursor:pointer" data-toggle="collapse" data-target="#createChannel">+ Create Channel</a>
+      <!-- <div class="channel create"> -->
+        <!-- <ul class="nav navbar-nav"> -->
+          <!-- <li class="channel active">
+            <a href="#">#project</a>
           </li>
-          <li class="channel"><a href="#"># angular</a>
+          <li class="channel">
+            <a href="#">#angular</a>
           </li>
-          <li class="channel"><a href="#"># atom</a></li>
-          <li>
-            <a class="dropdown" style="cursor:pointer" data-toggle="collapse" data-target="#createChannel">+ create channel</a>
+          <li class="channel">
+            <a href="#">#atom</a></li> -->
+          <!-- <li> -->
             <div class="dropdown-content collapse" id="createChannel">
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">#</span>
@@ -28,13 +31,12 @@
                 </span>
               </div>
             </div>
-          </li>
-        </ul>
-      </div>
+          <!-- </li> -->
+        <!-- </ul> -->
+      <!-- </div> -->
     </div>
-
+    <div class="list-head directMsg">DIRECT MESSAGES</div>
     <div class="channel-list">
-      <div class="list-head directMsg">direct messages</div>
       <div class="channel" ng-repeat="user in channelsCtrl.users">
         <a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.direct({uid: user.$id})" ui-sref-active="selected">
                     <span class="presence" ng-class="{online: channelsCtrl.profile.online}"></span>
@@ -46,7 +48,7 @@
       <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar}}" />
       <div class="user-info">
         <div class="user-name">
-          <i class="fa fa-circle" aria-hidden="true" style="color:#99d04a"></i> {{ channelsCtrl.displayName }}
+          <span class="fa fa-circle" aria-hidden="true" style="color:rgba(66,182,42,1); font-size: 0.5em;"></span> {{ channelsCtrl.displayName }}
         </div>
 
         <div class="options">
@@ -59,13 +61,14 @@
   <div class='header box'><h2>#project</h2></div>
   <div class='messages box'>
     <ul class='message-list'>
-      <ui-view></ui-view>
+      <ui-view>
+        </ui-view>
       <!-- Sample Messages -->
       <li>
         <div class="message-wrap">
             <img class="user-pic" src="//www.gravatar.com/avatar/64b42575c9b40803403978f1d7adf8ec?d=retro" />
             <div class="message-info">
-                <div class="user-name">
+                <div class="user-name-message">
                     @Shubham
                     <span class="timestamp">11/7/2017</span>
                 </div>
@@ -77,6 +80,28 @@
             </div>
         </div>
       </li>
+
+      <li>
+        <div class="message-wrap">
+            <img class="user-pic pull-left" src="//www.gravatar.com/avatar/f6396b74a13fb82676b733e0c4b2e2d1?d=retro" />
+            <div class="message-info pull-left" style="max-width: 96.5%">
+                <div class="user-name-message">
+                    @Naman
+                    <span class="timestamp">1:57am 12/7/2017</span>
+                </div>
+                <div class="message" style="color: black">
+                    Bunch of changes. Create Channel ab tameez se khul raha hai and navbar-nav ka chakkar
+                    hata diya hai. navbar-nav se badi dikkat aa rahi hai.
+                    Chrome ke ilawa kisi bhi browser mein phat raha hai yeh dekh
+                    http://imgur.com/a/Y4Kb8
+                </div>
+            </div>
+            <div class="clearfix">
+
+            </div>
+        </div>
+      </li>
+
     </ul>
   </div>
   <div class='input'>

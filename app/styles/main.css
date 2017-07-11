@@ -4,6 +4,10 @@ body {
   font-family: "Lato", Helvetica, sans-serif;
 }
 
+a{
+  text-decoration: none !important;
+}
+
 .page-wrapper {
   max-width: 550px;
   margin-right: auto;
@@ -19,6 +23,35 @@ body {
   margin-left: -69px !important;
 }
 
+.channelText{
+  margin-bottom: 5px;
+}
+
+.channel{
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.channel a{
+  color: #9999A9;
+  cursor: pointer;
+}
+
+
+.channel:hover{
+  background-color: #5D4F96;
+  color: #fff;
+  /*clear: both !important;*/
+}
+
+.channel:hover a{
+  color: #fff;
+}
+
+
+.channel-list {
+  padding-left: 5%;
+}
 
 /*
 .main {
@@ -270,7 +303,8 @@ input {
 }
 
 .channels {
-  background-color: #52364E;
+  /*background-color: #52364E;*/
+  background-color: #382962;
 }
 
 .messages {
@@ -311,6 +345,7 @@ input {
 
 .channels .box>.app-name {
   background: #3E313C;
+  /*background-color: #382962;*/
   padding: 30px 0px 15px 11px;
 }
 
@@ -458,16 +493,16 @@ input {
 .message-wrap .message-info {
   display: inline-block;
   vertical-align: top;
-  padding-left: 48px;
-  margin-top: -41px;
+  padding-left: 10px;
+  /*margin-top: -41px;*/
 }
 
-.message-wrap .message-info .user-name {
+.message-wrap .message-info .user-name-message {
   color: #555459;
   font-weight: 400;
 }
 
-.message-wrap .message-info .user-name span {
+.message-wrap .message-info .user-name-message span {
   color: #ccc;
   font-weight: normal;
   font-size: 10px;

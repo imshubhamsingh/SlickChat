@@ -21,7 +21,7 @@ angular.module('SlickChatApp')
         // channelsCtrl.profile.online = true;
 
         channelsCtrl.profile = "";
-        channelsCtrl.channels = "";
+        channelsCtrl.channels = [ {name: 'atom'}, {name: 'angular'}];
         channelsCtrl.getDisplayName = "";
         channelsCtrl.getGravatar = "";
         channelsCtrl.users = "";
@@ -29,13 +29,15 @@ angular.module('SlickChatApp')
         channelsCtrl.userEmail = "";
         currentUser.getSession(function(err, session) {
                 if (err) {
-                    cosole.log(err);
+                    // alert(err);
+                    console.log(err);
                     return;
                 }
                 console.log('session validity: ' + session.isValid());
             });
             currentUser.getUserAttributes(function(err, result) {
                 if (err) {
+                  alert(err);
                     console.log(err);
                     console.log('error during Get Attribute')
                     return;
