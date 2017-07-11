@@ -29,14 +29,14 @@ angular.module('SlickChatApp')
         channelsCtrl.userEmail = "";
         currentUser.getSession(function(err, session) {
                 if (err) {
-                    alert(err);
+                    cosole.log(err);
                     return;
                 }
                 console.log('session validity: ' + session.isValid());
             });
             currentUser.getUserAttributes(function(err, result) {
                 if (err) {
-                    alert(err);
+                    console.log(err);
                     console.log('error during Get Attribute')
                     return;
                 }
