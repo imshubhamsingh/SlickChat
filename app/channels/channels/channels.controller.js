@@ -21,12 +21,18 @@ angular.module('SlickChatApp')
         // channelsCtrl.profile.online = true;
 
         channelsCtrl.profile = "";
-        channelsCtrl.channels = [ {name: 'atom'}, {name: 'angular'}];
+        channelsCtrl.channels = [
+            {name: 'project'},
+            {name: 'atom'},
+            {name: 'angular'}
+            ];
+        channelsCtrl.channelSelected = channelsCtrl.channels[0].name;
         channelsCtrl.getDisplayName = "";
         channelsCtrl.getGravatar = "";
         channelsCtrl.users = "";
         channelsCtrl.displayName ="";
         channelsCtrl.userEmail = "";
+
         currentUser.getSession(function(err, session) {
                 if (err) {
                     // alert(err);
@@ -35,11 +41,11 @@ angular.module('SlickChatApp')
                 }
                 console.log('session validity: ' + session.isValid());
             });
-            currentUser.getUserAttributes(function(err, result) {
+        currentUser.getUserAttributes(function(err, result) {
                 if (err) {
-                  alert(err);
+                    //alert(err);
                     console.log(err);
-                    console.log('error during Get Attribute')
+                    console.log('error during Get Attribute');
                     return;
                 }
                 console.log(result);
@@ -58,17 +64,25 @@ angular.module('SlickChatApp')
                 $scope.$apply();
             });
 
-        console.log(channelsCtrl.displayName);
+        //console.log(channelsCtrl.displayName);
 
         // Users.setOnline(profile.$id);
+
+        channelsCtrl.changeChannel = function (channelName) {
+            channelsCtrl.channelSelected = channelName;
+        };
 
         channelsCtrl.newChannel = {
             name: ''
         };
+
         channelsCtrl.createChannel = function(){
-            channelsCtrl.channels.$add(channelsCtrl.newChannel).then(function(ref){
-                $state.go('channels.messages', {channelId: ref.key});
-            });
+            if(channelsCtrl.newChannel.name!=='')
+            channelsCtrl.channels.push({name:channelsCtrl.newChannel.name});
+            channelsCtrl.newChannel.name = '';
+            // channelsCtrl.channels.$add(channelsCtrl.newChannel).then(function(ref){
+            //     $state.go('channels.messages', {channelId: ref.key});
+            // });
         };
         channelsCtrl.logout = function(){
             // channelsCtrl.profile.online = null;

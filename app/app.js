@@ -111,26 +111,6 @@ angular
             //         $state.go('home');
             //     });
             // }
-            // profile: function (Auth,cognitoService,$state) {
-            //     var userPool = cognitoService.getUserPool();
-            //     var cognitoUser = cognitoService.getUser(userPool, Auth.getUserEmail());
-            //     var authenticationDetails = cognitoService.getAuthenticationDetails(Auth.getUserEmail(), Auth.getUserPassword());
-            //
-            //     cognitoUser.authenticateUser(authenticationDetails, {
-            //         onSuccess: function (result) {
-            //             var accessToken = result.getAccessToken().getJwtToken();
-            //             authCtrl.accessToken = accessToken;
-            //
-            //             var currentUser = userPool.getCurrentUser();
-            //             console.log(currentUser);
-            //
-            //             $state.go('channels');
-            //         },
-            //         onFailure: function (err) {
-            //             $state.go('home');
-            //         }
-            //     });
-            // }
         },
         params: {
             email: null,
