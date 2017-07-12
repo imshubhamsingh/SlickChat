@@ -60,7 +60,10 @@ angular.module('SlickChatApp')
                         channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail) + '?d=retro';
                         console.log(channelsCtrl.getGravatar)
                     }
-                }
+                 }
+                   socket.emit('init', {
+                    name: channelsCtrl.displayName
+                 });
                 $scope.$apply();
             });
 
@@ -90,19 +93,14 @@ angular.module('SlickChatApp')
         };
 
 
-        socket.on('init', function (data) {
-            $scope.name = data.name;
-            $scope.users = data.users;
-        });
-
         socket.on('send:message', function (message) {
             console.log(message);
             $scope.messages.push(message);
         });
 
-        socket.on('change:name', function (data) {
-            changeName(data.oldName, data.newName);
-        });
+        // socket.on('change:name', function (data) {
+        //     changeName(data.oldName, data.newName);
+        // });
 
         socket.on('user:join', function (data) {
             $scope.messages.push({
@@ -131,39 +129,39 @@ angular.module('SlickChatApp')
         // Private helpers
         // ===============
 
-        var changeName = function (oldName, newName) {
-            // rename user in list of users
-            var i;
-            for (i = 0; i < $scope.users.length; i++) {
-                if ($scope.users[i] === oldName) {
-                    $scope.users[i] = newName;
-                }
-            }
-
-            $scope.messages.push({
-                user: 'chatroom',
-                text: 'User ' + oldName + ' is now known as ' + newName + '.'
-            });
-        };
+        // var changeName = function (oldName, newName) {
+        //     // rename user in list of users
+        //     var i;
+        //     for (i = 0; i < $scope.users.length; i++) {
+        //         if ($scope.users[i] === oldName) {
+        //             $scope.users[i] = newName;
+        //         }
+        //     }
+        //
+        //     $scope.messages.push({
+        //         user: 'chatroom',
+        //         text: 'User ' + oldName + ' is now known as ' + newName + '.'
+        //     });
+        // };
 
         // Methods published to the scope
         // ==============================
 
-        $scope.changeName = function () {
-            socket.emit('change:name', {
-                name: $scope.newName
-            }, function (result) {
-                if (!result) {
-                    alert('There was an error changing your name');
-                } else {
-
-                    changeName($scope.name, $scope.newName);
-
-                    $scope.name = $scope.newName;
-                    $scope.newName = '';
-                }
-            });
-        };
+        // $scope.changeName = function () {
+        //     socket.emit('change:name', {
+        //         name: $scope.newName
+        //     }, function (result) {
+        //         if (!result) {
+        //             alert('There was an error changing your name');
+        //         } else {
+        //
+        //             changeName($scope.name, $scope.newName);
+        //
+        //             $scope.name = $scope.newName;
+        //             $scope.newName = '';
+        //         }
+        //     });
+        // };
 
         $scope.messages = [];
         Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((this.getHours()>12)?(this.getHours()-12):this.getHours()) +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + ((this.getHours()>12)?('PM'):'AM'); };
@@ -171,6 +169,7 @@ angular.module('SlickChatApp')
         channelsCtrl.sendMessage = function () {
             if($scope.message !=="" || $scope.message !== undefined){
                 socket.emit('send:message', {
+                    user: channelsCtrl.displayName,
                     message: $scope.message
                 });
                 var currentdate = new Date();
