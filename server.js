@@ -16,7 +16,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 // The server should start listening
 server.listen(3312,function () {
-    console.log("Server running at port 3321")
+    console.log("Server running at port 3312")
 });
 // Serving static file at /app
 app.use('/app',express.static(path.join(__dirname,'/app')));

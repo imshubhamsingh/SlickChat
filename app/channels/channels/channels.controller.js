@@ -90,6 +90,7 @@ angular.module('SlickChatApp')
             // });
         };
         channelsCtrl.logout = function(){
+
             cognitoService.getUser(channelsCtrl.userEmail).signOut();
             $state.go('home');
         };
@@ -170,29 +171,33 @@ angular.module('SlickChatApp')
         //     });
         // };
 
-        $scope.messages = [];
-        Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((this.getHours()>12)?(this.getHours()-12):this.getHours()) +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + ((this.getHours()>12)?('PM'):'AM'); };
+        channelsCtrl.messages = [];
+        channelsCtrl.message ="";
+        Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((this.getHours()>12)?(this.getHours()-12):this.getHours()) +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + ((this.getHours()>12)?('pm'):'am'); };
 
         channelsCtrl.sendMessage = function () {
-            if($scope.message !=="" || $scope.message !== undefined){
+
+            if(channelsCtrl.message !=="" || channelsCtrl.message !== undefined || channelsCtrl.message.length>0){
+                console.log(channelsCtrl.message.length);
+                var currentdate = new Date();
                 socket.emit('send:message', {
                     user: channelsCtrl.displayName,
-                    message: $scope.message,
-                    userImage:channelsCtrl.getGravatar
+                    message: channelsCtrl.message,
+                    userImage:channelsCtrl.getGravatar,
+                    time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),
                 });
-                var currentdate = new Date();
+
                 // add the message to our model locally
-                $scope.messages.push({
+                channelsCtrl.messages.push({
                     user: channelsCtrl.displayName,
-                    text: $scope.message,
+                    text: channelsCtrl.message,
                     time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),
                     userImage:channelsCtrl.getGravatar
                 });
-
                 // clear message box
-                $scope.message = '';
-            };
+                channelsCtrl.message = '';
             }
+        }
 
 
     });

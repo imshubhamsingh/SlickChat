@@ -52,7 +52,7 @@
                 <a ng-if="user.name !== channelsCtrl.displayName" ui-sref="channels.direct({uid: user.$id})"
                    ui-sref-active="selected">
                     <span class="presence" ng-class="{online: user.online}"></span>
-                    {{ user.name }}
+                      {{ user.name }}
                 </a>
             </div>
         </div>
@@ -81,9 +81,9 @@
             <ui-view>
             </ui-view>
             <!-- Sample Messages -->
-            <li ng-repeat="message in messages">
+            <li ng-repeat="message in channelsCtrl.messages">
                 <div class="message-wrap">
-                    <img class="user-pic" ng-src="{{message.userImage}}"/>
+                    <img class="user-pic " ng-src="{{message.userImage}}"/>
                     <div class="message-info">
                         <div class="user-name-message">
                             @{{message.user}}
@@ -138,7 +138,7 @@
     </div>
     <div class='input'>
         <form ng-submit="channelsCtrl.sendMessage()">
-            <input type='text' placeholder='Type Something here' ng-model="message">
+            <input type='text' placeholder='Type Something here' ng-model="channelsCtrl.message">
         </form>
     </div>
 </div>
