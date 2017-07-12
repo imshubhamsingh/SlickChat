@@ -15,7 +15,7 @@ angular
     $stateProvider
       .state('home', {
           url: '/',
-          templateUrl: 'home/home.html',
+          templateUrl: 'apps/home/home.html',
           resolve: {
               requireNoAuth: function($state,cognitoService){
                   var userPool = cognitoService.getUserPool();
@@ -29,7 +29,7 @@ angular
       .state('login', {
           url: '/login',
           controller: 'LoginCtrl as loginCtrl',
-          templateUrl: 'auth/login/login.html',
+          templateUrl: 'app/auth/login/login.html',
           resolve: {
               requireNoAuth: function($state,cognitoService){
                   var userPool = cognitoService.getUserPool();
@@ -42,7 +42,7 @@ angular
       }).state('register', {
           url: '/register',
           controller: 'RegisterCtrl as registerCtrl',
-          templateUrl: 'auth/register/register.html',
+          templateUrl: 'app/auth/register/register.html',
           resolve: {
                requireNoAuth: function($state,cognitoService){
                    var userPool = cognitoService.getUserPool();
@@ -55,7 +55,7 @@ angular
       }).state('activate', {
         url: '/activate',
         controller: 'ActivateCtrl as activateCtrl',
-        templateUrl: 'auth/activate/activate.html',
+        templateUrl: 'app/auth/activate/activate.html',
         resolve: {
                 requireNoAuth: function($state, cognitoService){
                     var userPool = cognitoService.getUserPool();
@@ -72,7 +72,7 @@ angular
     }).state('profile', {
         url: '/profile',
         controller: 'ProfileCtrl as profileCtrl',
-        templateUrl: 'users/profile.html',
+        templateUrl: 'app/users/profile.html',
         resolve: {
             auth: function($state, Users, Auth){
                 return Auth.$requireSignIn().catch(function(){
@@ -88,7 +88,7 @@ angular
     }).state('channels', {
         url: '/channels',
         controller: 'ChannelsCtrl as channelsCtrl',
-        templateUrl: 'channels/index.html',
+        templateUrl: 'app/channels/channelIndex.html',
         resolve: {
             requireAuth: function($state,cognitoService){
                 var userPool = cognitoService.getUserPool();
@@ -122,8 +122,8 @@ angular
             activation: false
         }
     }).state('channels.welcome', {
-        url: '/',
-        templateUrl: 'channels/home/welcome.html',
+        url: '',
+        templateUrl: 'app/channels/home/welcome.html',
         controller: 'ChannelsCtrl as channelsCtrl',
         resolve:  {
             requireAuth: function($state,cognitoService,$stateParams){
@@ -155,15 +155,15 @@ angular
             }
         }
     }).state('channels.create', {
-        url: '/create',
-        templateUrl: 'channels/channels/create.html',
+        url: '',
+        templateUrl: 'app/channels/channels/create.html',
         controller: 'ChannelsCtrl as channelsCtrl',
         resolve:{
 
         }
     }).state('channels.messages', {
         url: '/{channelId}/messages',
-        templateUrl: 'channels/messages/messages.html',
+        templateUrl: 'app/channels/messages/messages.html',
         controller: 'MessagesCtrl as messagesCtrl',
         resolve: {
             messages: function($stateParams, Messages){
@@ -175,7 +175,7 @@ angular
         }
     }).state('channels.direct', {
         url: '/{uid}/messages/direct',
-        templateUrl: 'channels/messages/messages.html',
+        templateUrl: 'app/channels/messages/messages.html',
         controller: 'MessagesCtrl as messagesCtrl',
         resolve: {
             messages: function($stateParams, Messages, profile){
