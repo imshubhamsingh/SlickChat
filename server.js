@@ -11,12 +11,12 @@ var history = require('connect-history-api-fallback');
 var socket = require('./routes/socket.js');
 
 var server = http.createServer(app);
-
+var port = process.env.PORT || 4040
 // Pass a http.Server instance to the listen method
 var io = require('socket.io').listen(server);
 // The server should start listening
-server.listen(3312,function () {
-    console.log("Server running at port 3312")
+server.listen(port,function () {
+    console.log("Server running at port "+ port)
 });
 // Serving static file at /app
 app.use('/app',express.static(path.join(__dirname,'/app')));
