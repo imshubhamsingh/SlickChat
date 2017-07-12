@@ -2,10 +2,11 @@
 
 angular
   .module('SlickChatApp', [
-    'firebase',
-    'angular-md5',
-    'ui.router',
-    'ngResource'
+      'firebase',
+      'angular-md5',
+      'ui.router',
+      'ngResource',
+      'luegg.directives'
   ])
   .config(function ($stateProvider, $urlRouterProvider,FirebaseConfig,$locationProvider) {
       $locationProvider.html5Mode({

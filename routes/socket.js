@@ -51,7 +51,7 @@ var userNames = (function () {
         getGuestName: getGuestName
     };
 }());
-
+Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((this.getHours()>12)?(this.getHours()-12):this.getHours()) +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + ((this.getHours()>12)?('PM'):'AM'); };
 // export function for listening to the socket
 module.exports = function (socket) {
     var name = userNames.getGuestName();
@@ -69,9 +69,14 @@ module.exports = function (socket) {
 
     // broadcast a user's message to other users
     socket.on('send:message', function (data) {
+        var currentdate = new Date();
+        console.log(currentdate);
+        console.log(data);
+
         socket.broadcast.emit('send:message', {
             user: name,
-            text: data.message
+            text: data.message,
+            time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear()
         });
     });
 

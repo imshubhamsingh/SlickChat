@@ -1,5 +1,5 @@
 <div class='app-layout'>
-    <div class='teams box'>Teams</div>
+    <div class='teams box'></div>
     <div class='channels box'>
         <div class="app-name" style="margin-top: -2px;margin-bottom: 45px;">
             <a ui-sref="channels.welcome" style="color:white">
@@ -76,48 +76,69 @@
         <h3 class="members">2 members</h3>
         <h3 class="purpose">Sometimes we do cool stuff</h3>
     </div>
-    <div class='messages box'>
+    <div class='messages box' scroll-glue>
         <ul class='message-list'>
             <ui-view>
             </ui-view>
             <!-- Sample Messages -->
-            <li>
+            <li ng-repeat="message in messages">
                 <div class="message-wrap">
                     <img class="user-pic" src="//www.gravatar.com/avatar/64b42575c9b40803403978f1d7adf8ec?d=retro"/>
                     <div class="message-info">
                         <div class="user-name-message">
-                            @Shubham
-                            <span class="timestamp">11:30pm 11/7/2017</span>
+                            @{{message.user}}
+                            <span class="timestamp"> {{message.time}}</span>
                         </div>
                         <div class="message" style="color: black">
-                            Hii bhai, ...Badiya Sab. Live nahi hai sirf dummy text hai.
-                            Aur hai abb responsive bhi hai but side panel disappear nahi hotta hai on phone.
-                            Kal socket io ka complete kar denge.
+                            {{message.text}}
                         </div>
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="message-wrap">
-                    <img class="user-pic" src="//www.gravatar.com/avatar/f6396b74a13fb82676b733e0c4b2e2d1?d=retro"/>
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            @Naman
-                            <span class="timestamp">1:57am 12/7/2017</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            Bunch of changes. Create Channel ab tameez se khul raha hai and navbar-nav ka chakkar
-                            hata diya hai. navbar-nav se badi dikkat aa rahi hai.
-                            Chrome ke ilawa kisi bhi browser mein phat raha hai yeh dekh
-                            <a href="http://imgur.com/a/Y4Kb8">link</a>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            <!--<li ng-repeat="message in messages" ng-class="{alert: message.user == &quot;chatroom&quot;}">-->
+            <!--<div class="row">-->
+                <!--<div class="message-wrap container">-->
+                    <!--<div class="row" style="margin-top: -9px;margin-bottom: 2px;">-->
+                        <!--<div class="col-xs-1">-->
+                            <!--<img class="user-pic" src="//www.gravatar.com/avatar/f6396b74a13fb82676b733e0c4b2e2d1?d=retro" />-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-10">-->
+                            <!--<div class="user-name-message" style="color: #555459;font-weight: 400;">-->
+                                <!--@{{message.user}}-->
+                                <!--<span class="timestamp" style="color: #ccc;font-weight: normal;font-size: 10px;">{{message.time}}</span>-->
+                            <!--</div>-->
+                            <!--<div class="message text-justify" style="color: black">-->
+                                <!--{{message.text}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
+            <!--</li>-->
         </ul>
+        <!--<div class="col">-->
+            <!--<h3>Messages</h3>-->
+            <!--<div class="overflowable">-->
+                <!--<p ng-repeat="message in messages" ng-class="{alert: message.user == &quot;chatroom&quot;}">{{message.user}}: {{message.text}}</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col">-->
+            <!--<h3>Users</h3>-->
+            <!--<div class="overflowable">-->
+                <!--<p ng-repeat="user in users">{{user}}</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="clr">-->
+            <!--<form ng-submit="channelsCtrl.sendMessage()">Message:-->
+                <!--<input size="60" ng-model="message"/>-->
+                <!--<input type="submit" value="Send"/>-->
+            <!--</form>-->
+        <!--</div>-->
     </div>
     <div class='input'>
-        <input type='text' placeholder='Type Something here'>
+        <form ng-submit="channelsCtrl.sendMessage()">
+            <input type='text' placeholder='Type Something here' ng-model="message">
+        </form>
     </div>
 </div>

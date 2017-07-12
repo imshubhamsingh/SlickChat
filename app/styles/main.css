@@ -303,7 +303,7 @@ input {
 }
 
 .teams {
-  background-color: #362233;
+  background-color: #382962;
 }
 
 .channels {
@@ -328,6 +328,7 @@ input {
                        "teams channels messages"
                        "teams channels input";
 }
+
 input[type=text] {
   background-color: #ffffff;
 }
@@ -526,8 +527,8 @@ input[type=text]:focus {
   display: inline-block;
   vertical-align: top;
   padding-left: 10px;
-  margin-left: 35px;
-  margin-top: -41px;
+  margin-left: -4px;
+  margin-top: 0;
 }
 
 .message-wrap .message-info .user-name-message {
@@ -548,4 +549,26 @@ input[type=text]:focus {
 .dropdown-menu {
   margin-top: -17px;
   margin-left: 239px;
+}
+
+/* Test */
+ app css stylesheet
+
+.overflowable {
+  height: 240px;
+  overflow-y: auto;
+  border: 1px solid #000;
+}
+
+.overflowable p {
+  margin: 0;
+}
+
+.col {
+  float: left;
+  width: 350px;
+}
+
+.clr {
+  clear: both;
 }
