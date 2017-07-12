@@ -7,7 +7,11 @@ angular
     'ui.router',
     'ngResource'
   ])
-  .config(function ($stateProvider, $urlRouterProvider,FirebaseConfig) {
+  .config(function ($stateProvider, $urlRouterProvider,FirebaseConfig,$locationProvider) {
+      $locationProvider.html5Mode({
+          enabled: true,
+          requireBase: false
+      });
     $stateProvider
       .state('home', {
           url: '/',

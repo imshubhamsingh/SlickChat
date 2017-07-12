@@ -328,6 +328,13 @@ input {
                        "teams channels messages"
                        "teams channels input";
 }
+input[type=text] {
+  background-color: #ffffff;
+}
+
+input[type=text]:focus {
+
+}
 
 .teams {
   grid-area: teams;
@@ -423,6 +430,24 @@ input {
   grid-area: header;
   color: #333;
   border-bottom: 1px solid #f2f2f2;
+}
+.header.box .members{
+  font-weight: 400;
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.3;
+  padding-right: 7px;
+  margin-top: 0;
+}
+.header.box .purpose{
+  border-left: 1px solid #ccc;
+  padding-left: 7px;
+  font-weight: 400;
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.3;
+  padding-right: 7px;
+  margin-top: 0;
 }
 
 
