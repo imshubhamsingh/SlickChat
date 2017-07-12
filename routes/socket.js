@@ -8,23 +8,24 @@ var userNames = (function () {
     uN.names = [];
 
         // find the lowest unused "guest" name and claim it
-    var setUserName = function (name) {
+    var setUserName = function (data) {
         for(var i=0;i<uN.names.length;i++){
-            if(uN.names[i].name === name){
+            if(uN.names[i].name === data.name){
                 return;
             }
         }
-        uN.names.push({name: name});
+        uN.names.push({name: data.name,userImage:data.userImage,online:true});
         console.log(uN.names)
     };
 
-    // serialize claimed names as an array
-    var get = function () {
-        var res = [];
-        for (user in names) {
-            res.push(user);
-        }
 
+
+    // serialize claimed names as an array
+    var getUsersList = function () {
+        var res = [];
+        for(var i = 0;i<uN.names.length;i++) {
+            res.push(uN.names[i]);
+        }
         return res;
     };
 
@@ -36,8 +37,8 @@ var userNames = (function () {
 
     return {
         free: free,
-        get: get,
-        setUserName: setUserName
+        setUserName: setUserName,
+        getUsersList: getUsersList
     };
 }());
 Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((this.getHours()>12)?(this.getHours()-12):this.getHours()) +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + ((this.getHours()>12)?('PM'):'AM'); };
@@ -45,8 +46,10 @@ Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((
 module.exports = function (socket) {
     // send the new user their name and a list of users
     socket.on('init', function (data) {
-        userNames.setUserName(data.name);
-        console.log(data.name);
+        userNames.setUserName(data);
+        socket.emit('allUsers',{
+            usersList :userNames.getUsersList()
+        })
     });
 
     // notify other clients that a new user has joined
@@ -63,7 +66,8 @@ module.exports = function (socket) {
         socket.broadcast.emit('send:message', {
             user: data.user,
             text: data.message,
-            time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear()
+            time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),
+            userImage: data.userImage
         });
     });
 

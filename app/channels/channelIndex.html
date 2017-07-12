@@ -48,11 +48,11 @@
         </div>
         <div class="list-head directMsg">DIRECT MESSAGES</div>
         <div class="channel-list">
-            <div class="channel" ng-repeat="user in channelsCtrl.users">
-                <a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.direct({uid: user.$id})"
+            <div class="channel" ng-repeat="user in channelsCtrl.allUser">
+                <a ng-if="user.name !== channelsCtrl.displayName" ui-sref="channels.direct({uid: user.$id})"
                    ui-sref-active="selected">
-                    <span class="presence" ng-class="{online: channelsCtrl.profile.online}"></span>
-                    {{ user.displayName }}
+                    <span class="presence" ng-class="{online: user.online}"></span>
+                    {{ user.name }}
                 </a>
             </div>
         </div>
@@ -73,7 +73,7 @@
     </div>
     <div class='header box'><h2>
         #{{channelsCtrl.channelSelected}}</h2>
-        <h3 class="members">2 members</h3>
+        <h3 class="members">{{channelsCtrl.allUser.length}} members</h3>
         <h3 class="purpose">Sometimes we do cool stuff</h3>
     </div>
     <div class='messages box' scroll-glue>
@@ -83,7 +83,7 @@
             <!-- Sample Messages -->
             <li ng-repeat="message in messages">
                 <div class="message-wrap">
-                    <img class="user-pic" src="//www.gravatar.com/avatar/64b42575c9b40803403978f1d7adf8ec?d=retro"/>
+                    <img class="user-pic" ng-src="{{message.userImage}}"/>
                     <div class="message-info">
                         <div class="user-name-message">
                             @{{message.user}}

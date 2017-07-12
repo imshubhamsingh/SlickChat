@@ -32,6 +32,7 @@ angular.module('SlickChatApp')
         channelsCtrl.users = "";
         channelsCtrl.displayName ="";
         channelsCtrl.userEmail = "";
+        channelsCtrl.allUser = [];
 
         currentUser.getSession(function(err, session) {
                 if (err) {
@@ -62,7 +63,8 @@ angular.module('SlickChatApp')
                     }
                  }
                    socket.emit('init', {
-                    name: channelsCtrl.displayName
+                       name: channelsCtrl.displayName,
+                       userImage:channelsCtrl.getGravatar
                  });
                 $scope.$apply();
             });
@@ -126,6 +128,11 @@ angular.module('SlickChatApp')
             }
         });
 
+        socket.on('allUsers',function (data) {
+            channelsCtrl.allUser = data.usersList;
+            console.log(channelsCtrl.allUser);
+        });
+
         // Private helpers
         // ===============
 
@@ -170,14 +177,16 @@ angular.module('SlickChatApp')
             if($scope.message !=="" || $scope.message !== undefined){
                 socket.emit('send:message', {
                     user: channelsCtrl.displayName,
-                    message: $scope.message
+                    message: $scope.message,
+                    userImage:channelsCtrl.getGravatar
                 });
                 var currentdate = new Date();
                 // add the message to our model locally
                 $scope.messages.push({
                     user: channelsCtrl.displayName,
                     text: $scope.message,
-                    time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear()
+                    time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),
+                    userImage:channelsCtrl.getGravatar
                 });
 
                 // clear message box

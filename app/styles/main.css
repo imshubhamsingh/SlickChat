@@ -336,6 +336,9 @@ input[type=text] {
 input[type=text]:focus {
 
 }
+.online{
+  background-color:rgba(66,182,42,1) !important;
+}
 
 .teams {
   grid-area: teams;
@@ -497,10 +500,11 @@ input[type=text]:focus {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
   background: #ab9ba9;
   vertical-align: middle;
+  margin-top: -1px;
 }
 
 .channels.box .presence .online {
