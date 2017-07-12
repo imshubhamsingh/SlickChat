@@ -15,7 +15,7 @@ angular
     $stateProvider
       .state('home', {
           url: '/',
-          templateUrl: 'apps/home/home.html',
+          templateUrl: 'app/home/home.html',
           resolve: {
               requireNoAuth: function($state,cognitoService){
                   var userPool = cognitoService.getUserPool();

@@ -7,9 +7,10 @@
                 <h6 style="margin-top: -7px; color: #A9A9A9;">It's Slick!</h6>
             </a>
         </div>
-        <div class="list-head channelText">Channels <i class="ion-ios-plus-outline channels__add dropdown"
-                                                       style="color: #9999A9;cursor:pointer;" data-toggle="collapse"
-                                                       data-target="#createChannel"></i></div>
+        <div class="list-head channelText">Channels
+            <i class="fa fa-plus-circle channels__add dropdown" style="color: #9999A9;cursor:pointer;" data-toggle="collapse"
+               data-target="#createChannel" aria-hidden="true"></i>
+           </div>
         <div class="channel-list">
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
                 <a ng-click="channelsCtrl.changeChannel(channel.name)" ui-sref-active="selected"> # {{ channel.name}}</a>

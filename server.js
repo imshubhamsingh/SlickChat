@@ -21,7 +21,8 @@ server.listen(3321,function () {
 // Serving static file at /app
 app.use('/app',express.static(path.join(__dirname,'/app')));
 
-app.all('/*', function(req, res, next) {
+
+app.all('/*', function(req, res) {
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/views/index.html', { root: __dirname });
 });
