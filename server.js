@@ -14,8 +14,9 @@ var server = http.createServer(app);
 
 // Pass a http.Server instance to the listen method
 var io = require('socket.io').listen(server);
+var port = process.env.PORT || 3312;
 // The server should start listening
-server.listen(3312,function () {
+server.listen(port,function () {
     console.log("Server running at port 3312")
 });
 // Serving static file at /app
