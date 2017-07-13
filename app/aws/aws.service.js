@@ -7,8 +7,8 @@ angular.module('SlickChatApp')
         var aws  = this;
     this.getUserPool = function () {
         var poolData = {
-            UserPoolId: 'us-east-2_CZJVWbjFC',
-            ClientId: '7mak4fp7mkq8f4tkngppoq2igq'
+            UserPoolId: 'us-east-2_TjQDN3sJg',
+            ClientId: '4ca7gcg24193e2fgc8subb29t8'
         };
         var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
         return userPool;

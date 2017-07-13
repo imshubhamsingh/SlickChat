@@ -22,9 +22,12 @@ angular.module('SlickChatApp')
 
         channelsCtrl.profile = "";
         channelsCtrl.channels = [
-            {name: 'project'},
-            {name: 'atom'},
-            {name: 'angular'}
+            {name: 'general'},
+            {name: 'programming'},
+            {name: 'finance'},
+            {name: 'politics'},
+            {name: 'entertainment'},
+            {name: 'miscellaneous'}
             ];
         channelsCtrl.channelSelected = channelsCtrl.channels[0].name;
         channelsCtrl.getDisplayName = "";

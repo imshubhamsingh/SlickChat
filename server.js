@@ -13,7 +13,7 @@ var socket = require('./routes/socket.js');
 var server = http.createServer(app);
 // Pass a http.Server instance to the listen method
 var io = require('socket.io').listen(server);
-var port = process.env.PORT || 4040;
+var port = process.env.PORT || 4044;
 // The server should start listening
 server.listen(port,function () {
     console.log("Server running at port "+ port)
