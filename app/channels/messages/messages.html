@@ -1,27 +1,26 @@
-<div class="header">
-    <h1>{{ messagesCtrl.channelName }}</h1>
+<div class='messages box' scroll-glue>
+    <ul class='message-list'>
+    <!--<ui-view>-->
+    <!--</ui-view>-->
+    <!-- Sample Messages -->
+       <li ng-repeat="message in message.messages track by $index" ng-class="{samePreviousUser:message.messages[$index-1].user===message.user}">
+        <img class="user-pic " ng-src="{{message.userImage}}" ng-if="message.messages[$index-1].user!==message.user"/>
+        <div class="message-wrap" ng-class="{noUserPic:message.messages[$index-1].user===message.user}">
+            <div class="message-info">
+                <div class="user-name-message">
+                    <span class="user-name-message message" ng-if="message.messages[$index-1].user!==message.user">@{{message.user}}</span>
+                    <span class="timestamp" ng-if="message.messages[$index-1].user!==message.user"> {{message.time}}</span>
+                </div>
+                <div class="message" style="color: black">
+                    {{message.text}}
+                </div>
+                </div>
+            </div>
+    </li>
+</ul>
 </div>
-
-<div class="message-wrap" ng-repeat="message in messagesCtrl.messages">
-    <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar(message.uid) }}" />
-    <div class="message-info">
-        <div class="user-name">
-            {{ channelsCtrl.getDisplayName(message.uid) }}
-            <span class="timestamp">{{ message.timestamp | date:'short' }}</span>
-        </div>
-        <div class="message">
-            {{ message.body }}
-        </div>
-    </div>
+<div class='input'>
+    <form ng-submit="message.sendMessage()">
+        <input type='text' placeholder='Type Something here' ng-model="message.message">
+    </form>
 </div>
-
-<form class="message-form" ng-submit="messagesCtrl.sendMessage()">
-
-    <div class="input-group">
-        <input type="text" class="form-control" ng-model="messagesCtrl.message" placeholder="Type a message...">
-        <span class="input-group-btn">
-      <button class="btn btn-default" type="submit">Send</button>
-    </span>
-    </div>
-
-</form>

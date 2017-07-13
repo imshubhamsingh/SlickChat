@@ -40,7 +40,7 @@ angular.module('SlickChatApp')
                     console.log(err);
                     return;
                 }
-                console.log('session validity: ' + session.isValid());
+                // console.log('session validity: ' + session.isValid());
             });
         currentUser.getUserAttributes(function(err, result) {
                 if (err) {
@@ -49,7 +49,7 @@ angular.module('SlickChatApp')
                     console.log('error during Get Attribute');
                     return;
                 }
-                console.log(result);
+                // console.log(result);
 
                 for (var i = 0; i < result.length; i++) {
                     if(result[i].getName() === "name"){
@@ -59,7 +59,7 @@ angular.module('SlickChatApp')
                     if(result[i].getName() === "email"){
                         channelsCtrl.userEmail = result[i].getValue();
                         channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail) + '?d=retro';
-                        console.log(channelsCtrl.getGravatar)
+                        // console.log(channelsCtrl.getGravatar)
                     }
                  }
                 console.log(channelsCtrl.allUser);
@@ -72,7 +72,7 @@ angular.module('SlickChatApp')
                       console.log(data);
                       channelsCtrl.messages = data.messages;
                       channelsCtrl.allUser = data.userList;
-                      console.log(channelsCtrl.allUser);
+                      // console.log(channelsCtrl.allUser);
                   });
 
                 $scope.$apply();
@@ -94,9 +94,6 @@ angular.module('SlickChatApp')
             if(channelsCtrl.newChannel.name!=='')
             channelsCtrl.channels.push({name:channelsCtrl.newChannel.name});
             channelsCtrl.newChannel.name = '';
-            // channelsCtrl.channels.$add(channelsCtrl.newChannel).then(function(ref){
-            //     $state.go('channels.messages', {channelId: ref.key});
-            // });
         };
         channelsCtrl.logout = function(){
             socket.emit('useLogOut', {
@@ -110,7 +107,7 @@ angular.module('SlickChatApp')
 
         socket.on('send:message', function (message) {
             if(message.user !==channelsCtrl.displayName){
-                console.log(message);
+                // console.log(message);
                 channelsCtrl.messages.push(message);
             }
         });
@@ -120,24 +117,20 @@ angular.module('SlickChatApp')
         // });
         socket.on('user:login', function (data) {
             console.log(data);
-            console.log(channelsCtrl.allUser);
-                for(var i = 0 ;i<channelsCtrl.allUser.length;i++){
-                    if(channelsCtrl.allUser[i] !== undefined){
-                        if(channelsCtrl.allUser[i].name === data.userName){
-                            if(channelsCtrl.allUser[i].online !==true)
-                            channelsCtrl.allUser[i].online = true;
-                        }
-                    }
-                }
+            // console.log(channelsCtrl.allUser);
+            //     for(var i = 0 ;i<channelsCtrl.allUser.length;i++){
+            //         if(channelsCtrl.allUser[i] !== undefined){
+            //             if(channelsCtrl.allUser[i].name === data.userName){
+            //                 if(channelsCtrl.allUser[i].online !==true)
+            //                 channelsCtrl.allUser[i].online = true;
+            //             }
+            //         }
+            //     }
         });
 
-        // socket.on('user:join', function (data) {
-        //     $scope.messages.push({
-        //         user: 'chatroom',
-        //         text: 'User ' + data.name + ' has joined.'
-        //     });
-        //     $scope.users.push(data.name);
-        // });
+        socket.on('user:join', function (data) {
+            console.log(data)
+        });
 
         // add a message to the conversation when a user disconnects or leaves the room
         socket.on('user:left', function (data) {
@@ -150,7 +143,7 @@ angular.module('SlickChatApp')
         });
 
         socket.on('allUsers',function (data) {
-            console.log(data);
+            // console.log(data);
             for(var i =0; i<channelsCtrl.allUser.length;i++){
                 if(channelsCtrl.allUser[i] !== undefined){
                     if(channelsCtrl.allUser[i].name === data.newUserLogin.name){
@@ -158,7 +151,7 @@ angular.module('SlickChatApp')
                     }
                 }
             }
-            console.log(channelsCtrl.allUser);
+            // console.log(channelsCtrl.allUser);
             channelsCtrl.allUser.push(data.newUserLogin);
         });
 
@@ -205,8 +198,10 @@ angular.module('SlickChatApp')
 
         channelsCtrl.sendMessage = function () {
 
-            if(channelsCtrl.message !=="" || channelsCtrl.message !== undefined || channelsCtrl.message.length>0){
-                console.log(channelsCtrl.message.length);
+            if(channelsCtrl.message ==="" || channelsCtrl.message === undefined || channelsCtrl.message.length===0){
+               return;
+            }else{
+                // console.log(channelsCtrl.message.length);
                 var currentdate = new Date();
                 socket.emit('send:message', {
                     user: channelsCtrl.displayName,

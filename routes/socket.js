@@ -3,10 +3,93 @@
  */
 
 // Keep track of which names are used so that there are no duplicates
+
+var slickChat = (function () {
+    var sc = this;
+    var channelMessages = {};
+    var channels = [
+        {
+            name: "Project training",
+            createdBy :"Shubham Singh",
+            user: ["Shubham Singh"],
+            description :"We do something cool everyday"
+        }
+    ];
+    var userMessages = {};
+    var users = [];
+
+    var setNewUser = function (user) {
+        var userPresent = false;
+        for(var i=0;i<sc.users.length;i++){
+            if(sc.users[i].name === user.name){
+                console.log("returning user: "+ sc.users);
+                userPresent = true;
+                sc.users[i].online = true;
+                return;
+            }
+        }
+        if(userPresent === false){
+            sc.users.push({
+                name: user.name,
+                userImage:user.userImage,
+                online:true
+            });
+            console.log("new user to list: "+ sc.users);
+        }
+    };
+
+    var channelList = function () {
+        return sc.channels;
+    };
+
+    var addChannel = function (channelDetails,creatorName) {
+        sc.channels.push({
+            name: channelDetails.name,
+            createdBy :creatorName,
+            user: [creatorName],
+            description : channelDetails.description
+        });
+        console.log("new channel added: "+channelDetails.name);
+    };
+
+    var channelMessageList = function (channelName,message) {
+      sc.channelMessages[channelName].push({
+          user: message.user,
+          text: message.message,
+          time: message.time,
+          userImage: message.userImage
+      })
+    };
+
+    var returnChannelMessageList = function (channelName) {
+        return sc.channelMessages[channelName];
+    };
+
+    var setUserOffline = function (userName) {
+        for(var i=0;i<sc.users.length;i++){
+            if(sc.users[i].name === userName){
+                sc.users[i].online = false;
+                return;
+            }
+        }
+    };
+
+    return{
+        setNewUser:setNewUser,
+        channelList:channelList,
+        channelMessageList:channelMessageList,
+        addChannel:addChannel,
+        returnChannelMessageList:returnChannelMessageList,
+        setUserOffline: setUserOffline
+    }
+
+
+}());
 var userNames = (function () {
     var uN = this;
     uN.names = [];
     uN.message = [];
+
 
         // find the lowest unused "guest" name and claim it
     var setUserName = function (data) {
@@ -29,8 +112,8 @@ var userNames = (function () {
         })
     };
     var sendMessage = function () {
-        console.log("=======uN.message=====");
-        console.log(uN.message);
+        // console.log("=======uN.message=====");
+        // console.log(uN.message);
         return uN.message;
     };
 
@@ -84,6 +167,9 @@ module.exports = function (socket) {
         socket.emit('user:login',{
             userName: data.name
         });
+        socket.broadcast.emit('user:join', {
+            userName: data.name
+        });
         console.log(data.name);
     });
 
@@ -132,7 +218,7 @@ module.exports = function (socket) {
         console.log(data);
         userNames.setUserOffline(data.userName);
         console.log(data.userName);
-        socket.broadcast.emit('user:left', {
+        socket.emit('user:left', {
             userName: data.userName
         });
     });
