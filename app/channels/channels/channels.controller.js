@@ -106,9 +106,11 @@ angular.module('SlickChatApp')
 
 
         socket.on('send:message', function (message) {
+            console.log(message);
             if(message.user !==channelsCtrl.displayName){
                 // console.log(message);
                 channelsCtrl.messages.push(message);
+                //console.log("pushed messages")
             }
         });
 
@@ -204,6 +206,7 @@ angular.module('SlickChatApp')
                 // console.log(channelsCtrl.message.length);
                 var currentdate = new Date();
                 socket.emit('send:message', {
+                    channel: channelsCtrl.channelSelected,
                     user: channelsCtrl.displayName,
                     message: channelsCtrl.message,
                     userImage:channelsCtrl.getGravatar,
@@ -211,7 +214,9 @@ angular.module('SlickChatApp')
                 });
 
                 // add the message to our model locally
+
                 channelsCtrl.messages.push({
+                    channel: channelsCtrl.channelSelected,
                     user: channelsCtrl.displayName,
                     text: channelsCtrl.message,
                     time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),

@@ -8,8 +8,8 @@
             </a>
         </div>
         <div class="list-head channelText">Channels
-            <i class="fa fa-plus-circle channels__add dropdown" style="color: #9999A9;cursor:pointer;" data-toggle="collapse"
-               data-target="#createChannel" aria-hidden="true"></i>
+            <!--<i class="fa fa-plus-circle channels__add dropdown" style="color: #9999A9;cursor:pointer;" data-toggle="collapse"-->
+               <!--data-target="#createChannel" aria-hidden="true"></i>-->
            </div>
         <div class="channel-list">
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
@@ -28,25 +28,25 @@
             <li class="channel">
               <a href="#">#atom</a></li> -->
             <!-- <li> -->
-            <div class="dropdown-content collapse" id="createChannel">
-                <form ng-submit="channelsCtrl.createChannel()">
-                    <div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">#</span>
-                            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" required ng-model="channelsCtrl.newChannel.name" required>
-                            <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit" data-toggle="collapse" ng-class="{ 'disabled' :channelsCtrl.newChannel.name.length===0 || channelsCtrl.newChannel.name.length===undefined}"
-                                data-target="#createChannel">Create</button>
-                           </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <!--<div class="dropdown-content collapse" id="createChannel">-->
+                <!--<form ng-submit="channelsCtrl.createChannel()">-->
+                    <!--<div>-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon" id="basic-addon1">#</span>-->
+                            <!--<input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" required ng-model="channelsCtrl.newChannel.name" required>-->
+                            <!--<span class="input-group-btn">-->
+                            <!--<button class="btn btn-success" type="submit" data-toggle="collapse" ng-class="{ 'disabled' :channelsCtrl.newChannel.name.length===0 || channelsCtrl.newChannel.name.length===undefined}"-->
+                                <!--data-target="#createChannel">Create</button>-->
+                           <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
             <!-- </li> -->
             <!-- </ul> -->
             <!-- </div> -->
         </div>
-        <div class="list-head directMsg">DIRECT MESSAGES</div>
+        <div class="list-head directMsg">Users</div>
         <div class="channel-list">
             <div class="channel" ng-repeat="user in channelsCtrl.allUser">
                 <a ng-if="user.name !== channelsCtrl.displayName && user.name!==undefined" ui-sref="channels.direct({uid: user.$id})"
@@ -77,11 +77,11 @@
         <h3 class="purpose">Sometimes we do cool stuff</h3>
     </div>
     <div class='messages box' scroll-glue>
-        <ul class='message-list'>
+        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='project'">
             <!--<ui-view>-->
             <!--</ui-view>-->
             <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}">
+            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}" ng-if="message.channel===channelsCtrl.channelSelected">
                 <img class="user-pic " ng-src="{{message.userImage}}" ng-if="channelsCtrl.messages[$index-1].user!==message.user"/>
                 <div class="message-wrap" ng-class="{noUserPic:channelsCtrl.messages[$index-1].user===message.user}">
                     <div class="message-info">
@@ -95,46 +95,48 @@
                     </div>
                 </div>
             </li>
-            <!--<li ng-repeat="message in messages" ng-class="{alert: message.user == &quot;chatroom&quot;}">-->
-            <!--<div class="row">-->
-                <!--<div class="message-wrap container">-->
-                    <!--<div class="row" style="margin-top: -9px;margin-bottom: 2px;">-->
-                        <!--<div class="col-xs-1">-->
-                            <!--<img class="user-pic" src="//www.gravatar.com/avatar/f6396b74a13fb82676b733e0c4b2e2d1?d=retro" />-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-10">-->
-                            <!--<div class="user-name-message" style="color: #555459;font-weight: 400;">-->
-                                <!--@{{message.user}}-->
-                                <!--<span class="timestamp" style="color: #ccc;font-weight: normal;font-size: 10px;">{{message.time}}</span>-->
-                            <!--</div>-->
-                            <!--<div class="message text-justify" style="color: black">-->
-                                <!--{{message.text}}-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--</li>-->
         </ul>
-        <!--<div class="col">-->
-            <!--<h3>Messages</h3>-->
-            <!--<div class="overflowable">-->
-                <!--<p ng-repeat="message in messages" ng-class="{alert: message.user == &quot;chatroom&quot;}">{{message.user}}: {{message.text}}</p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col">-->
-            <!--<h3>Users</h3>-->
-            <!--<div class="overflowable">-->
-                <!--<p ng-repeat="user in users">{{user}}</p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="clr">-->
-            <!--<form ng-submit="channelsCtrl.sendMessage()">Message:-->
-                <!--<input size="60" ng-model="message"/>-->
-                <!--<input type="submit" value="Send"/>-->
-            <!--</form>-->
-        <!--</div>-->
+
+        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='atom'">
+            <!--<ui-view>-->
+            <!--</ui-view>-->
+            <!-- Sample Messages -->
+            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}" ng-if="message.channel===channelsCtrl.channelSelected">
+                <img class="user-pic " ng-src="{{message.userImage}}" ng-if="channelsCtrl.messages[$index-1].user!==message.user"/>
+                <div class="message-wrap" ng-class="{noUserPic:channelsCtrl.messages[$index-1].user===message.user}">
+                    <div class="message-info">
+                        <div class="user-name-message">
+                            <span class="user-name-message message" ng-if="channelsCtrl.messages[$index-1].user!==message.user">@{{message.user}}</span>
+                            <span class="timestamp" ng-if="channelsCtrl.messages[$index-1].user!==message.user"> {{message.time}}</span>
+                        </div>
+                        <div class="message" style="color: black">
+                            {{message.text}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='angular'">
+            <!--<ui-view>-->
+            <!--</ui-view>-->
+            <!-- Sample Messages -->
+            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}" ng-if="message.channel===channelsCtrl.channelSelected">
+                <img class="user-pic " ng-src="{{message.userImage}}" ng-if="channelsCtrl.messages[$index-1].user!==message.user"/>
+                <div class="message-wrap" ng-class="{noUserPic:channelsCtrl.messages[$index-1].user===message.user}">
+                    <div class="message-info">
+                        <div class="user-name-message">
+                            <span class="user-name-message message" ng-if="channelsCtrl.messages[$index-1].user!==message.user">@{{message.user}}</span>
+                            <span class="timestamp" ng-if="channelsCtrl.messages[$index-1].user!==message.user"> {{message.time}}</span>
+                        </div>
+                        <div class="message" style="color: black">
+                            {{message.text}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
     </div>
     <div class='input'>
         <form ng-submit="channelsCtrl.sendMessage()">

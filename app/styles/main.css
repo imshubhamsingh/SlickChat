@@ -56,8 +56,8 @@ a{
 .channel-list {
   padding-left: 5%;
   max-height: 30%;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  /*overflow-x: scroll;*/
+  /*overflow-y: scroll;*/
 }
 
 /*

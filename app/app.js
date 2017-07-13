@@ -100,6 +100,15 @@ angular
                     $state.go('home');
                 }
             }
+            // channels: function (socket,$q) {
+            //     var channelsList = [];
+            //     socket.emit('getChannelsList');
+            //     socket.on('ChannelsListReceived',function (data) {
+            //         console.log(data);
+            //         channelsList = data.channelList;
+            //     });
+            //     return channelsList;
+            // }
             // channels: function (Channels){
             //     return Channels.$loaded();
             // },
