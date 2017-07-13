@@ -1,31 +1,26 @@
-<div class="page-wrapper">
-
-    <div class="page-header">
-        <h1><a ui-sref="home"><img class="logo-img" src="app/images/logo.png" width="20%"/></a>Activate</h1>
-    </div>
-
-    <div id="loginPanel" class="mainbox col-md-10 col-sm-8 col-sm-offset-2 col-lg-12 col-lg-pull-2">
-
-
-        <div class="panel-body">
-            <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="activateCtrl.errorMessage">{{activateCtrl.errorMessage}}</div>
-            <form id="loginForm" role="form" ng-submit="activateCtrl.activate()">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="activateCtrl.userActivate.email" disabled>
-                </div>
-                <br>
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="user.password" type="password" class="form-control" placeholder="Pin" ng-model="activateCtrl.userActivate.pin">
-                </div>
-                <br>
-                <div class="button-group">
-                    <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" value="Activate">
-                </div>
-            </form>
+<link rel="stylesheet" href="app/auth/login/login.css">
+<script src="app/auth/login/login.js" charset="utf-8"></script>
+<div class="cont">
+  <div class="demo">
+    <div class="login">
+      z<!-- <div class="login__check"></div> -->
+      <div class="login__form">
+        <div id="errorMessage" ng-show="activateCtrl.errorMessage">{{activateCtrl.errorMessage}}</div>
+        <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input type="email" class="login__input name" ng-model="activateCtrl.userActivate.email" disabled/>
         </div>
+        <div class="login__row">
+          <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+          </svg>
+          <input type="password" class="login__input pass" placeholder="Pin" ng-model="activateCtrl.userActivate.pin"/>
+        </div>
+        <button type="submit" ng-click="activateCtrl.activate()" class="login__submit" value="Login">Activate</button>
+        <!-- <p class="login__signup">Don't have an account? &nbsp;<a ui-sref="register">Sign up</a></p> -->
+      </div>
     </div>
-
-
+  </div>
 </div>
