@@ -12,6 +12,7 @@ var userNames = (function () {
     var setUserName = function (data) {
         for(var i=0;i<uN.names.length;i++){
             if(uN.names[i].name === data.name){
+                uN.names[i].online = true;
                 return;
             }
         }
@@ -33,14 +34,23 @@ var userNames = (function () {
         return uN.message;
     };
 
+    var getUsersList = function () {
+        return uN.names;
+    };
+
+    var setUserOffline = function (userName) {
+        for(var i=0;i<uN.names.length;i++){
+            if(uN.names[i].name === userName){
+                uN.names[i].online = false;
+                return;
+            }
+        }
+    };
+
 
     // serialize claimed names as an array
-    var getUsersList = function () {
-        var res = [];
-        for(var i = 0;i<uN.names.length;i++) {
-            res.push(uN.names[i]);
-        }
-        return res;
+    var newUserLogin = function () {
+        return uN.names;
     };
 
     var free = function (name) {
@@ -52,9 +62,11 @@ var userNames = (function () {
     return {
         free: free,
         setUserName: setUserName,
-        getUsersList: getUsersList,
+        newUserLogin: newUserLogin,
         getmessage: getMessage,
-        sendMessage: sendMessage
+        sendMessage: sendMessage,
+        getUsersList: getUsersList,
+        setUserOffline:setUserOffline
     };
 }());
 // export function for listening to the socket
@@ -63,12 +75,16 @@ module.exports = function (socket) {
     socket.on('init', function (data) {
         userNames.setUserName(data);
         socket.emit('allUsers',{
-            usersList :userNames.getUsersList(),
-            messages: userNames.sendMessage()
+            newUserLogin :data
         });
         socket.emit('initMessages',{
-            messages :userNames.sendMessage()
-        })
+            messages :userNames.sendMessage(),
+            userList:userNames.getUsersList()
+        });
+        socket.emit('user:login',{
+            userName: data.name
+        });
+        console.log(data.name);
     });
 
     // notify other clients that a new user has joined
@@ -77,6 +93,11 @@ module.exports = function (socket) {
     // });
 
     // broadcast a user's message to other users
+    socket.emit('allUsers',{
+        usersList :userNames.getUsersList(),
+        messages: userNames.sendMessage()
+    });
+
     socket.on('send:message', function (data) {
         userNames.getmessage(data);
         socket.broadcast.emit('send:message', {
@@ -106,11 +127,15 @@ module.exports = function (socket) {
         }
     });
 
-    // clean up when a user leaves, and broadcast it to other users
-    // socket.on('disconnect', function () {
-    //     socket.broadcast.emit('user:left', {
-    //         name: name
-    //     });
-    //     userNames.free(name);
-    // });
+
+    socket.on('useLogOut', function (data) {
+        console.log(data);
+        userNames.setUserOffline(data.userName);
+        console.log(data.userName);
+        socket.broadcast.emit('user:left', {
+            userName: data.userName
+        });
+    });
+
+
 };

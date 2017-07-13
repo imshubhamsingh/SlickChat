@@ -49,7 +49,7 @@
         <div class="list-head directMsg">DIRECT MESSAGES</div>
         <div class="channel-list">
             <div class="channel" ng-repeat="user in channelsCtrl.allUser">
-                <a ng-if="user.name !== channelsCtrl.displayName" ui-sref="channels.direct({uid: user.$id})"
+                <a ng-if="user.name !== channelsCtrl.displayName && user.name!==undefined" ui-sref="channels.direct({uid: user.$id})"
                    ui-sref-active="selected">
                     <span class="presence" ng-class="{online: user.online}"></span>
                       {{ user.name }}
@@ -81,7 +81,7 @@
             <!--<ui-view>-->
             <!--</ui-view>-->
             <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}">
+            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}">
                 <img class="user-pic " ng-src="{{message.userImage}}" ng-if="channelsCtrl.messages[$index-1].user!==message.user"/>
                 <div class="message-wrap" ng-class="{noUserPic:channelsCtrl.messages[$index-1].user===message.user}">
                     <div class="message-info">
