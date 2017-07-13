@@ -67,12 +67,13 @@ angular.module('SlickChatApp')
                        userImage:channelsCtrl.getGravatar
                  });
 
-
+                  socket.on('initMessages',function (data) {
+                      console.log(data);
+                      channelsCtrl.messages = data.messages
+                  });
                 $scope.$apply();
             });
-        socket.on('initMessages',function (data) {
-            channelsCtrl.messages = data.messages
-        });
+
         //console.log(channelsCtrl.displayName);
 
         // Users.setOnline(profile.$id);
@@ -102,7 +103,7 @@ angular.module('SlickChatApp')
 
         socket.on('send:message', function (message) {
             console.log(message);
-            $scope.messages.push(message);
+            channelsCtrl.messages.push(message);
         });
 
         // socket.on('change:name', function (data) {

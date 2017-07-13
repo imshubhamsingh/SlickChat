@@ -53,7 +53,7 @@ var userNames = (function () {
         free: free,
         setUserName: setUserName,
         getUsersList: getUsersList,
-        message: getMessage,
+        getmessage: getMessage,
         sendMessage: sendMessage
     };
 }());
@@ -78,8 +78,7 @@ module.exports = function (socket) {
 
     // broadcast a user's message to other users
     socket.on('send:message', function (data) {
-        userNames.get
-
+        userNames.getmessage(data);
         socket.broadcast.emit('send:message', {
             user: data.user,
             text: data.message,
