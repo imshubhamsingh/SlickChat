@@ -55,6 +55,9 @@ a{
 
 .channel-list {
   padding-left: 5%;
+  max-height: 30%;
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 /*
@@ -293,9 +296,13 @@ input {
 
 .message-list li {
   padding: .2em;
-  margin-top: 1em;
+  /*margin-top: 1em;*/
   margin-bottom: 1em;
-  background-color: #f2f2f2;
+  /*background-color: #f2f2f2;*/
+  /*background-color: #D1D1E2;*/
+  background-color: #fff;
+  border-top: 1px solid #d7d7dc;
+  border-bottom: 1px solid #d7d7dc;
 }
 
 .header {
@@ -312,6 +319,7 @@ input {
 }
 
 .messages {
+  padding: 0 !important;
   background-color: #ffffff;
 }
 
@@ -323,7 +331,7 @@ input {
   display: grid;
   height: 100vh;
   grid-template-columns: 0px 210px 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 95px 1fr auto;
   grid-template-areas: "teams channels header"
                        "teams channels messages"
                        "teams channels input";
@@ -440,7 +448,7 @@ input[type=text]:focus {
   font-weight: 400;
   display: inline-block;
   font-size: 12px;
-  opacity: 0.3;
+  /*opacity: 0.3;*/
   padding-right: 7px;
   margin-top: 0;
 }
@@ -450,7 +458,7 @@ input[type=text]:focus {
   font-weight: 400;
   display: inline-block;
   font-size: 12px;
-  opacity: 0.3;
+  /*opacity: 0.3;*/
   padding-right: 7px;
   margin-top: 0;
 }
@@ -519,8 +527,9 @@ input[type=text]:focus {
 }
 
 .message-wrap{
-  margin-left: 37px;
+  margin-left: 49px;
   margin-top: -35px;
+  padding-right: 16px;
 }
 
 .noUserPic{
@@ -528,6 +537,8 @@ input[type=text]:focus {
 }
 .samePreviousUser{
   margin-top: -16px !important;
+  border-top: none !important;
+  /*border-bottom: none !important;*/
 }
 .message-wrap .user-pic {
   width: 36px;
@@ -545,16 +556,23 @@ input[type=text]:focus {
   border-radius: 4px;
   display: inline-block;
   vertical-align: top;
-  margin-left: 4px;
+  margin-left: 12px;
   margin-top: 3px;
 }
 
 .message-wrap .message-info {
   display: inline-block;
   vertical-align: top;
-  padding-left: 10px;
+  /*padding-left: 10px;*/
   margin-left: -4px;
-  margin-top: 0;
+  /*margin-top: 0;*/
+}
+
+
+.message-info {
+    padding-left: 16px;
+    margin-top: -5px;
+    margin-bottom: 12px;
 }
 
 .message-wrap .message-info .user-name-message {
@@ -601,4 +619,19 @@ input[type=text]:focus {
 
 .clr {
   clear: both;
+}
+
+.purpose .members h3{
+  color: #fff;
+}
+
+.header{
+  background-color: #5608CD;
+  color: #fff;
+  margin-top: -3px;
+}
+
+ul.message-list li:not(.samePreviousUser){
+  margin-top: -1px;
+  margin-bottom: 0px;
 }

@@ -13,10 +13,10 @@
            </div>
         <div class="channel-list">
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
-                <a ng-click="channelsCtrl.changeChannel(channel.name)" ui-sref-active="selected"> # {{ channel.name}}</a>
+                <a ng-click="channelsCtrl.changeChannel(channel.name)" ui-sref-active="selected"> #{{ channel.name}}</a>
             </div>
-            <a style="color: #9999A9;cursor:pointer;" class="dropdown" data-toggle="collapse"
-               data-target="#createChannel">+ Create Channel</a>
+            <!-- <a style="color: #9999A9;cursor:pointer;" class="dropdown" data-toggle="collapse"
+               data-target="#createChannel">+ Create Channel</a> -->
             <!-- <div class="channel create"> -->
             <!-- <ul class="nav navbar-nav"> -->
             <!-- <li class="channel active">
@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class='header box'><h2>
+    <div class='header box'><h2 style="margin-bottom: 0px;">
         #{{channelsCtrl.channelSelected}}</h2>
         <h3 class="members">{{channelsCtrl.allUser.length}} members</h3>
         <h3 class="purpose">Sometimes we do cool stuff</h3>
