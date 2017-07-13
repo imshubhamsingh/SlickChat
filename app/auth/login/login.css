@@ -39,7 +39,7 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/slider-2.jpg");
+  background-image: url("http://i.cubeupload.com/SYUBaF.png");
   background-size: cover;
   overflow: auto;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
@@ -47,8 +47,8 @@ input, button {
 
 .demo {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 65%;
+  left: 16%;
   margin-left: -15rem;
   margin-top: -26.5rem;
   width: 30rem;
@@ -58,7 +58,7 @@ input, button {
 
 .login {
   position: relative;
-  height: 100%;
+  height: 50%;
   background: -webkit-linear-gradient(top, rgba(146, 135, 187, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
   background: linear-gradient(to bottom, rgba(146, 135, 187, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
   -webkit-transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
@@ -97,7 +97,7 @@ input, button {
 }
 .login__form {
   position: absolute;
-  top: 50%;
+  top: 0%;
   left: 0;
   width: 100%;
   height: 50%;
@@ -139,8 +139,8 @@ input, button {
   width: 100%;
   height: 4rem;
   margin: 5rem 0 2.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  background: #FF3366;
+  color: rgba(51, 21, 98);
+  background: rgba(255, 255, 255, 0.8);
   font-size: 1.5rem;
   border-radius: 3rem;
   cursor: pointer;
@@ -521,4 +521,25 @@ input, button {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #fff;
+    opacity: 0.7;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #fff;
+   opacity:  0.7;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #fff;
+   opacity:  0.7;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #fff;
+   opacity: 0.7;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #fff;
+   opacity: 0.7;
 }

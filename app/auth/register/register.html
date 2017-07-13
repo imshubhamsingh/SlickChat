@@ -3,7 +3,7 @@
 <div class="cont">
   <div class="demo">
     <div class="login">
-      <div class="login__check"></div>
+      <!-- <div class="login__check"></div> -->
       <div class="login__form">
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
@@ -24,8 +24,9 @@
           <input type="password" class="login__input name" placeholder="Password" ng-model="registerCtrl.userRegister.password"/>
         </div>
         <button style="margin-top: 26px" type="submit" ng-click="registerCtrl.register()" class="login__submit" value="Login">Sign Up</button>
+        <p style="margin-top: -12px;" class="login__signup">Already have an account? &nbsp;<a ui-sref="login">Sign in</a></p>
       </div>
     </div>
-    
+
   </div>
 </div>
