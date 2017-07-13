@@ -81,13 +81,13 @@
             <!--<ui-view>-->
             <!--</ui-view>-->
             <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages">
+            <li ng-repeat="message in channelsCtrl.messages" ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user}">
                 <img class="user-pic " ng-src="{{message.userImage}}" ng-if="channelsCtrl.messages[$index-1].user!==message.user"/>
                 <div class="message-wrap" ng-class="{noUserPic:channelsCtrl.messages[$index-1].user===message.user}">
                     <div class="message-info">
                         <div class="user-name-message">
                             <span class="user-name-message message" ng-if="channelsCtrl.messages[$index-1].user!==message.user">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
+                            <span class="timestamp" ng-if="channelsCtrl.messages[$index-1].user!==message.user"> {{message.time}}</span>
                         </div>
                         <div class="message" style="color: black">
                             {{message.text}}

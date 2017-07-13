@@ -526,7 +526,9 @@ input[type=text]:focus {
 .noUserPic{
   margin-top: -4px !important;
 }
-
+.samePreviousUser{
+  margin-top: -16px !important;
+}
 .message-wrap .user-pic {
   width: 36px;
   height: 36px;

@@ -28,6 +28,8 @@ var userNames = (function () {
         })
     };
     var sendMessage = function () {
+        console.log("=======uN.message=====");
+        console.log(uN.message);
         return uN.message;
     };
 
