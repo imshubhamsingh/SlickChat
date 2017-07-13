@@ -518,7 +518,26 @@ input[type=text]:focus {
   overflow-y: scroll;
 }
 
+.message-wrap{
+  margin-left: 37px;
+  margin-top: -35px;
+}
+
+.noUserPic{
+  margin-top: -4px !important;
+}
+
 .message-wrap .user-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 4px;
+  margin-top: 3px;
+}
+
+.message-list>li>img {
   width: 36px;
   height: 36px;
   border-radius: 4px;
@@ -540,7 +559,11 @@ input[type=text]:focus {
   color: #555459;
   font-weight: 400;
 }
-
+.user-name-message.message{
+  color: #555459 !important;
+  font-weight: 400 !important;
+  font-size: 12px!important;
+}
 .message-wrap .message-info .user-name-message span {
   color: #ccc;
   font-weight: normal;
