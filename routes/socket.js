@@ -6,6 +6,7 @@
 var userNames = (function () {
     var uN = this;
     uN.names = [];
+    uN.message = [];
 
         // find the lowest unused "guest" name and claim it
     var setUserName = function (data) {
@@ -18,6 +19,17 @@ var userNames = (function () {
         console.log(uN.names)
     };
 
+    var getMessage = function (data) {
+        uN.message.push({
+            user: data.user,
+            text: data.message,
+            time: data.time,
+            userImage: data.userImage
+        })
+    };
+    var sendMessage = function () {
+        return uN.message;
+    };
 
 
     // serialize claimed names as an array
@@ -38,7 +50,9 @@ var userNames = (function () {
     return {
         free: free,
         setUserName: setUserName,
-        getUsersList: getUsersList
+        getUsersList: getUsersList,
+        message: getMessage,
+        sendMessage: sendMessage
     };
 }());
 // export function for listening to the socket
@@ -47,7 +61,11 @@ module.exports = function (socket) {
     socket.on('init', function (data) {
         userNames.setUserName(data);
         socket.emit('allUsers',{
-            usersList :userNames.getUsersList()
+            usersList :userNames.getUsersList(),
+            messages: userNames.sendMessage()
+        });
+        socket.emit('initMessages',{
+            messages :userNames.sendMessage()
         })
     });
 
@@ -58,7 +76,7 @@ module.exports = function (socket) {
 
     // broadcast a user's message to other users
     socket.on('send:message', function (data) {
-        console.log(data);
+        userNames.get
 
         socket.broadcast.emit('send:message', {
             user: data.user,

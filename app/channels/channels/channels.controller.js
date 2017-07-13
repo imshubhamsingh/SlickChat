@@ -66,9 +66,13 @@ angular.module('SlickChatApp')
                        name: channelsCtrl.displayName,
                        userImage:channelsCtrl.getGravatar
                  });
+
+
                 $scope.$apply();
             });
-
+        socket.on('initMessages',function (data) {
+            channelsCtrl.messages = data.messages
+        });
         //console.log(channelsCtrl.displayName);
 
         // Users.setOnline(profile.$id);
