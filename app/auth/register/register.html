@@ -1,52 +1,31 @@
-<div class="page-wrapper">
-
-  <div class="page-header">
-    <h1><a ui-sref="home"><img class="logo-img" src="app/images/logo.png" width="20%"/></a> Register</h1>
-  </div>
-  <!--<form ng-submit="registerCtrl.register()">-->
-    <!--<div class="input-group">-->
-      <!--<input type="email" class="form-control" placeholder="Email" ng-model="registerCtrl.user.email">-->
-    <!--</div>-->
-    <!--<div class="input-group">-->
-      <!--<input type="password" class="form-control" placeholder="Password" ng-model="registerCtrl.user.password">-->
-    <!--</div>-->
-    <!--<input type="submit" class="btn btn-default" value="Register">-->
-  <!--</form>-->
-  <div id="loginPanel" class="mainbox col-md-10 col-sm-8 col-sm-offset-2 col-lg-12 col-lg-pull-2">
-
-      <div class="panel-body">
-        <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="registerCtrl.errorMessage">{{registerCtrl.errorMessage}}</div>
-        <form id="loginForm" role="form" ng-submit="registerCtrl.register()">
-          <div class="input-group input-group-lg">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="name" type="text" class="form-control" value="" placeholder="Name" ng-model="registerCtrl.userRegister.name">
-          </div>
-          <br>
-          <div class="input-group input-group-lg">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-            <input id="email" type="text" class="form-control" value="" placeholder="E-mail" ng-model="registerCtrl.userRegister.email">
-          </div>
-          <br>
-          <div class="input-group input-group-lg">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="password" type="password" class="form-control" placeholder="Password" ng-model="registerCtrl.userRegister.password">
-          </div>
-          <br><br>
-          <div class="button-group">
-            <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
-          </div>
-          <br>
-          <div class="form-group">
-            <div class="row control">
-              <span class="col-sm-6"><a href="#" ui-sref="login">Already have an account?</a></span>
-            </div>
-          </div>
-        </form>
+<link rel="stylesheet" href="app/auth/login/login.css">
+<script src="app/auth/login/login.js" charset="utf-8"></script>
+<div class="cont">
+  <div class="demo">
+    <div class="login">
+      <div class="login__check"></div>
+      <div class="login__form">
+        <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input type="text" class="login__input name" placeholder="Name" ng-model="registerCtrl.userRegister.name"/>
+        </div>
+        <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input type="text" class="login__input pass" placeholder="Email" ng-model="registerCtrl.userRegister.email"/>
+        </div>
+        <div class="login__row">
+          <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+          </svg>
+          <input type="password" class="login__input name" placeholder="Password" ng-model="registerCtrl.userRegister.password"/>
+        </div>
+        <button style="margin-top: 26px" type="submit" ng-click="registerCtrl.register()" class="login__submit" value="Login">Sign Up</button>
       </div>
-
     </div>
-
+    
   </div>
-
-
 </div>

@@ -1,0 +1,93 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <h1><a ui-sref="home"><img class="logo-img" src="app/images/logo.png" width="20%"/></a> Log In</h1>
+  </div>
+
+  <!--<form ng-submit="loginCtrl.login()">-->
+    <!--<div class="input-group">-->
+      <!--<input type="email" class="form-control" placeholder="Email" ng-model="loginCtrl.user.email">-->
+    <!--</div>-->
+    <!--<div class="input-group">-->
+      <!--<input type="password" class="form-control" placeholder="Password" ng-model="loginCtrl.user.password">-->
+    <!--</div>-->
+    <!--<input type="submit" class="btn btn-default" value="Log In">-->
+  <!--</form>-->
+  <div id="loginPanel" class="mainbox col-md-10 col-sm-8 col-sm-offset-2 col-lg-12 col-lg-pull-2">
+
+
+      <div class="panel-body">
+        <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="loginCtrl.errorMessage">{{loginCtrl.errorMessage}}</div>
+        <form id="loginForm" role="form" ng-submit="loginCtrl.login()">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="user.email" type="email" class="form-control" value="" placeholder="E-mail" ng-model="loginCtrl.userLogin.email">
+          </div>
+          <br>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="loginCtrl.userLogin.password">
+          </div>
+          <div class="input-group">
+            <div class="checkbox">
+              <label>
+                <input class="rememberme" type="checkbox" name="rememberme" value="1">
+                Save password
+              </label>
+            </div>
+          </div>
+          <div class="button-group">
+            <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" value="Login">
+          </div>
+          <br>
+          <div class="form-group">
+            <div class="row control">
+              <span class="col-sm-12"><a href="#" ui-sref="register">Create account</a> - <a data-target="#pwdModal" data-toggle="modal">Forgot password?</a></span>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    <!--modal-->
+    <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="text-center">
+            <h3><i class="fa fa-lock fa-4x"></i></h3>
+            <h2 class="text-center">Forgot Password?</h2>
+            <p>You can reset your password here.</p>
+            <div class="panel-body">
+
+              <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                    <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                </div>
+
+                <input type="hidden" class="hide" name="token" id="token" value="">
+              </form>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="col-md-12">
+              <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+</div>
