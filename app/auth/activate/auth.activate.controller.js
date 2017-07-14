@@ -2,9 +2,6 @@
  * Created by shubham on 10/7/17.
  */
 
-/**
- * Created by shubham on 8/7/17.
- */
 
 angular.module('SlickChatApp')
     .controller('ActivateCtrl', function (Auth,$state,cognitoService,$stateParams,$scope) {
@@ -28,7 +25,9 @@ angular.module('SlickChatApp')
                     $scope.$apply();
                     return;
                 }
-                $state.go('channels.welcome',{email: $stateParams.email, password: $stateParams.password, activation: true});
+                console.log("activation complete");
+                console.log('call result: ' + result);
+                $state.go('channels',{email: $stateParams.email, password: $stateParams.password, activation: true});
             });
         }
     });

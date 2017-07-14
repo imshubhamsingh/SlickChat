@@ -91,13 +91,32 @@ angular
         controller: 'ChannelsCtrl as channelsCtrl',
         templateUrl: 'app/channels/channelIndex.html',
         resolve: {
-            requireAuth: function($state,cognitoService){
-                var userPool = cognitoService.getUserPool();
-                var currentUser = userPool.getCurrentUser();
+            requireAuth: function($state,cognitoService,$stateParams,$q){
+                var params = $stateParams;
+                var deferred = $q.defer();
+                if(params.activation){
+                    console.log("email: "+ params.email);
+                    var cognitoUser = cognitoService.getUser(params.email);
+                    var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
 
-                console.log("Logged In");
-                if(currentUser === null){
-                    $state.go('home');
+                    cognitoUser.authenticateUser(authenticationDetails, {
+                        onSuccess: function (result) {
+                            deferred.resolve(result);
+                            console.log(result);
+                            console.log("Logged In ");
+                        },
+                        onFailure: function (err) {
+                            $state.go('home');
+                        }
+                    });
+                    return deferred.promise;
+                }else{
+                    var userPool = cognitoService.getUserPool();
+                    var currentUser = userPool.getCurrentUser();
+                        console.log(currentUser);
+                    if(currentUser === null){
+                        $state.go('home');
+                    }
                 }
             }
             // channels: function (socket,$q) {
@@ -139,13 +158,13 @@ angular
             requireAuth: function($state,cognitoService,$stateParams){
                 var params = $stateParams;
                 if(params.activation){
+                    console.log("email: "+ params.email);
                     var cognitoUser = cognitoService.getUser(params.email);
                     var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
 
                     cognitoUser.authenticateUser(authenticationDetails, {
                         onSuccess: function (result) {
-                            //var accessToken = result.getAccessToken().getJwtToken();
-                            // loginCtrl.accessToken = accessToken
+                            console.log(result);
                             params.activation = false;
                             console.log("Logged In ");
                             $state.go('channels.welcome');
