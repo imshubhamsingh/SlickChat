@@ -690,19 +690,6 @@ ul.message-list li:not(.samePreviousUser){
 }
 
 
-#loginPanel{
-  overflow: hidden;
-  position: relative;
-  width: 900px;
-  height: 550px;
-  margin: 0 auto 100px;
-  background: #fff;
-}
 
-.panel-body{
-  position: relative;
-  width: 640px;
-  height: 100%;
-  transition: transform 1.2s ease-in-out;
-  padding: 50px 30px 0;
-}
+
+
