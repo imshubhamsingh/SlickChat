@@ -368,6 +368,7 @@ input {
 .channels {
   /*background-color: #52364E;*/
   background-color: #382962;
+  padding-left: 30px;
 }
 
 .messages {
@@ -688,8 +689,3 @@ ul.message-list li:not(.samePreviousUser){
   margin-top: 10px;
   margin-bottom: 12px;
 }
-
-
-
-
-
