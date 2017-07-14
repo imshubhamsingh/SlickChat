@@ -196,7 +196,7 @@ module.exports = function (socket) {
 
     socket.on('send:message', function (data) {
         userNames.getmessage(data);
-        sockcet.broadcast.emit('send:message', {
+        socket.broadcast.emit('send:message', {
             channel:data.channel,
             user: data.user,
             text: data.message,
@@ -241,7 +241,7 @@ module.exports = function (socket) {
     //         channelsList:slickChat.channelList()
     //     });
     // });
-    socket.on( 'getChannelsList', function( valueName, setValueResult ) {
+    socket.on('getChannelsList', function( valueName, setValueResult ) {
 
         var value = slickChat.channelList(); //Do something with value here
          console.log(slickChat.channelList());

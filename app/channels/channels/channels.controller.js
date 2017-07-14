@@ -3,29 +3,24 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels){
+    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket){
         var channelsCtrl = this;
-        // $sce.trustAsResourceUrl('http://gnaman.pythonanywhere.com')
-        // $http.jsonp('http://gnaman.pythonanywhere.com').then(function(response){
-        //   console.log(response);
-        // },function (response) {
-        //   console.log(response);
-        // });
-        //
-        // var x = $resource('http://gnaman.pythonanywhere.com', {user: '1'});
-        // console.log("This is the response", x);
 
         var userPool = cognitoService.getUserPool();
         var currentUser = userPool.getCurrentUser();
 
         // channelsCtrl.profile.online = true;
-        console.log(channels);
 
         channelsCtrl.profile = "";
-        channelsCtrl.channels = channels.channelList;
+        channelsCtrl.channels = [
+            {name: 'general'},
+            {name: 'programming'},
+            {name: 'finance'},
+            {name: 'politics'},
+            {name: 'entertainment'},
+            {name: 'miscellaneous'}
+            ];
         channelsCtrl.channelSelected = channelsCtrl.channels[0].name;
-        channelsCtrl.channelSelectedCreator = channelsCtrl.channels[0].createdBy;
-        channelsCtrl.description = channelsCtrl.channels[0].description;
         channelsCtrl.getDisplayName = "";
         channelsCtrl.getGravatar = "";
         channelsCtrl.users = "";
@@ -36,19 +31,19 @@ angular.module('SlickChatApp')
         currentUser.getSession(function(err, session) {
                 if (err) {
                     // alert(err);
-                    console.log(err);
+                    //console.log(err);
                     return;
                 }
-                // console.log('session validity: ' + session.isValid());
+                // //console.log('session validity: ' + session.isValid());
             });
         currentUser.getUserAttributes(function(err, result) {
                 if (err) {
                     //alert(err);
-                    console.log(err);
-                    console.log('error during Get Attribute');
+                    //console.log(err);
+                    //console.log('error during Get Attribute');
                     return;
                 }
-                // console.log(result);
+                // //console.log(result);
 
                 for (var i = 0; i < result.length; i++) {
                     if(result[i].getName() === "name"){
@@ -58,33 +53,31 @@ angular.module('SlickChatApp')
                     if(result[i].getName() === "email"){
                         channelsCtrl.userEmail = result[i].getValue();
                         channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail) + '?d=retro';
-                        // console.log(channelsCtrl.getGravatar)
+                        // //console.log(channelsCtrl.getGravatar)
                     }
                  }
-                console.log(channelsCtrl.allUser);
+                //console.log(channelsCtrl.allUser);
                    socket.emit('init', {
                        name: channelsCtrl.displayName,
                        userImage:channelsCtrl.getGravatar
                  });
 
                   socket.on('initMessages',function (data) {
-                      console.log(data);
+                      //console.log(data);
                       channelsCtrl.messages = data.messages;
                       channelsCtrl.allUser = data.userList;
-                      // console.log(channelsCtrl.allUser);
+                      // //console.log(channelsCtrl.allUser);
                   });
 
                 $scope.$apply();
             });
 
-        //console.log(channelsCtrl.displayName);
+        ////console.log(channelsCtrl.displayName);
 
         // Users.setOnline(profile.$id);
 
-        channelsCtrl.changeChannel = function (channel) {
-            channelsCtrl.channelSelected = channel.name;
-            channelsCtrl.channelSelectedCreator = channel.createdBy;
-            channelsCtrl.description = channel.description;
+        channelsCtrl.changeChannel = function (channelName) {
+            channelsCtrl.channelSelected = channelName;
         };
 
         channelsCtrl.newChannel = {
@@ -100,18 +93,18 @@ angular.module('SlickChatApp')
             socket.emit('useLogOut', {
                 userName: channelsCtrl.displayName
             });
-            console.log(channelsCtrl.displayName);
+            ////console.log(channelsCtrl.displayName);
             cognitoService.getUser(channelsCtrl.userEmail).signOut();
             $state.go('home');
         };
 
 
         socket.on('send:message', function (message) {
-            console.log(message);
+            //console.log(message);
             if(message.user !==channelsCtrl.displayName){
-                // console.log(message);
+                // //console.log(message);
                 channelsCtrl.messages.push(message);
-                //console.log("pushed messages")
+                ////console.log("pushed messages")
             }
         });
 
@@ -119,8 +112,8 @@ angular.module('SlickChatApp')
         //     changeName(data.oldName, data.newName);
         // });
         socket.on('user:login', function (data) {
-            console.log(data);
-            // console.log(channelsCtrl.allUser);
+            //console.log(data);
+            // //console.log(channelsCtrl.allUser);
             //     for(var i = 0 ;i<channelsCtrl.allUser.length;i++){
             //         if(channelsCtrl.allUser[i] !== undefined){
             //             if(channelsCtrl.allUser[i].name === data.userName){
@@ -132,21 +125,21 @@ angular.module('SlickChatApp')
         });
 
         socket.on('user:join', function (data) {
-            console.log(data)
+            //console.log(data)
         });
 
-        // add a message to the conversation when a user disconnects or leaves the room
+
         socket.on('user:left', function (data) {
             for (var i = 0; i < channelsCtrl.allUser.length; i++) {
                 if ( channelsCtrl.allUser[i].name === data.userName) {
                     channelsCtrl.allUser[i].online = false;
-                    console.log(channelsCtrl.allUser[i]);
+                    //console.log(channelsCtrl.allUser[i]);
                 }
             }
         });
 
         socket.on('allUsers',function (data) {
-            // console.log(data);
+            // //console.log(data);
             for(var i =0; i<channelsCtrl.allUser.length;i++){
                 if(channelsCtrl.allUser[i] !== undefined){
                     if(channelsCtrl.allUser[i].name === data.newUserLogin.name){
@@ -154,46 +147,10 @@ angular.module('SlickChatApp')
                     }
                 }
             }
-            // console.log(channelsCtrl.allUser);
+            // //console.log(channelsCtrl.allUser);
             channelsCtrl.allUser.push(data.newUserLogin);
         });
 
-        // Private helpers
-        // ===============
-
-        // var changeName = function (oldName, newName) {
-        //     // rename user in list of users
-        //     var i;
-        //     for (i = 0; i < $scope.users.length; i++) {
-        //         if ($scope.users[i] === oldName) {
-        //             $scope.users[i] = newName;
-        //         }
-        //     }
-        //
-        //     $scope.messages.push({
-        //         user: 'chatroom',
-        //         text: 'User ' + oldName + ' is now known as ' + newName + '.'
-        //     });
-        // };
-
-        // Methods published to the scope
-        // ==============================
-
-        // $scope.changeName = function () {
-        //     socket.emit('change:name', {
-        //         name: $scope.newName
-        //     }, function (result) {
-        //         if (!result) {
-        //             alert('There was an error changing your name');
-        //         } else {
-        //
-        //             changeName($scope.name, $scope.newName);
-        //
-        //             $scope.name = $scope.newName;
-        //             $scope.newName = '';
-        //         }
-        //     });
-        // };
 
         channelsCtrl.messages = [];
         channelsCtrl.message ="";
@@ -204,7 +161,7 @@ angular.module('SlickChatApp')
             if(channelsCtrl.message ==="" || channelsCtrl.message === undefined || channelsCtrl.message.length===0){
                return;
             }else{
-                // console.log(channelsCtrl.message.length);
+                // //console.log(channelsCtrl.message.length);
                 var currentdate = new Date();
                 socket.emit('send:message', {
                     channel: channelsCtrl.channelSelected,

@@ -95,15 +95,15 @@ angular
                 var params = $stateParams;
                 var deferred = $q.defer();
                 if(params.activation){
-                    console.log("email: "+ params.email);
+                    //console.log("email: "+ params.email);
                     var cognitoUser = cognitoService.getUser(params.email);
                     var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
 
                     cognitoUser.authenticateUser(authenticationDetails, {
                         onSuccess: function (result) {
                             deferred.resolve(result);
-                            console.log(result);
-                            console.log("Logged In ");
+                            //console.log(result);
+                            //console.log("Logged In ");
                         },
                         onFailure: function (err) {
                             $state.go('home');
@@ -113,42 +113,42 @@ angular
                 }else{
                     var userPool = cognitoService.getUserPool();
                     var currentUser = userPool.getCurrentUser();
-                        console.log(currentUser);
+                        //console.log(currentUser);
                     if(currentUser === null){
                         $state.go('home');
                     }
                 }
-            },
-            channels: function (socket,$q) {
-                // var channelsList = [];
-                // var deferred = $q.defer();
-                // socket.emit('getChannelsList');
-                // socket.on('ChannelsListReceived',function (data) {
-                //     console.log(data);
-                //     channelsList = data.channelList;
-                //     deferred.resolve(data);
-                // },function (err) {
-                //     deferred.reject({ message: "Really bad" });
-                // });
-                // console.log(deferred.promise);
-                // return deferred.promise;
-                var deferred = $q.defer();
-                socket.emitPromise("getChannelsList", "username")
-                    .then(function( data ) {
-                            console.log(data);
-                            return socket.emitPromise("getValue", "anotherValue" );
-                        }, function( message ) {
-                            console.log(message);
-                        }
-                    ).then(function (data) {
-                            console.log(data);
-                            deferred.resolve(data)
-                        }
-                    //Chain your commands from here
-                );
-                console.log(deferred.promise);
-                return deferred.promise;
             }
+            // channels: function (socket,$q) {
+            //     // var channelsList = [];
+            //     // var deferred = $q.defer();
+            //     // socket.emit('getChannelsList');
+            //     // socket.on('ChannelsListReceived',function (data) {
+            //     //     //console.log(data);
+            //     //     channelsList = data.channelList;
+            //     //     deferred.resolve(data);
+            //     // },function (err) {
+            //     //     deferred.reject({ message: "Really bad" });
+            //     // });
+            //     // //console.log(deferred.promise);
+            //     // return deferred.promise;
+            //     var deferred = $q.defer();
+            //     socket.emitPromise("getChannelsList", "username")
+            //         .then(function( data ) {
+            //                 //console.log(data);
+            //                 return socket.emitPromise("getValue", "anotherValue" );
+            //             }, function( message ) {
+            //                 //console.log(message);
+            //             }
+            //         ).then(function (data) {
+            //                 //console.log(data);
+            //                 deferred.resolve(data)
+            //             }
+            //         //Chain your commands from here
+            //     );
+            //     //console.log(deferred.promise);
+            //     return deferred.promise;
+            // }
             // channels: function (Channels){
             //     return Channels.$loaded();
             // },
@@ -179,15 +179,15 @@ angular
             requireAuth: function($state,cognitoService,$stateParams){
                 var params = $stateParams;
                 if(params.activation){
-                    console.log("email: "+ params.email);
+                    //console.log("email: "+ params.email);
                     var cognitoUser = cognitoService.getUser(params.email);
                     var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
 
                     cognitoUser.authenticateUser(authenticationDetails, {
                         onSuccess: function (result) {
-                            console.log(result);
+                            //console.log(result);
                             params.activation = false;
-                            console.log("Logged In ");
+                            //console.log("Logged In ");
                             $state.go('channels.welcome');
                         },
                         onFailure: function (err) {
@@ -198,7 +198,7 @@ angular
                 var userPool = cognitoService.getUserPool();
                 var currentUser = userPool.getCurrentUser();
 
-                console.log("Logged In");
+                //console.log("Logged In");
                 if(currentUser === null){
                     $state.go('home');
                 }

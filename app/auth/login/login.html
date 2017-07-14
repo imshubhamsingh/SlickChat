@@ -29,61 +29,64 @@
             <input id="user.password" type="password" class="form-control" placeholder="Password" ng-model="loginCtrl.userLogin.password">
           </div>
           <div class="input-group">
-            <div class="checkbox">
-              <label>
-                <input class="rememberme" type="checkbox" name="rememberme" value="1">
-                Save password
-              </label>
-            </div>
+            <!--<div class="checkbox">-->
+              <!--<label>-->
+                <!--<input class="rememberme" type="checkbox" name="rememberme" value="1">-->
+                <!--Save password-->
+              <!--</label>-->
+            <!--</div>-->
           </div>
+          <br><br>
           <div class="button-group">
             <input id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block" value="Login">
           </div>
           <br>
           <div class="form-group">
             <div class="row control">
-              <span class="col-sm-12"><a href="#" ui-sref="register">Create account</a> - <a data-target="#pwdModal" data-toggle="modal">Forgot password?</a></span>
+              <!--<span class="col-sm-12"><a href="#" ui-sref="register">Create account</a> - <a data-target="#pwdModal" data-toggle="modal">Forgot password?</a></span>-->
+              <span class="col-sm-12"><a href="#" ui-sref="register" class="text-muted">Create account</a></span>
+
             </div>
           </div>
         </form>
 
       </div>
 
-    <!--modal-->
-    <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="text-center">
-            <h3><i class="fa fa-lock fa-4x"></i></h3>
-            <h2 class="text-center">Forgot Password?</h2>
-            <p>You can reset your password here.</p>
-            <div class="panel-body">
+    <!--&lt;!&ndash;modal&ndash;&gt;-->
+    <!--<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
+      <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+          <!--<div class="text-center">-->
+            <!--<h3><i class="fa fa-lock fa-4x"></i></h3>-->
+            <!--<h2 class="text-center">Forgot Password?</h2>-->
+            <!--<p>You can reset your password here.</p>-->
+            <!--<div class="panel-body">-->
 
-              <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+              <!--<form id="register-form" role="form" autocomplete="off" class="form" method="post">-->
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                    <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
-                </div>
+                <!--<div class="form-group">-->
+                  <!--<div class="input-group">-->
+                    <!--<span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>-->
+                    <!--<input id="email" name="email" placeholder="email address" class="form-control"  type="email">-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                  <!--<input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">-->
+                <!--</div>-->
 
-                <input type="hidden" class="hide" name="token" id="token" value="">
-              </form>
+                <!--<input type="hidden" class="hide" name="token" id="token" value="">-->
+              <!--</form>-->
 
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="col-md-12">
-              <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="modal-footer">-->
+            <!--<div class="col-md-12">-->
+              <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
 
 
 
