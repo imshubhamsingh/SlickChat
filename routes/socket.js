@@ -1,97 +1,97 @@
-// /**
-//  * Created by shubham on 12/7/17.
-//  */
-//
-// // Keep track of which names are used so that there are no duplicates
-//
-// var slickChat = (function () {
-//     var sc = this;
-//     sc.channelMessages = {};
-//     sc.channels = [
-//          {
-//             name: "Project training",
-//             createdBy: "Shubham Singh",
-//             users: ["Shubham Singh"],
-//             description: "We do something cool everyday"
-//         },
-//         {
-//             name: "angularjs",
-//             createdBy: "Shubham Singh",
-//             users: ["Shubham Singh"],
-//             description: "Angularjs is fun"
-//         }
-//     ];
-//
-//     sc.userMessages = {};
-//     sc.users = [];
-//
-//     var setNewUser = function (user) {
-//         var userPresent = false;
-//         for(var i=0;i<sc.users.length;i++){
-//             if(sc.users[i].name === user.name){
-//                 console.log("returning user: "+ sc.users);
-//                 userPresent = true;
-//                 sc.users[i].online = true;
-//                 return;
-//             }
-//         }
-//         if(userPresent === false){
-//             sc.users.push({
-//                 name: user.name,
-//                 userImage:user.userImage,
-//                 online:true
-//             });
-//             console.log("new user to list: "+ sc.users);
-//         }
-//     };
-//
-//     var channelList = function () {
-//         return sc.channels;
-//     };
-//
-//     var addChannel = function (channelDetails,creatorName) {
-//         sc.channels.push({
-//             name: channelDetails.name,
-//             createdBy :creatorName,
-//             users: [creatorName],
-//             description : channelDetails.description
-//         });
-//         console.log("new channel added: "+channelDetails.name);
-//     };
-//
-//     var channelMessageList = function (channelName,message) {
-//       sc.channelMessages[channelName].push({
-//           user: message.user,
-//           text: message.message,
-//           time: message.time,
-//           userImage: message.userImage
-//       })
-//     };
-//
-//     var returnChannelMessageList = function (channelName) {
-//         return sc.channelMessages[channelName];
-//     };
-//
-//     var setUserOffline = function (userName) {
-//         for(var i=0;i<sc.users.length;i++){
-//             if(sc.users[i].name === userName){
-//                 sc.users[i].online = false;
-//                 return;
-//             }
-//         }
-//     };
-//
-//     return{
-//         setNewUser:setNewUser,
-//         channelList:channelList,
-//         channelMessageList:channelMessageList,
-//         addChannel:addChannel,
-//         returnChannelMessageList:returnChannelMessageList,
-//         setUserOffline: setUserOffline
-//     }
-//
-//
-// }());
+/**
+ * Created by shubham on 12/7/17.
+ */
+
+// Keep track of which names are used so that there are no duplicates
+
+var slickChat = (function () {
+    var sc = this;
+    sc.channelMessages = {};
+    sc.channels = [
+         {
+            name: "Project training",
+            createdBy: "Shubham Singh",
+            users: ["Shubham Singh"],
+            description: "We do something cool everyday"
+        },
+        {
+            name: "angularjs",
+            createdBy: "Shubham Singh",
+            users: ["Shubham Singh"],
+            description: "Angularjs is fun"
+        }
+    ];
+
+    sc.userMessages = {};
+    sc.users = [];
+
+    var setNewUser = function (user) {
+        var userPresent = false;
+        for(var i=0;i<sc.users.length;i++){
+            if(sc.users[i].name === user.name){
+                console.log("returning user: "+ sc.users);
+                userPresent = true;
+                sc.users[i].online = true;
+                return;
+            }
+        }
+        if(userPresent === false){
+            sc.users.push({
+                name: user.name,
+                userImage:user.userImage,
+                online:true
+            });
+            console.log("new user to list: "+ sc.users);
+        }
+    };
+
+    var channelList = function () {
+        return sc.channels;
+    };
+
+    var addChannel = function (channelDetails,creatorName) {
+        sc.channels.push({
+            name: channelDetails.name,
+            createdBy :creatorName,
+            users: [creatorName],
+            description : channelDetails.description
+        });
+        console.log("new channel added: "+channelDetails.name);
+    };
+
+    var channelMessageList = function (channelName,message) {
+      sc.channelMessages[channelName].push({
+          user: message.user,
+          text: message.message,
+          time: message.time,
+          userImage: message.userImage
+      })
+    };
+
+    var returnChannelMessageList = function (channelName) {
+        return sc.channelMessages[channelName];
+    };
+
+    var setUserOffline = function (userName) {
+        for(var i=0;i<sc.users.length;i++){
+            if(sc.users[i].name === userName){
+                sc.users[i].online = false;
+                return;
+            }
+        }
+    };
+
+    return{
+        setNewUser:setNewUser,
+        channelList:channelList,
+        channelMessageList:channelMessageList,
+        addChannel:addChannel,
+        returnChannelMessageList:returnChannelMessageList,
+        setUserOffline: setUserOffline
+    }
+
+
+}());
 
 
 var userNames = (function () {
@@ -196,7 +196,7 @@ module.exports = function (socket) {
 
     socket.on('send:message', function (data) {
         userNames.getmessage(data);
-        socket.broadcast.emit('send:message', {
+        sockcet.broadcast.emit('send:message', {
             channel:data.channel,
             user: data.user,
             text: data.message,
@@ -234,11 +234,27 @@ module.exports = function (socket) {
         });
     });
 
-    socket.on('getChannelsList',function () {
-        console.log("request for channel list made");
-        console.log(slickChat.channelList());
-        socket.emit('ChannelsListReceived',{
-            channelsList:slickChat.channelList()
-        });
+    // socket.on('getChannelsList',function () {
+    //     console.log("request for channel list made");
+    //     console.log(slickChat.channelList());
+    //     socket.emit('ChannelsListReceived',{
+    //         channelsList:slickChat.channelList()
+    //     });
+    // });
+    socket.on( 'getChannelsList', function( valueName, setValueResult ) {
+
+        var value = slickChat.channelList(); //Do something with value here
+         console.log(slickChat.channelList());
+        if( value ) {
+            setValueResult({
+                success : true,
+                data : value
+            });
+        } else {
+            setValueResult({
+                success : false,
+                message : "Unable to retrieve value"
+            });
+        }
     });
 };

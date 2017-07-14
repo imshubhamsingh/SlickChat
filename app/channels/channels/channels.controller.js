@@ -3,7 +3,7 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket){
+    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels){
         var channelsCtrl = this;
         // $sce.trustAsResourceUrl('http://gnaman.pythonanywhere.com')
         // $http.jsonp('http://gnaman.pythonanywhere.com').then(function(response){
@@ -19,17 +19,13 @@ angular.module('SlickChatApp')
         var currentUser = userPool.getCurrentUser();
 
         // channelsCtrl.profile.online = true;
+        console.log(channels);
 
         channelsCtrl.profile = "";
-        channelsCtrl.channels = [
-            {name: 'general'},
-            {name: 'programming'},
-            {name: 'finance'},
-            {name: 'politics'},
-            {name: 'entertainment'},
-            {name: 'miscellaneous'}
-            ];
+        channelsCtrl.channels = channels.channelList;
         channelsCtrl.channelSelected = channelsCtrl.channels[0].name;
+        channelsCtrl.channelSelectedCreator = channelsCtrl.channels[0].createdBy;
+        channelsCtrl.description = channelsCtrl.channels[0].description;
         channelsCtrl.getDisplayName = "";
         channelsCtrl.getGravatar = "";
         channelsCtrl.users = "";
@@ -85,8 +81,10 @@ angular.module('SlickChatApp')
 
         // Users.setOnline(profile.$id);
 
-        channelsCtrl.changeChannel = function (channelName) {
-            channelsCtrl.channelSelected = channelName;
+        channelsCtrl.changeChannel = function (channel) {
+            channelsCtrl.channelSelected = channel.name;
+            channelsCtrl.channelSelectedCreator = channel.createdBy;
+            channelsCtrl.description = channel.description;
         };
 
         channelsCtrl.newChannel = {
