@@ -1,27 +1,122 @@
-<div class="page-wrapper" style="position: relative;">
+<!--<div class="page-wrapper" style="position: relative;">-->
 
-  <style>
-    body{
-      background-color: #440064;
-    }
-    @media screen and (max-width: 699px) and (min-width: 520px) {
+  <!--<style>-->
+    <!--body{-->
+      <!--background-color: #440064;-->
+    <!--}-->
+    <!--@media screen and (max-width: 699px) and (min-width: 520px) {-->
 
-    }
-  </style>
+    <!--}-->
+  <!--</style>-->
 
-<div class="page-header row" style="margin-top: 10%">
-  <img class="logo-img col-md-4 hidden-sm-down" src="app/images/logo1.png" width="20%"/>
-    <h1 style="font-size: 84px;color: white;font-family: 'Copse', serif;" class="col-md-8 slickHeading">SlickChat</h1>
-</div>
+<!--<div class="page-header row" style="margin-top: 10%">-->
+  <!--<img class="logo-img col-md-4 hidden-sm-down" src="app/images/logo1.png" width="20%"/>-->
+    <!--<h1 style="font-size: 84px;color: white;font-family: 'Copse', serif;" class="col-md-8 slickHeading">SlickChat</h1>-->
+<!--</div>-->
 
-  <p style="color:white" class="text-center">SlickChat is a chat tool to connect with friend, family, and colleagues.</p> -->
+  <!--<p style="color:white" class="text-center">SlickChat is a chat tool to connect with friend, family, and colleagues.</p> &ndash;&gt;-->
 
-  <div ui-sref="register" class="row" style="cursor:pointer">
-    <div style="height: 39px; width: 280px;border-radius: 20px;border-width: 0px;line-height: 39px;background-color: white; color: #3f0066;margin: 0 auto;" class="text-center col-sm-6">
-      Get Started
+  <!--<div ui-sref="register" class="row" style="cursor:pointer">-->
+    <!--<div style="height: 39px; width: 280px;border-radius: 20px;border-width: 0px;line-height: 39px;background-color: white; color: #3f0066;margin: 0 auto;" class="text-center col-sm-6">-->
+      <!--Get Started-->
+    <!--</div>-->
+    <!--<div style="height: 39px; width: 280px;border-radius: 20px;border-width: 0px;line-height: 39px;background-color: white; color: #3f0066;margin: 0 auto;" class="text-center col-sm-6">-->
+      <!--Already a memeber-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<style>
+  body{
+    background-color: #440064;
+  }
+  h1{
+    text-shadow: #525252 0px 0px 20px;
+    font-weight: bold;
+  }
+
+  h4{
+    font-weight: bold;
+  }
+
+  pre {
+    border: 0;
+    background-color: transparent;
+    white-space:nowrap;
+  }
+
+  .col-md-4 p{
+    color: #555;
+  }
+
+  .credits p{
+    color: #555;
+  }
+
+  .row li{
+    color: #555;
+  }
+
+
+  .tagline{
+    text-shadow: #525252 0px 0px 20px;
+  }
+
+  .center{
+    width:300px;
+    margin:0 auto;
+    text-align:left;
+  }
+
+  .custom-image{
+    position: relative;
+    bottom: -110px;
+    padding: 40px;
+    margin: 0 auto;
+    margin-top: -120px;
+    width: 900px;
+    height: auto;
+  }
+
+  .logo-image{
+    width: 150px;
+    height: auto;
+    display: initial;
+  }
+
+  .jumbotron {
+    padding-top: 0;
+    background-color: #440064;
+    color: #ffffff;
+    margin-top:69px;
+  }
+  .btn-primary {
+    color: #440064;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    transition: all .5s ease-in;
+  }
+  .btn-danger {
+    color: #440064;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    transition: all .5s ease-in;
+  }
+
+
+</style>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 style="font-family: 'Copse', serif;">SlickChat</h1>
+    <div>
+      <p><img src="app/images/logo1.png" class="img-responsive logo-image text-center"></p>
+      <p>
+        <i class="tagline">SlickChat is a chat tool to connect with friend, family, and colleagues.</i>
+      </p>
     </div>
-    <div style="height: 39px; width: 280px;border-radius: 20px;border-width: 0px;line-height: 39px;background-color: white; color: #3f0066;margin: 0 auto;" class="text-center col-sm-6">
-      Already a memeber
+    <div>
+      <a ui-sref="login" class="btn btn-primary btn-lg" style="width: 131px;">Login</a>
+      <a ui-sref="register" class="btn btn-danger btn-lg">Get Started</a>
     </div>
   </div>
 </div>
