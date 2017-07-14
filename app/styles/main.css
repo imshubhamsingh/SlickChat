@@ -75,9 +75,31 @@ a{
 
 .channel-list {
   padding-left: 5%;
-  max-height: 30%;
-  /*overflow-x: scroll;*/
-  /*overflow-y: scroll;*/
+  max-height: 23%;
+  overflow-y: scroll;
+}
+.activeChannel{
+  color:white !important;
+}
+
+.channel-list::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.channel-list::-webkit-scrollbar
+{
+  width: 12px;
+  background-color: #382962;
+}
+
+.channel-list::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: transparent;
 }
 
 /*
@@ -318,15 +340,21 @@ input {
   padding: 0;
 }
 
+/*.message-list li {*/
+  /*padding: .2em;*/
+  /*!* margin-top: 1em; *!*/
+  /*margin-bottom: 1em;*/
+  /*!* background-color: #f2f2f2; *!*/
+  /*!* background-color: #D1D1E2; *!*/
+  /*background-color: #fff;*/
+  /*!* border-top: 1px solid #d7d7dc; *!*/
+  /*border-bottom: 1px solid #d7d7dc;*/
+/*}*/
 .message-list li {
   padding: .2em;
-  /*margin-top: 1em;*/
+  margin-top: 1em;
   margin-bottom: 1em;
-  /*background-color: #f2f2f2;*/
-  /*background-color: #D1D1E2;*/
-  background-color: #fff;
-  border-top: 1px solid #d7d7dc;
-  border-bottom: 1px solid #d7d7dc;
+  background-color: #f2f2f2;
 }
 
 .header {
@@ -388,7 +416,7 @@ input[type=text]:focus {
 }
 
 .directMsg {
-  margin-top: 35px;
+  margin-top: 24px;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -546,7 +574,7 @@ input[type=text]:focus {
 
 .messages {
   grid-area: messages;
-  padding: 0 1em;
+  padding: 0 1em !important;
   overflow-y: scroll;
 }
 
@@ -554,6 +582,7 @@ input[type=text]:focus {
   margin-left: 49px;
   margin-top: -35px;
   padding-right: 16px;
+  margin-bottom: -6px;
 }
 
 .noUserPic{
@@ -580,7 +609,7 @@ input[type=text]:focus {
   border-radius: 4px;
   display: inline-block;
   vertical-align: top;
-  margin-left: 12px;
+  margin-left: 2px;
   margin-top: 3px;
 }
 
@@ -588,7 +617,7 @@ input[type=text]:focus {
   display: inline-block;
   vertical-align: top;
   /*padding-left: 10px;*/
-  margin-left: -4px;
+  margin-left: -21px;
   /*margin-top: 0;*/
 }
 
@@ -656,8 +685,8 @@ input[type=text]:focus {
 }
 
 ul.message-list li:not(.samePreviousUser){
-  margin-top: -1px;
-  margin-bottom: 0px;
+  margin-top: 10px;
+  margin-bottom: 12px;
 }
 
 
