@@ -3,7 +3,7 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket){
+    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels){
         var channelsCtrl = this;
 
         var userPool = cognitoService.getUserPool();
@@ -12,15 +12,12 @@ angular.module('SlickChatApp')
         // channelsCtrl.profile.online = true;
 
         channelsCtrl.profile = "";
-        channelsCtrl.channels = [
-            {name: 'general'},
-            {name: 'programming'},
-            {name: 'finance'},
-            {name: 'politics'},
-            {name: 'entertainment'},
-            {name: 'miscellaneous'}
-            ];
+        channelsCtrl.channels = channels.channelsList;
+        console.log(channelsCtrl.channels);
         channelsCtrl.channelSelected = channelsCtrl.channels[0].name;
+        channelsCtrl.channelCreator = channelsCtrl.channels[0].createdBy;
+        channelsCtrl.channelDescription = channelsCtrl.channels[0].description;
+        channelsCtrl.channelSelectedUsers = channelsCtrl.channels[0].users;
         channelsCtrl.getDisplayName = "";
         channelsCtrl.getGravatar = "";
         channelsCtrl.users = "";
@@ -76,8 +73,10 @@ angular.module('SlickChatApp')
 
         // Users.setOnline(profile.$id);
 
-        channelsCtrl.changeChannel = function (channelName) {
-            channelsCtrl.channelSelected = channelName;
+        channelsCtrl.changeChannel = function (channel) {
+            channelsCtrl.channelSelected = channel.name;
+            channelsCtrl.channelCreator = channel.createdBy;
+            channelsCtrl.channelDescription = channel.description;
         };
 
         channelsCtrl.newChannel = {

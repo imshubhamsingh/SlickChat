@@ -13,7 +13,7 @@
            </div>
         <div class="channel-list">
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
-                <a ng-click="channelsCtrl.changeChannel(channel.name)" ui-sref-active="selected" ng-class="{activeChannel:channel.name===channelsCtrl.channelSelected}"> #{{ channel.name}}</a>
+                <a ng-click="channelsCtrl.changeChannel(channel)" ui-sref-active="selected" ng-class="{activeChannel:channel.name===channelsCtrl.channelSelected}"> #{{ channel.name}}</a>
             </div>
             <!-- <a style="color: #9999A9;cursor:pointer;" class="dropdown" data-toggle="collapse"
                data-target="#createChannel">+ Create Channel</a> -->
@@ -72,8 +72,9 @@
     </div>
     <div class='header box'><h2 style="margin-top: 22px; margin-bottom: 0px;">
         #{{channelsCtrl.channelSelected}}</h2>
-        <h3 class="members">{{channelsCtrl.allUser.length}} members</h3>
-        <h3 class="purpose">Sometimes we do cool stuff</h3>
+        <h3 class="members">{{channelsCtrl.channelSelectedUsers.length}} members</h3>
+        <h3 class="purpose">created by {{channelsCtrl.channelCreator}}</h3>
+        <h3 class="purpose">{{channelsCtrl.channelDescription}}</h3>
     </div>
     <div class='messages box' scroll-glue>
         <ul class='message-list' ng-if="channelsCtrl.channelSelected==='general'">

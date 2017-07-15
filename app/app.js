@@ -123,7 +123,7 @@ angular
                 var channelsList = [];
                 socket.emit('getChannelsList');
                 console.log("hii in channel load ...request send");
-                function getSomething(){
+                function loadChannels(){
                     var deferred = $q.defer();
                     console.log("getting something");
                     socket.on('ChannelsListReceived',function (data) {
@@ -134,8 +134,8 @@ angular
                     });
                     return deferred.promise;
                 }
-                getSomething().then(function(data){
-                    console.log(data);
+                 return loadChannels().then(function(data){
+                    return data;
                 });
                 // //console.log(deferred.promise);
                 // return deferred.promise;
