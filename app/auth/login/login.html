@@ -1,7 +1,7 @@
 <div class="page-wrapper">
 
   <div class="page-header">
-    <h1><a ui-sref="home"><img class="logo-img" src="app/images/logo.png" width="20%"/></a> Log In</h1>
+    <h1 style="color: white"><a ui-sref="home"><img class="logo-img" src="app/images/logo1.png" width="20%"/></a> Log In</h1>
   </div>
 
   <!--<form ng-submit="loginCtrl.login()">-->
@@ -43,8 +43,7 @@
           <br>
           <div class="form-group">
             <div class="row control">
-              <!--<span class="col-sm-12"><a href="#" ui-sref="register">Create account</a> - <a data-target="#pwdModal" data-toggle="modal">Forgot password?</a></span>-->
-              <span class="col-sm-12"><a href="#" ui-sref="register" class="text-muted">Create account</a></span>
+              <span class="col-sm-12"><a href="#" ui-sref="register" style="color:#f0f0f0">Create account</a> - <a data-target="#pwdModal" data-toggle="modal" style="color:#f0f0f0;cursor: pointer">Forgot password?</a></span>
 
             </div>
           </div>
@@ -52,41 +51,37 @@
 
       </div>
 
-    <!--&lt;!&ndash;modal&ndash;&gt;-->
-    <!--<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
-      <!--<div class="modal-dialog">-->
-        <!--<div class="modal-content">-->
-          <!--<div class="text-center">-->
-            <!--<h3><i class="fa fa-lock fa-4x"></i></h3>-->
-            <!--<h2 class="text-center">Forgot Password?</h2>-->
-            <!--<p>You can reset your password here.</p>-->
-            <!--<div class="panel-body">-->
+    <!--modal-->
+    <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" style="margin: 11px 11px 0px -31px;color: #440064">✕</button>
+          <div class="text-center">
+            <h3><i class="fa fa-lock fa-4x" style="margin-left: 10px;color: #440064;"></i></h3>
+            <h2 class="text-center">Forgot Password?</h2>
+            <p>You can reset your password here.</p>
+            <div class="panel-body">
 
-              <!--<form id="register-form" role="form" autocomplete="off" class="form" method="post">-->
+              <form id="register-form" role="form" autocomplete="off" class="form" method="post">
 
-                <!--<div class="form-group">-->
-                  <!--<div class="input-group">-->
-                    <!--<span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>-->
-                    <!--<input id="email" name="email" placeholder="email address" class="form-control"  type="email">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">-->
-                <!--</div>-->
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                    <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                </div>
 
-                <!--<input type="hidden" class="hide" name="token" id="token" value="">-->
-              <!--</form>-->
+                <input type="hidden" class="hide" name="token" id="token" value="">
+              </form>
 
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="modal-footer">-->
-            <!--<div class="col-md-12">-->
-              <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
