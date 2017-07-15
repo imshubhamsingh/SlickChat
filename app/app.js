@@ -118,37 +118,44 @@ angular
                         $state.go('home');
                     }
                 }
+            },
+            channels: function (socket,$q) {
+                var channelsList = [];
+                socket.emit('getChannelsList');
+                console.log("hii in channel load ...request send");
+                function getSomething(){
+                    var deferred = $q.defer();
+                    console.log("getting something");
+                    socket.on('ChannelsListReceived',function (data) {
+                        //console.log(data);
+                        console.log("hii in channel request complete");
+                        channelsList = data.channelList;
+                        deferred.resolve(data);
+                    });
+                    return deferred.promise;
+                }
+                getSomething().then(function(data){
+                    console.log(data);
+                });
+                // //console.log(deferred.promise);
+                // return deferred.promise;
+                // var deferred = $q.defer();
+                // socket.emitPromise("getChannelsList", "username")
+                //     .then(function( data ) {
+                //             //console.log(data);
+                //             return socket.emitPromise("getValue", "anotherValue" );
+                //         }, function( message ) {
+                //             //console.log(message);
+                //         }
+                //     ).then(function (data) {
+                //             //console.log(data);
+                //             deferred.resolve(data)
+                //         }
+                //     //Chain your commands from here
+                // );
+                // //console.log(deferred.promise);
+                // return deferred.promise;
             }
-            // channels: function (socket,$q) {
-            //     // var channelsList = [];
-            //     // var deferred = $q.defer();
-            //     // socket.emit('getChannelsList');
-            //     // socket.on('ChannelsListReceived',function (data) {
-            //     //     //console.log(data);
-            //     //     channelsList = data.channelList;
-            //     //     deferred.resolve(data);
-            //     // },function (err) {
-            //     //     deferred.reject({ message: "Really bad" });
-            //     // });
-            //     // //console.log(deferred.promise);
-            //     // return deferred.promise;
-            //     var deferred = $q.defer();
-            //     socket.emitPromise("getChannelsList", "username")
-            //         .then(function( data ) {
-            //                 //console.log(data);
-            //                 return socket.emitPromise("getValue", "anotherValue" );
-            //             }, function( message ) {
-            //                 //console.log(message);
-            //             }
-            //         ).then(function (data) {
-            //                 //console.log(data);
-            //                 deferred.resolve(data)
-            //             }
-            //         //Chain your commands from here
-            //     );
-            //     //console.log(deferred.promise);
-            //     return deferred.promise;
-            // }
             // channels: function (Channels){
             //     return Channels.$loaded();
             // },

@@ -234,27 +234,27 @@ module.exports = function (socket) {
         });
     });
 
-    // socket.on('getChannelsList',function () {
-    //     console.log("request for channel list made");
-    //     console.log(slickChat.channelList());
-    //     socket.emit('ChannelsListReceived',{
-    //         channelsList:slickChat.channelList()
-    //     });
-    // });
-    socket.on('getChannelsList', function( valueName, setValueResult ) {
-
-        var value = slickChat.channelList(); //Do something with value here
-         console.log(slickChat.channelList());
-        if( value ) {
-            setValueResult({
-                success : true,
-                data : value
-            });
-        } else {
-            setValueResult({
-                success : false,
-                message : "Unable to retrieve value"
-            });
-        }
+    socket.on('getChannelsList',function () {
+        console.log("request for channel list made");
+        console.log(slickChat.channelList());
+        socket.emit('ChannelsListReceived',{
+            channelsList:slickChat.channelList()
+        });
     });
+    // socket.on('getChannelsList', function( valueName, setValueResult ) {
+    //
+    //     var value = slickChat.channelList(); //Do something with value here
+    //      console.log(slickChat.channelList());
+    //     if( value ) {
+    //         setValueResult({
+    //             success : true,
+    //             data : value
+    //         });
+    //     } else {
+    //         setValueResult({
+    //             success : false,
+    //             message : "Unable to retrieve value"
+    //         });
+    //     }
+    // });
 };
