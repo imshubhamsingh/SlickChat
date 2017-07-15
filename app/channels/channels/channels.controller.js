@@ -6,9 +6,6 @@ angular.module('SlickChatApp')
     .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages){
         var channelsCtrl = this;
 
-        var userPool = cognitoService.getUserPool();
-        var currentUser = userPool.getCurrentUser();
-
         console.log(userDetailsAndMessages);
 
         // channelsCtrl.profile.online = true;
@@ -107,16 +104,15 @@ angular.module('SlickChatApp')
         //     changeName(data.oldName, data.newName);
         // });
         socket.on('user:login', function (data) {
-            //console.log(data);
-            // //console.log(channelsCtrl.allUser);
-            //     for(var i = 0 ;i<channelsCtrl.allUser.length;i++){
-            //         if(channelsCtrl.allUser[i] !== undefined){
-            //             if(channelsCtrl.allUser[i].name === data.userName){
-            //                 if(channelsCtrl.allUser[i].online !==true)
-            //                 channelsCtrl.allUser[i].online = true;
-            //             }
-            //         }
-            //     }
+            for(var i=0;i<channelsCtrl.allUser.length;i++){
+                if(data.name === channelsCtrl.allUser[i].name){
+                    // //console.log(message);
+                    channelsCtrl.allUser[i].online = true;
+                    ////console.log("pushed messages")
+                    return;
+                }
+            }
+            channelsCtrl.allUser.push(data);
         });
 
         socket.on('user:join', function (data) {
@@ -126,7 +122,7 @@ angular.module('SlickChatApp')
 
         socket.on('user:left', function (data) {
             for (var i = 0; i < channelsCtrl.allUser.length; i++) {
-                if ( channelsCtrl.allUser[i].name === data.userName) {
+                if ( channelsCtrl.allUser[i].name === data.name) {
                     channelsCtrl.allUser[i].online = false;
                     //console.log(channelsCtrl.allUser[i]);
                 }

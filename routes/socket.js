@@ -27,7 +27,8 @@ var slickChat = (function () {
 
     var setNewUser = function (user) {
         var userPresent = false;
-        for(var i=0;i<sc.users.length;i++){
+        var i=0;
+        for(;i<sc.users.length;i++){
             if(sc.users[i].name === user.name){
                 console.log("returning user: "+ sc.users);
                 userPresent = true;
@@ -41,7 +42,8 @@ var slickChat = (function () {
                 userImage:user.userImage,
                 online:true
             });
-            console.log("new user to list: "+ sc.users);
+            console.log("new user to list: ");
+            console.log(sc.users[i--]);
         }
     };
 
@@ -49,7 +51,7 @@ var slickChat = (function () {
         return sc.channels;
     };
     var userList = function () {
-        return slickChat.users;
+        return sc.users;
     };
 
     var addChannel = function (channelDetails) {
@@ -170,21 +172,24 @@ var userNames = (function () {
 module.exports = function (socket) {
     // send the new user their name and a list of users
     socket.on('init', function (data) {
-        userNames.setUserName(data);
+        slickChat.setNewUser(data);
         socket.emit('allUsers',{
             newUserLogin :data
         });
+        console.log(slickChat.userList());
         socket.emit('initMessages',{
             messages :userNames.sendMessage(),
-            userList:slickChat.userList()
+            userList: slickChat.userList()
         });
-        socket.emit('user:login',{
-            userName: data.name
+        socket.broadcast.emit('user:login',{
+            name: data.name,
+            userImage:data.userImage,
+            online:true
         });
-        socket.broadcast.emit('user:join', {
-            userName: data.name
-        });
-        console.log(data.name);
+        // socket.broadcast.emit('user:join', {
+        //     userName: data.name
+        // });
+        // console.log(data.name);
     });
 
     // notify other clients that a new user has joined
@@ -194,7 +199,7 @@ module.exports = function (socket) {
 
     // broadcast a user's message to other users
     socket.emit('allUsers',{
-        usersList :userNames.getUsersList(),
+        usersList :slickChat.userList(),
         messages: userNames.sendMessage()
     });
 
@@ -240,10 +245,10 @@ module.exports = function (socket) {
 
     socket.on('useLogOut', function (data) {
         console.log(data);
-        userNames.setUserOffline(data.userName);
+        slickChat.setUserOffline(data.userName);
         console.log(data.userName);
-        socket.emit('user:left', {
-            userName: data.userName
+        socket.broadcast.emit('user:left', {
+            name: data.userName
         });
     });
 

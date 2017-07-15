@@ -563,8 +563,8 @@ input[type=text]:focus {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   background: #ab9ba9;
   vertical-align: middle;
   margin-top: -1px;
