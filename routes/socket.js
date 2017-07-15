@@ -48,6 +48,9 @@ var slickChat = (function () {
     var channelList = function () {
         return sc.channels;
     };
+    var userList = function () {
+        return slickChat.users;
+    };
 
     var addChannel = function (channelDetails) {
         sc.channels.push({
@@ -87,7 +90,8 @@ var slickChat = (function () {
         channelMessageList:channelMessageList,
         addChannel:addChannel,
         returnChannelMessageList:returnChannelMessageList,
-        setUserOffline: setUserOffline
+        setUserOffline: setUserOffline,
+        userList:userList
     }
 
 
@@ -172,7 +176,7 @@ module.exports = function (socket) {
         });
         socket.emit('initMessages',{
             messages :userNames.sendMessage(),
-            userList:userNames.getUsersList()
+            userList:slickChat.userList()
         });
         socket.emit('user:login',{
             userName: data.name

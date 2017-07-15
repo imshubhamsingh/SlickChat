@@ -3,11 +3,13 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels){
+    .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages){
         var channelsCtrl = this;
 
         var userPool = cognitoService.getUserPool();
         var currentUser = userPool.getCurrentUser();
+
+        console.log(userDetailsAndMessages);
 
         // channelsCtrl.profile.online = true;
 
@@ -25,62 +27,16 @@ angular.module('SlickChatApp')
             createdBy:"",
             description:""
         };
+
         channelsCtrl.channelSelectedUsers = channelsCtrl.channels[0].users;
-        channelsCtrl.getDisplayName = "";
-        channelsCtrl.getGravatar = "";
-        channelsCtrl.users = "";
-        channelsCtrl.displayName ="";
-        channelsCtrl.userEmail = "";
-        channelsCtrl.fullName = "";
-        channelsCtrl.allUser = [];
+        channelsCtrl.displayName = userDetailsAndMessages.userDetails.displayName;
+        channelsCtrl.userEmail = userDetailsAndMessages.userDetails.email;
+        channelsCtrl.fullName = userDetailsAndMessages.userDetails.name;
+        channelsCtrl.messages = userDetailsAndMessages.userMessages;
+        channelsCtrl.getGravatar = userDetailsAndMessages.userDetails.getGravatar;
+        channelsCtrl.message ="";
+        channelsCtrl.allUser = userDetailsAndMessages.userList;
 
-        currentUser.getSession(function(err, session) {
-                if (err) {
-                    // alert(err);
-                    //console.log(err);
-                    return;
-                }
-                // //console.log('session validity: ' + session.isValid());
-            });
-        currentUser.getUserAttributes(function(err, result) {
-                if (err) {
-                    //alert(err);
-                    //console.log(err);
-                    //console.log('error during Get Attribute');
-                    return;
-                }
-                // //console.log(result);
-
-                for (var i = 0; i < result.length; i++) {
-                    if(result[i].getName() === "name"){
-                        channelsCtrl.fullName = result[i].getValue();
-                        channelsCtrl.displayName = channelsCtrl.fullName.split(' ')[0];
-                    }
-                    if(result[i].getName() === "email"){
-                        channelsCtrl.userEmail = result[i].getValue();
-                        channelsCtrl.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(channelsCtrl.userEmail) + '?d=retro';
-                        // //console.log(channelsCtrl.getGravatar)
-                    }
-                 }
-                //console.log(channelsCtrl.allUser);
-                   socket.emit('init', {
-                       name: channelsCtrl.displayName,
-                       userImage:channelsCtrl.getGravatar
-                 });
-
-                  socket.on('initMessages',function (data) {
-                      //console.log(data);
-                      channelsCtrl.messages = data.messages;
-                      channelsCtrl.allUser = data.userList;
-                      // //console.log(channelsCtrl.allUser);
-                  });
-
-                $scope.$apply();
-            });
-
-        ////console.log(channelsCtrl.displayName);
-
-        // Users.setOnline(profile.$id);
 
         channelsCtrl.changeChannel = function (channel) {
             channelsCtrl.channelSelected.name = channel.name;
@@ -191,8 +147,7 @@ angular.module('SlickChatApp')
         });
 
 
-        channelsCtrl.messages = [];
-        channelsCtrl.message ="";
+
         Date.prototype.timeNow = function(){ return ((this.getHours() < 10)?"0":"") + ((this.getHours()>12)?(this.getHours()-12):this.getHours()) +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + ((this.getHours()>12)?('pm'):'am'); };
 
         channelsCtrl.sendMessage = function () {

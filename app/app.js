@@ -137,24 +137,72 @@ angular
                  return loadChannels().then(function(data){
                     return data;
                 });
-                // //console.log(deferred.promise);
-                // return deferred.promise;
-                // var deferred = $q.defer();
-                // socket.emitPromise("getChannelsList", "username")
-                //     .then(function( data ) {
-                //             //console.log(data);
-                //             return socket.emitPromise("getValue", "anotherValue" );
-                //         }, function( message ) {
-                //             //console.log(message);
-                //         }
-                //     ).then(function (data) {
-                //             //console.log(data);
-                //             deferred.resolve(data)
-                //         }
-                //     //Chain your commands from here
-                // );
-                // //console.log(deferred.promise);
-                // return deferred.promise;
+            },
+            userDetailsAndMessages: function ($state,cognitoService,$q,md5,socket) {
+
+                var details = {
+                    userDetails:{},
+                    userList:[],
+                    userMessages:{}
+                };
+
+                function getUserMessages(){
+                    var deferredMessage = $q.defer();
+                    console.log("getting something");
+                    socket.on('initMessages',function (data) {
+                        console.log(data);
+                        details.userMessages = data.messages;
+                        details.userList = data.userList;
+                        console.log("hii in message request complete");
+                        deferredMessage.resolve(data);
+                    });
+                    return deferredMessage.promise;
+                }
+                function getUserDetails() {
+                    var deferred = $q.defer();
+                    var userPool = cognitoService.getUserPool();
+                    var currentUser = userPool.getCurrentUser();
+                    currentUser.getSession(function(err, session) {
+                        if (err) {
+                            console.log(err);
+                            $state.go('home');
+                        }
+                        console.log('session validity: ' + session.isValid());
+                    });
+                    currentUser.getUserAttributes(function(err, result) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        for (var i = 0; i < result.length; i++) {
+                            if(result[i].getName() === "name"){
+                                details.userDetails.name = result[i].getValue();
+                                details.userDetails.displayName = details.userDetails.name.split(' ')[0];
+                            }
+                            if(result[i].getName() === "email"){
+                                details.userDetails.email = result[i].getValue();
+                                details.userDetails.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.userDetails.email) + '?d=retro';
+                            }
+                        }
+                        deferred.resolve(result);
+                        //console.log(channelsCtrl.allUser);
+                        socket.emit('init', {
+                            name: details.userDetails.displayName,
+                            userImage:details.userDetails.getGravatar
+                        });
+
+                        details.userMessages = getUserMessages().then(function (data) {
+                            return data;
+                        });
+                        console.log(details.userMessages);
+
+                    });
+                    return deferred.promise;
+                }
+
+                return getUserDetails().then(function () {
+                    return details
+                })
             }
             // channels: function (Channels){
             //     return Channels.$loaded();
