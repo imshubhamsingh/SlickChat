@@ -8,9 +8,12 @@
             </a>
         </div>
         <div class="list-head channelText">Channels
-            <!--<i class="fa fa-plus-circle channels__add dropdown" style="color: #9999A9;cursor:pointer;" data-toggle="collapse"-->
-               <!--data-target="#createChannel" aria-hidden="true"></i>-->
-           </div>
+
+                <i class="fa fa-plus-circle channels__add dropdown" style="color: #9999A9;cursor:pointer;" data-toggle="modal"
+                   data-target="#createChannel" aria-hidden="true"></i>
+
+
+        </div>
         <div class="channel-list">
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
                 <a ng-click="channelsCtrl.changeChannel(channel)" ui-sref-active="selected" ng-class="{activeChannel:channel.name===channelsCtrl.channelSelected}"> #{{ channel.name}}</a>
@@ -45,6 +48,40 @@
             <!-- </li> -->
             <!-- </ul> -->
             <!-- </div> -->
+            <!-- Modal -->
+            <!-- Button trigger modal -->
+            <div class="modal fade" id="createChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:white">Create New Channel</h4>
+                            <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px !important;">✕</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel-body">
+                                <form id="loginForm" role="form" ng-submit="channelsCtrl.addChannels()">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></span>
+                                        <input id="name" type="text" class="form-control" value="" placeholder="Channel Name" ng-model="channelsCtrl.newChannel.name" required>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" id="comment" maxlength="50" placeholder="Describe your channel..." ng-model="channelsCtrl.newChannel.description" required></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="modal-footer">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-default" >Lets add your channel</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="list-head directMsg">Users</div>
         <div class="channel-list">
@@ -71,129 +108,14 @@
         </div>
     </div>
     <div class='header box'><h2 style="margin-top: 22px; margin-bottom: 0px;">
-        #{{channelsCtrl.channelSelected}}</h2>
-        <h3 class="members">{{channelsCtrl.channelSelectedUsers.length}} members</h3>
-        <h3 class="purpose">created by {{channelsCtrl.channelCreator}}</h3>
-        <h3 class="purpose">{{channelsCtrl.channelDescription}}</h3>
+        #{{channelsCtrl.channelSelected.name}}</h2>
+        <h3 class="members">{{channelsCtrl.channelSelected.users.length}} members</h3>
+        <h3 class="purpose">created by {{channelsCtrl.channelSelected.createdBy}}</h3>
+        <h3 class="purpose">{{channelsCtrl.channelSelected.description}}</h3>
     </div>
     <div class='messages box' scroll-glue>
-        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='general'">
-            <!--<ui-view>-->
-            <!--</ui-view>-->
-            <!-- Sample Messages -->
-            <!-- ng-class="{samePreviousUser:channelsCtrl.messages[$index-1].user===message.user && message[$index-1].channel ===channelsCtrl.channelSelected} -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-if="message.channel===channelsCtrl.channelSelected">
-                <img class="user-pic " ng-src="{{message.userImage}}"/>
-                <div class="message-wrap">
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            <span class="user-name-message message">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            {{message.text}}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-
-        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='programming'">
-            <!--<ui-view>-->
-            <!--</ui-view>-->
-            <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-if="message.channel===channelsCtrl.channelSelected">
-                <img class="user-pic " ng-src="{{message.userImage}}"/>
-                <div class="message-wrap">
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            <span class="user-name-message message">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            {{message.text}}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-
-        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='finance'">
-            <!--<ui-view>-->
-            <!--</ui-view>-->
-            <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index"  ng-if="message.channel===channelsCtrl.channelSelected">
-                <img class="user-pic " ng-src="{{message.userImage}}"/>
-                <div class="message-wrap">
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            <span class="user-name-message message">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            {{message.text}}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='politics'">
-            <!--<ui-view>-->
-            <!--</ui-view>-->
-            <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index">
-                <img class="user-pic " ng-src="{{message.userImage}}"/>
-                <div class="message-wrap">
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            <span class="user-name-message message">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            {{message.text}}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='entertainment'">
-            <!--<ui-view>-->
-            <!--</ui-view>-->
-            <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-if="message.channel===channelsCtrl.channelSelected">
-                <img class="user-pic " ng-src="{{message.userImage}}"/>
-                <div class="message-wrap">
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            <span class="user-name-message message">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            {{message.text}}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <ul class='message-list' ng-if="channelsCtrl.channelSelected==='miscellaneous'">
-            <!--<ui-view>-->
-            <!--</ui-view>-->
-            <!-- Sample Messages -->
-            <li ng-repeat="message in channelsCtrl.messages track by $index" ng-if="message.channel===channelsCtrl.channelSelected">
-                <img class="user-pic " ng-src="{{message.userImage}}"/>
-                <div class="message-wrap">
-                    <div class="message-info">
-                        <div class="user-name-message">
-                            <span class="user-name-message message">@{{message.user}}</span>
-                            <span class="timestamp"> {{message.time}}</span>
-                        </div>
-                        <div class="message" style="color: black">
-                            {{message.text}}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <!--<ui-view>-->
+        <!--</ui-view>-->
 
     </div>
     <div class='input'>

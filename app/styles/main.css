@@ -49,7 +49,7 @@ a{
 }
 
 .channelText .channels__add{
-  margin-left: 45%;
+  margin-left: 47%;
 }
 
 .channel{
@@ -689,4 +689,17 @@ input[type=text]:focus {
 ul.message-list li:not(.samePreviousUser){
   margin-top: 10px;
   margin-bottom: 12px;
+}
+
+/* Modal */
+.modal-header {
+  border-bottom: 1px solid #440064;
+  background: #440064;
+}
+.modal-footer {
+    margin-bottom: -45px;
+}
+
+.modal-content {
+  margin-top: 17%;
 }

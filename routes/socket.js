@@ -49,11 +49,11 @@ var slickChat = (function () {
         return sc.channels;
     };
 
-    var addChannel = function (channelDetails,creatorName) {
+    var addChannel = function (channelDetails) {
         sc.channels.push({
             name: channelDetails.name,
-            createdBy :creatorName,
-            users: [creatorName],
+            createdBy :channelDetails.createdBy,
+            users: channelDetails.users,
             description : channelDetails.description
         });
         console.log("new channel added: "+channelDetails.name);
@@ -202,6 +202,15 @@ module.exports = function (socket) {
             text: data.message,
             time: data.time,
             userImage: data.userImage
+        });
+    });
+    socket.on('send:newChannel', function (data) {
+        slickChat.addChannel(data);
+        socket.broadcast.emit('send:newChannel', {
+            name: data.name,
+            createdBy :data.createdBy,
+            users: data.users,
+            description : data.description
         });
     });
 

@@ -14,15 +14,24 @@ angular.module('SlickChatApp')
         channelsCtrl.profile = "";
         channelsCtrl.channels = channels.channelsList;
         console.log(channelsCtrl.channels);
-        channelsCtrl.channelSelected = channelsCtrl.channels[0].name;
-        channelsCtrl.channelCreator = channelsCtrl.channels[0].createdBy;
-        channelsCtrl.channelDescription = channelsCtrl.channels[0].description;
+        channelsCtrl.channelSelected = {
+            name:channelsCtrl.channels[0].name,
+            createdBy:channelsCtrl.channels[0].createdBy,
+            description:channelsCtrl.channels[0].description,
+            users:channelsCtrl.channels[0].users
+        };
+        channelsCtrl.newChannel = {
+            name:"",
+            createdBy:"",
+            description:""
+        };
         channelsCtrl.channelSelectedUsers = channelsCtrl.channels[0].users;
         channelsCtrl.getDisplayName = "";
         channelsCtrl.getGravatar = "";
         channelsCtrl.users = "";
         channelsCtrl.displayName ="";
         channelsCtrl.userEmail = "";
+        channelsCtrl.fullName = "";
         channelsCtrl.allUser = [];
 
         currentUser.getSession(function(err, session) {
@@ -44,8 +53,8 @@ angular.module('SlickChatApp')
 
                 for (var i = 0; i < result.length; i++) {
                     if(result[i].getName() === "name"){
-                        channelsCtrl.displayName = result[i].getValue();
-                        channelsCtrl.displayName = channelsCtrl.displayName.split(' ')[0];
+                        channelsCtrl.fullName = result[i].getValue();
+                        channelsCtrl.displayName = channelsCtrl.fullName.split(' ')[0];
                     }
                     if(result[i].getName() === "email"){
                         channelsCtrl.userEmail = result[i].getValue();
@@ -74,11 +83,42 @@ angular.module('SlickChatApp')
         // Users.setOnline(profile.$id);
 
         channelsCtrl.changeChannel = function (channel) {
-            channelsCtrl.channelSelected = channel.name;
-            channelsCtrl.channelCreator = channel.createdBy;
-            channelsCtrl.channelDescription = channel.description;
+            channelsCtrl.channelSelected.name = channel.name;
+            channelsCtrl.channelSelected.createdBy = channel.createdBy;
+            channelsCtrl.channelSelected.description = channel.description;
+            channelsCtrl.channelSelected.users = channel.users
         };
 
+        channelsCtrl.addChannels = function () {
+            console.log({
+                name:channelsCtrl.newChannel.name,
+                createdBy:channelsCtrl.fullName,
+                description:channelsCtrl.newChannel.description,
+                users:[channelsCtrl.fullName]
+            });
+            socket.emit('send:newChannel', {
+                name:channelsCtrl.newChannel.name,
+                createdBy:channelsCtrl.fullName,
+                description:channelsCtrl.newChannel.description,
+                users:[channelsCtrl.fullName]
+            });
+            channelsCtrl.channels.push({
+                name:channelsCtrl.newChannel.name,
+                createdBy:channelsCtrl.fullName,
+                description:channelsCtrl.newChannel.description,
+                users:[channelsCtrl.fullName]
+            });
+            $('#createChannel').modal('hide')
+        };
+
+        socket.on('send:newChannel', function (newChannel) {
+            //console.log(message);
+            if(newChannel.createdBy !==channelsCtrl.displayName){
+                // //console.log(message);
+                channelsCtrl.channels.push(newChannel);
+                ////console.log("pushed messages")
+            }
+        });
         channelsCtrl.newChannel = {
             name: ''
         };
