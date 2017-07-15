@@ -11,6 +11,7 @@ angular.module('SlickChatApp')
         // channelsCtrl.profile.online = true;
 
         channelsCtrl.profile = "";
+        console.log(channels.channelsList);
         channelsCtrl.channels = channels.channelsList;
         console.log(channelsCtrl.channels);
         channelsCtrl.channelSelected = {
@@ -34,33 +35,46 @@ angular.module('SlickChatApp')
         channelsCtrl.message ="";
         channelsCtrl.allUser = userDetailsAndMessages.userList;
 
+        channelsCtrl.creatChannelError ="";
+
 
         channelsCtrl.changeChannel = function (channel) {
             channelsCtrl.channelSelected.name = channel.name;
             channelsCtrl.channelSelected.createdBy = channel.createdBy;
             channelsCtrl.channelSelected.description = channel.description;
-            channelsCtrl.channelSelected.users = channel.users
+            channelsCtrl.channelSelected.users = channel.users;
+            console.log(channel.name);
+            console.log(channelsCtrl.messages[channel.name]);
         };
 
         channelsCtrl.addChannels = function () {
+            var alreadyChannel = false;
+            for(var i = 0 ;i<channelsCtrl.channels.length;i++){
+                if(channelsCtrl.channels[i].name === channelsCtrl.newChannel.name ){
+                    channelsCtrl.creatChannelError = "Channel with this name already exits";
+                    return;
+                }
+            }
+
             console.log({
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
                 description:channelsCtrl.newChannel.description,
-                users:[channelsCtrl.fullName]
+                users:[channelsCtrl.userEmail]
             });
             socket.emit('send:newChannel', {
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
                 description:channelsCtrl.newChannel.description,
-                users:[channelsCtrl.fullName]
+                users:[channelsCtrl.userEmail]
             });
             channelsCtrl.channels.push({
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
                 description:channelsCtrl.newChannel.description,
-                users:[channelsCtrl.fullName]
+                users:[channelsCtrl.email]
             });
+
             $('#createChannel').modal('hide')
         };
 
@@ -92,11 +106,29 @@ angular.module('SlickChatApp')
 
 
         socket.on('send:message', function (message) {
+            console.log(message);
             //console.log(message);
-            if(message.user !==channelsCtrl.displayName){
+            if(message.displayName !== channelsCtrl.displayName){
+                if(channelsCtrl.messages[message.channel]===undefined){
+                    channelsCtrl.messages[message.channel] = [];
+                }
                 // //console.log(message);
-                channelsCtrl.messages.push(message);
+                channelsCtrl.messages[message.channel].push({
+                    user: message.user,
+                    message: message.message,
+                    userImage:message.userImage,
+                    time: message.time
+                });
                 ////console.log("pushed messages")
+                var alreadyUser = false;
+                for(var i = 0; i<channelsCtrl.channelSelected.users.length;i++){
+                    if(channelsCtrl.channelSelected.users[i] === message.email) {
+                        alreadyUser = true;
+                    }
+                }
+                if(!alreadyUser){
+                    channelsCtrl.channelSelected.users.push(message.email)
+                }
             }
         });
 
@@ -153,24 +185,37 @@ angular.module('SlickChatApp')
             }else{
                 // //console.log(channelsCtrl.message.length);
                 var currentdate = new Date();
+                var formatedDate = currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear()
                 socket.emit('send:message', {
-                    channel: channelsCtrl.channelSelected,
+                    channel: channelsCtrl.channelSelected.name,
                     user: channelsCtrl.displayName,
                     message: channelsCtrl.message,
                     userImage:channelsCtrl.getGravatar,
-                    time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),
+                    time: formatedDate,
+                    email:channelsCtrl.userEmail
                 });
 
                 // add the message to our model locally
-
-                channelsCtrl.messages.push({
-                    channel: channelsCtrl.channelSelected,
+                if(channelsCtrl.messages[channelsCtrl.channelSelected.name] === undefined){
+                    channelsCtrl.messages[channelsCtrl.channelSelected.name] = [];
+                }
+                channelsCtrl.messages[channelsCtrl.channelSelected.name].push({
                     user: channelsCtrl.displayName,
-                    text: channelsCtrl.message,
-                    time: currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear(),
-                    userImage:channelsCtrl.getGravatar
+                    message: channelsCtrl.message,
+                    userImage:channelsCtrl.getGravatar,
+                    time: formatedDate
                 });
-                // clear message box
+                var alreadyUser = false;
+                for(var i = 0; i<channelsCtrl.channelSelected.users.length;i++){
+                    if(channelsCtrl.channelSelected.users[i] === channelsCtrl.userEmail){
+                        alreadyUser = true;
+                    }
+                }
+                if(!alreadyUser){
+                    channelsCtrl.channelSelected.users.push(channelsCtrl.userEmail)
+                }
+
+                console.log(channelsCtrl.channelSelected.users);
                 channelsCtrl.message = '';
             }
         }

@@ -391,6 +391,19 @@ input {
                        "teams channels input";
 }
 
+/*@media screen and (max-width: 515px) {*/
+  /*.app-layout{*/
+    /*grid-template-columns: 0px 0px 1fr;*/
+    /*grid-template-rows: auto 1fr auto;*/
+  /*}*/
+  /*.channels.box .my-info {*/
+    /*margin-left: -166px !important;*/
+  /*}*/
+  /*.channelText .channels__add {*/
+    /*margin-left: -63px;*/
+  /*}*/
+/*}*/
+
 /*
 input[type=text] {
   background-color: #ffffff;
@@ -759,3 +772,4 @@ ul.message-list li:not(.samePreviousUser){
       -webkit-transform: translateY(-20px);
     }
 }
+

@@ -224,7 +224,9 @@ angular
         params: {
             email: null,
             password: null,
-            activation: false
+            activation: false,
+            messageType: null,
+            channelMessages: []
         }
     }).state('channels.welcome', {
         url: '',
@@ -266,31 +268,19 @@ angular
         resolve:{
 
         }
-    }).state('channels.messages', {
-        url: '/{channelId}/messages',
-        templateUrl: 'app/channels/messages/messages.html',
-        controller: 'MessagesCtrl as messagesCtrl',
-        resolve: {
-            messages: function($stateParams, Messages){
-                return Messages.forChannel($stateParams.channelId).$loaded();
-            },
-            channelName: function($stateParams, channels){
-                return '#'+channels.$getRecord($stateParams.channelId).name;
-            }
-        }
     }).state('channels.direct', {
-        url: '/{uid}/messages/direct',
+        url: '#{channelName}',
         templateUrl: 'app/channels/messages/messages.html',
         controller: 'MessagesCtrl as messagesCtrl',
         resolve: {
-            messages: function($stateParams, Messages, profile){
-                return Messages.forUsers($stateParams.uid, profile.$id).$loaded();
-            },
-            channelName: function($stateParams, Users){
-                return Users.all.$loaded().then(function(){
-                    return '@'+Users.getDisplayName($stateParams.uid);
-                });
-            }
+            // messages: function($stateParams, Messages, profile){
+            //     return Messages.forUsers($stateParams.uid, profile.$id).$loaded();
+            // },
+            // channelName: function($stateParams, Users){
+            //     return Users.all.$loaded().then(function(){
+            //         return '@'+Users.getDisplayName($stateParams.uid);
+            //     });
+            // }
         }
     });
 

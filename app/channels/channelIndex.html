@@ -16,40 +16,8 @@
         </div>
         <div class="channel-list">
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
-                <a ng-click="channelsCtrl.changeChannel(channel)" ui-sref-active="selected" ng-class="{activeChannel:channel.name===channelsCtrl.channelSelected}"> #{{ channel.name}}</a>
+                <a ng-click="channelsCtrl.changeChannel(channel)" ng-class="{activeChannel:channel.name===channelsCtrl.channelSelected.name}"> #{{ channel.name}}</a>
             </div>
-            <!-- <a style="color: #9999A9;cursor:pointer;" class="dropdown" data-toggle="collapse"
-               data-target="#createChannel">+ Create Channel</a> -->
-            <!-- <div class="channel create"> -->
-            <!-- <ul class="nav navbar-nav"> -->
-            <!-- <li class="channel active">
-              <a href="#">#project</a>
-            </li>
-            <li class="channel">
-              <a href="#">#angular</a>
-            </li>
-            <li class="channel">
-              <a href="#">#atom</a></li> -->
-            <!-- <li> -->
-            <!--<div class="dropdown-content collapse" id="createChannel">-->
-                <!--<form ng-submit="channelsCtrl.createChannel()">-->
-                    <!--<div>-->
-                        <!--<div class="input-group">-->
-                            <!--<span class="input-group-addon" id="basic-addon1">#</span>-->
-                            <!--<input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" required ng-model="channelsCtrl.newChannel.name" required>-->
-                            <!--<span class="input-group-btn">-->
-                            <!--<button class="btn btn-success" type="submit" data-toggle="collapse" ng-class="{ 'disabled' :channelsCtrl.newChannel.name.length===0 || channelsCtrl.newChannel.name.length===undefined}"-->
-                                <!--data-target="#createChannel">Create</button>-->
-                           <!--</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</form>-->
-            <!--</div>-->
-            <!-- </li> -->
-            <!-- </ul> -->
-            <!-- </div> -->
-            <!-- Modal -->
-            <!-- Button trigger modal -->
             <div class="modal fade" id="createChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -59,6 +27,7 @@
                             <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px !important;">✕</button>
                         </div>
                         <div class="modal-body">
+                            <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="registerCtrl.errorMessage">{{channelsCtrl.creatChannelError}}</div>
                             <div class="panel-body">
                                 <form id="loginForm" role="form" ng-submit="channelsCtrl.addChannels()">
                                     <div class="input-group input-group-lg">
@@ -93,16 +62,18 @@
                 </a>
             </div>
         </div>
-        <div class="my-info">
-            <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar}}"/>
-            <div class="user-info">
-                <div class="user-name">
+        <div class="userDetails">
+            <div class="my-info">
+                <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar}}"/>
+                <div class="user-info">
+                    <div class="user-name">
                     <span class="fa fa-circle" aria-hidden="true"
                           style="color:rgba(66,182,42,1); font-size: 0.5em;"></span> {{ channelsCtrl.displayName }}
-                </div>
+                    </div>
 
-                <div class="options">
-                    <a style="padding-left: 14px;" ng-click="channelsCtrl.logout()">Logout</a>
+                    <div class="options">
+                        <a style="padding-left: 14px;" ng-click="channelsCtrl.logout()">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,9 +85,22 @@
         <h3 class="purpose">{{channelsCtrl.channelSelected.description}}</h3>
     </div>
     <div class='messages box' scroll-glue>
-        <!--<ui-view>-->
-        <!--</ui-view>-->
-
+            <ul class='message-list'>
+               <li ng-repeat="message in channelsCtrl.messages[channelsCtrl.channelSelected.name] track by $index">
+                    <img class="user-pic " ng-src="{{message.userImage}}"/>
+                    <div class="message-wrap">
+                        <div class="message-info">
+                            <div class="user-name-message">
+                                <span class="user-name-message message">@{{message.user}}</span>
+                                <span class="timestamp"> {{message.time}}</span>
+                            </div>
+                            <div class="message" style="color: black">
+                                {{message.message}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
     </div>
     <div class='input'>
         <form ng-submit="channelsCtrl.sendMessage()">

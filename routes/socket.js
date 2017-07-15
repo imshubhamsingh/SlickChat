@@ -6,23 +6,27 @@
 
 var slickChat = (function () {
     var sc = this;
-    sc.channelMessages = {};
+    sc.userMessages = {};
     sc.channels = [
          {
             name: "Project training",
-            createdBy: "Shubham Singh",
-            users: ["Shubham Singh"],
+            createdBy: "Shubham",
+            users: ["imshubhamsingh007@gmail.com"],
             description: "We do something cool everyday"
         },
         {
             name: "angularjs",
-            createdBy: "Shubham Singh",
-            users: ["Shubham Singh"],
+            createdBy: "Shubham",
+            users: ["imshubhamsingh007@gmail.com"],
             description: "Angularjs is fun"
         }
     ];
 
-    sc.userMessages = {};
+    sc.channelMessages = {
+        "Project training":[],
+        "angularjs": []
+
+    };
     sc.users = [];
 
     var setNewUser = function (user) {
@@ -42,8 +46,8 @@ var slickChat = (function () {
                 userImage:user.userImage,
                 online:true
             });
-            console.log("new user to list: ");
-            console.log(sc.users[i--]);
+            // console.log("new user to list: ");
+            // console.log(sc.users[i--]);
         }
     };
 
@@ -54,6 +58,20 @@ var slickChat = (function () {
         return sc.users;
     };
 
+    var addUserstoChannel = function (email,channel) {
+        console.log(channel+"------");
+        for(var i = 0; i<sc.channels.length;i++){
+            if(sc.channels[i].name === channel){
+                for(var j = 0; j<sc.channels[i].users.length;j++){
+                    if(sc.channels[i].users[j] === email){
+                        return;
+                    }
+                }
+                sc.channels[i].users.push(email);
+            }
+        }
+    };
+
     var addChannel = function (channelDetails) {
         sc.channels.push({
             name: channelDetails.name,
@@ -61,20 +79,26 @@ var slickChat = (function () {
             users: channelDetails.users,
             description : channelDetails.description
         });
-        console.log("new channel added: "+channelDetails.name);
+        sc.channelMessages[channelDetails.name]=[];
+
+        //console.log("new channel added: "+channelDetails.name);
     };
 
-    var channelMessageList = function (channelName,message) {
-      sc.channelMessages[channelName].push({
+    var channelMessageList = function (message) {
+        console.log(message);
+        if(sc.channelMessages[message.channel] === undefined){
+            sc.channelMessages[message.channel] = [];
+        }
+      sc.channelMessages[message.channel].push({
           user: message.user,
-          text: message.message,
+          message: message.message,
           time: message.time,
           userImage: message.userImage
       })
     };
 
-    var returnChannelMessageList = function (channelName) {
-        return sc.channelMessages[channelName];
+    var returnChannelMessageList = function () {
+        return sc.channelMessages;
     };
 
     var setUserOffline = function (userName) {
@@ -93,7 +117,8 @@ var slickChat = (function () {
         addChannel:addChannel,
         returnChannelMessageList:returnChannelMessageList,
         setUserOffline: setUserOffline,
-        userList:userList
+        userList:userList,
+        addUserstoChannel:addUserstoChannel
     }
 
 
@@ -176,9 +201,9 @@ module.exports = function (socket) {
         socket.emit('allUsers',{
             newUserLogin :data
         });
-        console.log(slickChat.userList());
+       // console.log(slickChat.userList());
         socket.emit('initMessages',{
-            messages :userNames.sendMessage(),
+            messages :slickChat.returnChannelMessageList(),
             userList: slickChat.userList()
         });
         socket.broadcast.emit('user:login',{
@@ -200,17 +225,32 @@ module.exports = function (socket) {
     // broadcast a user's message to other users
     socket.emit('allUsers',{
         usersList :slickChat.userList(),
-        messages: userNames.sendMessage()
+        messages: slickChat.returnChannelMessageList()
     });
 
     socket.on('send:message', function (data) {
-        userNames.getmessage(data);
+        slickChat.channelMessageList(data);
+        var alreadyUser = false;
+        for(var i = 0; i<slickChat.channelList().length;i++){
+            if(slickChat.channelList()[i].name === data.channel){
+                for(var j = 0; j<slickChat.channelList()[i].users.length;j++){
+                    if(slickChat.channelList()[i].users[j] === data.user){
+                        alreadyUser = true;
+                    }
+                }
+            }
+        }
+        if(!alreadyUser){
+            slickChat.addUserstoChannel(data.email,data.channel);
+            console.log("new user");
+        }
         socket.broadcast.emit('send:message', {
             channel:data.channel,
             user: data.user,
-            text: data.message,
+            message: data.message,
             time: data.time,
-            userImage: data.userImage
+            userImage: data.userImage,
+            email: data.email
         });
     });
     socket.on('send:newChannel', function (data) {

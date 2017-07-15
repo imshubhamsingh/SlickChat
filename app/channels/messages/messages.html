@@ -1,9 +1,5 @@
-<div class='messages box' scroll-glue>
     <ul class='message-list'>
-    <!--<ui-view>-->
-    <!--</ui-view>-->
-    <!-- Sample Messages -->
-       <li ng-repeat="message in message.messages track by $index" ng-class="{samePreviousUser:message.messages[$index-1].user===message.user}">
+        <li ng-repeat="message in messagesCtrl.messages track by $index" ng-class="{samePreviousUser:messagesCtrl.messages[$index-1].user===message.user}">
         <img class="user-pic " ng-src="{{message.userImage}}" ng-if="message.messages[$index-1].user!==message.user"/>
         <div class="message-wrap" ng-class="{noUserPic:message.messages[$index-1].user===message.user}">
             <div class="message-info">
@@ -17,10 +13,5 @@
                 </div>
             </div>
     </li>
-</ul>
-</div>
-<div class='input'>
-    <form ng-submit="message.sendMessage()">
-        <input type='text' placeholder='Type Something here' ng-model="message.message">
-    </form>
-</div>
+    </ul>
+
