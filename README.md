@@ -40,8 +40,8 @@ There is still a lot of room for improvement in the app for example
 * Notification on new chats etc.
 
 <h1 align="center">
-<img src="https://github.com/imshubhamsingh/SlickChat/raw/master/Screenshots/2.PNG" alt="Slick Chat Mobile version" width="200px"/>
-<img src="https://github.com/imshubhamsingh/SlickChat/raw/master/Screenshots/3.PNG" alt="Slick Chat sidebar" width="200px"/>
+<img src="https://github.com/imshubhamsingh/SlickChat/raw/master/Screenshots/2.PNG" alt="Slick Chat Mobile version" width="350px"/>
+<img src="https://github.com/imshubhamsingh/SlickChat/raw/master/Screenshots/3.PNG" alt="Slick Chat sidebar" width="350px"/>
 </h1>
 
 
