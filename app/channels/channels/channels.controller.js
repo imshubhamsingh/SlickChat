@@ -6,14 +6,14 @@ angular.module('SlickChatApp')
     .controller('ChannelsCtrl', function($state, Auth, Users,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages){
         var channelsCtrl = this;
 
-        console.log(userDetailsAndMessages);
+        //console.log(userDetailsAndMessages);
 
         // channelsCtrl.profile.online = true;
 
         channelsCtrl.profile = "";
-        console.log(channels.channelsList);
+        //console.log(channels.channelsList);
         channelsCtrl.channels = channels.channelsList;
-        console.log(channelsCtrl.channels);
+        //console.log(channelsCtrl.channels);
         channelsCtrl.channelSelected = {
             name:channelsCtrl.channels[0].name,
             createdBy:channelsCtrl.channels[0].createdBy,
@@ -43,8 +43,8 @@ angular.module('SlickChatApp')
             channelsCtrl.channelSelected.createdBy = channel.createdBy;
             channelsCtrl.channelSelected.description = channel.description;
             channelsCtrl.channelSelected.users = channel.users;
-            console.log(channel.name);
-            console.log(channelsCtrl.messages[channel.name]);
+            //console.log(channel.name);
+            //console.log(channelsCtrl.messages[channel.name]);
         };
 
         channelsCtrl.addChannels = function () {
@@ -56,12 +56,12 @@ angular.module('SlickChatApp')
                 }
             }
 
-            console.log({
-                name:channelsCtrl.newChannel.name,
-                createdBy:channelsCtrl.fullName,
-                description:channelsCtrl.newChannel.description,
-                users:[channelsCtrl.userEmail]
-            });
+            // //console.log({
+            //     name:channelsCtrl.newChannel.name,
+            //     createdBy:channelsCtrl.fullName,
+            //     description:channelsCtrl.newChannel.description,
+            //     users:[channelsCtrl.userEmail]
+            // });
             socket.emit('send:newChannel', {
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
@@ -79,11 +79,11 @@ angular.module('SlickChatApp')
         };
 
         socket.on('send:newChannel', function (newChannel) {
-            //console.log(message);
+            ////console.log(message);
             if(newChannel.createdBy !==channelsCtrl.displayName){
-                // //console.log(message);
+                // ////console.log(message);
                 channelsCtrl.channels.push(newChannel);
-                ////console.log("pushed messages")
+                //////console.log("pushed messages")
             }
         });
         channelsCtrl.newChannel = {
@@ -99,27 +99,27 @@ angular.module('SlickChatApp')
             socket.emit('useLogOut', {
                 userName: channelsCtrl.displayName
             });
-            ////console.log(channelsCtrl.displayName);
+            //////console.log(channelsCtrl.displayName);
             cognitoService.getUser(channelsCtrl.userEmail).signOut();
             $state.go('home');
         };
 
 
         socket.on('send:message', function (message) {
-            console.log(message);
             //console.log(message);
+            ////console.log(message);
             if(message.displayName !== channelsCtrl.displayName){
                 if(channelsCtrl.messages[message.channel]===undefined){
                     channelsCtrl.messages[message.channel] = [];
                 }
-                // //console.log(message);
+                // ////console.log(message);
                 channelsCtrl.messages[message.channel].push({
                     user: message.user,
                     message: message.message,
                     userImage:message.userImage,
                     time: message.time
                 });
-                ////console.log("pushed messages")
+                //////console.log("pushed messages")
                 var alreadyUser = false;
                 for(var i = 0; i<channelsCtrl.channelSelected.users.length;i++){
                     if(channelsCtrl.channelSelected.users[i] === message.email) {
@@ -138,9 +138,9 @@ angular.module('SlickChatApp')
         socket.on('user:login', function (data) {
             for(var i=0;i<channelsCtrl.allUser.length;i++){
                 if(data.name === channelsCtrl.allUser[i].name){
-                    // //console.log(message);
+                    // ////console.log(message);
                     channelsCtrl.allUser[i].online = true;
-                    ////console.log("pushed messages")
+                    //////console.log("pushed messages")
                     return;
                 }
             }
@@ -148,7 +148,7 @@ angular.module('SlickChatApp')
         });
 
         socket.on('user:join', function (data) {
-            //console.log(data)
+            ////console.log(data)
         });
 
 
@@ -156,13 +156,13 @@ angular.module('SlickChatApp')
             for (var i = 0; i < channelsCtrl.allUser.length; i++) {
                 if ( channelsCtrl.allUser[i].name === data.name) {
                     channelsCtrl.allUser[i].online = false;
-                    //console.log(channelsCtrl.allUser[i]);
+                    ////console.log(channelsCtrl.allUser[i]);
                 }
             }
         });
 
         socket.on('allUsers',function (data) {
-            // //console.log(data);
+            // ////console.log(data);
             for(var i =0; i<channelsCtrl.allUser.length;i++){
                 if(channelsCtrl.allUser[i] !== undefined){
                     if(channelsCtrl.allUser[i].name === data.newUserLogin.name){
@@ -170,7 +170,7 @@ angular.module('SlickChatApp')
                     }
                 }
             }
-            // //console.log(channelsCtrl.allUser);
+            // ////console.log(channelsCtrl.allUser);
             channelsCtrl.allUser.push(data.newUserLogin);
         });
 
@@ -183,7 +183,7 @@ angular.module('SlickChatApp')
             if(channelsCtrl.message ==="" || channelsCtrl.message === undefined || channelsCtrl.message.length===0){
                return;
             }else{
-                // //console.log(channelsCtrl.message.length);
+                // ////console.log(channelsCtrl.message.length);
                 var currentdate = new Date();
                 var formatedDate = currentdate.timeNow()+" "+currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"+ currentdate.getFullYear()
                 socket.emit('send:message', {
@@ -215,7 +215,7 @@ angular.module('SlickChatApp')
                     channelsCtrl.channelSelected.users.push(channelsCtrl.userEmail)
                 }
 
-                console.log(channelsCtrl.channelSelected.users);
+                //console.log(channelsCtrl.channelSelected.users);
                 channelsCtrl.message = '';
             }
         };
