@@ -22,7 +22,7 @@ Slick Chat
 
 <h3 align="center">or</h3>
 
->View a live demo of this project on [heroku](https://slick-chat-app.herokuapp.com/)
+>View a live demo of this project on ~~AWS EC2 Instance~~ [heroku](https://slick-chat-app.herokuapp.com/)
 
 Take a look, and if you find it useful, please feel free to use it! If you find anything missing, or have ideas on improving it, please fork it and send me a pull request!
 

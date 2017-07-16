@@ -6,10 +6,7 @@ angular.module('SlickChatApp')
     .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages){
         var channelsCtrl = this;
 
-        //console.log(userDetailsAndMessages);
-
-        // channelsCtrl.profile.online = true;
-
+       // console.log(userDetailsAndMessages);
         channelsCtrl.profile = "";
        // console.log(channels.channelsList);
         channelsCtrl.channels = channels.channelsList;
@@ -56,12 +53,12 @@ angular.module('SlickChatApp')
                 }
             }
 
-            console.log({
-                name:channelsCtrl.newChannel.name,
-                createdBy:channelsCtrl.fullName,
-                description:channelsCtrl.newChannel.description,
-                users:[channelsCtrl.userEmail]
-            });
+            // console.log({
+            //     name:channelsCtrl.newChannel.name,
+            //     createdBy:channelsCtrl.fullName,
+            //     description:channelsCtrl.newChannel.description,
+            //     users:[channelsCtrl.userEmail]
+            // });
             socket.emit('send:newChannel', {
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
@@ -106,8 +103,7 @@ angular.module('SlickChatApp')
 
 
         socket.on('send:message', function (message) {
-            console.log(message);
-            //console.log(message);
+           // console.log(message);
             if(message.displayName !== channelsCtrl.displayName){
                 if(channelsCtrl.messages[message.channel]===undefined){
                     channelsCtrl.messages[message.channel] = [];

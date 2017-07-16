@@ -69,22 +69,6 @@ angular
             email: null,
             password: null
         }
-    }).state('profile', {
-        url: '/profile',
-        controller: 'ProfileCtrl as profileCtrl',
-        templateUrl: 'app/users/profile.html',
-        resolve: {
-            auth: function($state, Users, Auth){
-                return Auth.$requireSignIn().catch(function(){
-                    $state.go('home');
-                });
-            },
-            profile: function(Users, Auth){
-                return Auth.$requireSignIn().then(function(auth){
-                    return Users.getProfile(auth.uid).$loaded();
-                });
-            }
-        }
     }).state('channels', {
         url: '/channels',
         controller: 'ChannelsCtrl as channelsCtrl',
@@ -124,7 +108,7 @@ angular
                 //console.log("hii in channel load ...request send");
                 function loadChannels(){
                     var deferred = $q.defer();
-                    console.log("getting something");
+                   // console.log("getting something");
                     socket.on('ChannelsListReceived',function (data) {
                         //console.log(data);
                         //console.log("hii in channel request complete");
@@ -159,15 +143,14 @@ angular
                 }
                 function getUserDetails() {
                     var deferred = $q.defer();
-                    var userPool = cognitoService.getUserPool();
-                    var currentUser = userPool.getCurrentUser();
+                    var currentUser = cognitoService.getUserPool().getCurrentUser();
                     function getSession() {
                         var sessioninit = $q.defer();
                         currentUser.getSession(function(err, session) {
                             if (err) {
                                 console.log(err);
                             }
-                            console.log('session validity: ' + session.isValid());
+                           // console.log('session validity: ' + session.isValid());
                             sessioninit.resolve(session);
                         });
                         return sessioninit.promise
