@@ -56,6 +56,7 @@ There is still a lot of room for improvement in the app for example
 
 ### Back End
 * [Nodejs](https://nodejs.org/)
+* [Express](https://expressjs.com/)
 * [Socket IO](https://socket.io/)
 * [Amazon Cognito](https://aws.amazon.com/cognito/)
 
