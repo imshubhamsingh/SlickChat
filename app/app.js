@@ -2,13 +2,12 @@
 
 angular
   .module('SlickChatApp', [
-      'firebase',
       'angular-md5',
       'ui.router',
       'ngResource',
       'luegg.directives'
   ])
-  .config(function ($stateProvider, $urlRouterProvider,FirebaseConfig,$locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
       $locationProvider.html5Mode({
           enabled: true,
           requireBase: false
@@ -252,34 +251,7 @@ angular
                 }
             }
         }
-    }).state('channels.create', {
-        url: '',
-        templateUrl: 'app/channels/channels/create.html',
-        controller: 'ChannelsCtrl as channelsCtrl',
-        resolve:{
-
-        }
-    }).state('channels.direct', {
-        url: '#{channelName}',
-        templateUrl: 'app/channels/messages/messages.html',
-        controller: 'MessagesCtrl as messagesCtrl',
-        resolve: {
-            // messages: function($stateParams, Messages, profile){
-            //     return Messages.forUsers($stateParams.uid, profile.$id).$loaded();
-            // },
-            // channelName: function($stateParams, Users){
-            //     return Users.all.$loaded().then(function(){
-            //         return '@'+Users.getDisplayName($stateParams.uid);
-            //     });
-            // }
-        }
     });
-
-    firebase.initializeApp(FirebaseConfig);
     $urlRouterProvider.otherwise('/');
-  })
-    .constant('FirebaseConfig', {
-        apiKey: 'AIzaSyDXYKlcoWu21K4-vQOuy7eqD3fOYn7WImw',
-        authDomain: 'slackclone-830fc.firebaseapp.com',
-        databaseURL: 'https://slackclone-830fc.firebaseio.com/'
-    });
+  });
+
