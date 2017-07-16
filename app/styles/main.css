@@ -49,7 +49,7 @@ a{
 }
 
 .channelText .channels__add{
-  margin-left: 45%;
+  margin-left: 71px;
 }
 
 .channel{
@@ -78,6 +78,7 @@ a{
   padding-left: 5%;
   max-height: 23%;
   overflow-y: scroll;
+  width: 157.5px;
 }
 .activeChannel{
   color:white !important;
@@ -102,6 +103,7 @@ a{
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: transparent;
 }
+
 
 /*
 .main {
@@ -319,6 +321,7 @@ a{
   box-sizing: border-box;
 }*/
 
+
 .box {
   text-decoration: none;
   color: #fff;
@@ -326,7 +329,7 @@ a{
 }
 
 input {
-  width: 100%;
+  width: 100.1%;
   padding: 1em;
   outline: none;
   border: 1px solid #f2f2f2;
@@ -360,17 +363,29 @@ input {
 
 .header {
   background-color: #ffffff;
+  color: #fff;
+  margin-top: -3px;
+  margin-left: 0px;
 }
+
 
 .teams {
   background-color: #382962;
 }
 
 .channels {
-  /*background-color: #52364E;*/
   background-color: #382962;
-  padding-left: 30px;
+  padding-left: 23px;
+  margin-left: 0px;
+  width: 199px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000
 }
+
+
 
 .messages {
   padding: 0 !important;
@@ -380,15 +395,16 @@ input {
 .write {
   background-color: #f2f2f2;
 }
-
-.app-layout {
+input[type=submit]:focus {outline:none;}
+input[type=submit]:active {outline:none;}
+.main-layout {
   display: grid;
   height: 100vh;
-  grid-template-columns: 0px 210px 1fr;
+  grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: "teams channels header"
-                       "teams channels messages"
-                       "teams channels input";
+  grid-template-areas: "header"
+                       "messages"
+                       "input";
 }
 
 /*@media screen and (max-width: 515px) {*/
@@ -416,13 +432,13 @@ input[type=text]:focus {
   background-color:rgba(66,182,42,1) !important;
 }
 
-.teams {
-  grid-area: teams;
-}
+/*.teams {*/
+  /*grid-area: teams;*/
+/*}*/
 
-.channels {
-  grid-area: channels;
-}
+/*.channels {*/
+  /*grid-area: channels;*/
+/*}*/
 
 .channelText {
   margin-top: -18px;
@@ -506,10 +522,21 @@ input[type=text]:focus {
   z-index: 1;
 }
 
-.header {
-  grid-area: header;
-  color: #333;
-  border-bottom: 1px solid #f2f2f2;
+/*.header {*/
+  /*!*grid-area: header;*!*/
+  /*background-color: #5608CD;*/
+  /*color: #fff;*/
+  /*margin-top: -3px;*/
+  /*margin-left: 200px;*/
+  /*height: 95px;*/
+  /*width: 100%;*/
+/*}*/
+
+.main{
+  margin-left: 200px;
+  margin-right: 0%;
+  position: relative;
+  right: 1px;
 }
 .header.box .members{
   font-weight: 400;
@@ -518,6 +545,7 @@ input[type=text]:focus {
   /*opacity: 0.3;*/
   padding-right: 7px;
   margin-top: 0;
+  margin-bottom: 0px;
 }
 .header.box .purpose{
   border-left: 1px solid #ccc;
@@ -528,11 +556,12 @@ input[type=text]:focus {
   /*opacity: 0.3;*/
   padding-right: 7px;
   margin-top: 0;
+  margin-bottom: 0px;
 }
 
 
 .channels.box .my-info {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   padding: 15px;
   margin-left: -18px;
@@ -588,9 +617,9 @@ input[type=text]:focus {
 }
 
 .messages {
-  grid-area: messages;
   padding: 0 1em !important;
   overflow-y: scroll;
+  grid-area: messages;
 }
 
 .message-wrap{
@@ -662,6 +691,8 @@ input[type=text]:focus {
   grid-area: input;
 }
 
+
+
 .dropdown-menu {
   margin-top: -17px;
   margin-left: 239px;
@@ -697,6 +728,7 @@ input[type=text]:focus {
   background-color: #5608CD;
   color: #fff;
   margin-top: -3px;
+  grid-area: header;
 }
 
 ul.message-list li:not(.samePreviousUser){
@@ -773,3 +805,54 @@ ul.message-list li:not(.samePreviousUser){
     }
 }
 
+/* responsive text queries */
+
+@media screen and (max-width: 475px) {
+  .channels{
+    margin-left: -200px;
+  }
+  .channelsMobileOpen{
+    margin-left: 0px;
+  }
+  .main-mobile{
+    margin-left: 0px;
+  }
+  .main{
+    margin-left: 0px;
+  }
+
+  .menuToggle{
+    display: block !important;
+  }
+  .channeltitle{
+    margin-left: 55px !important;
+  }
+
+}
+
+.menuToggle{
+  cursor: pointer;
+  display: none;
+  float: left;
+  margin-top: -10px;
+}
+
+.channeltitle{
+  margin-top: -17px;
+  margin-left: -2px;
+}
+
+.channels,.main,.channeltitle,.menuToggle{
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.caretToggle{
+  margin-left: 144px;
+  margin-top: -54px;
+  float: inherit;
+  font-size: 39px;
+}

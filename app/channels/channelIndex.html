@@ -1,10 +1,13 @@
 <div class='app-layout'>
-    <div class='teams box'></div>
-    <div class='channels box'>
+    <div class='channels box' ng-class="{channelsMobileOpen:channelsCtrl.responsive}">
         <div class="app-name" style="margin-top: -2px;margin-bottom: 45px;">
             <a ui-sref="channels.welcome" style="color:white">
                 <h2 style="font-weight: 900;">SlickChat</h2>
                 <h6 style="margin-top: -7px; color: #A9A9A9;">It's Slick!</h6>
+                <div class="menuToggle" ng-click="channelsCtrl.responsiveToggle()">
+                    <i class="fa fa-caret-left caretToggle" aria-hidden="true"></i>
+                </div>
+
             </a>
         </div>
         <div class="list-head channelText">Channels
@@ -18,39 +21,7 @@
             <div class="channel" ng-repeat="channel in channelsCtrl.channels">
                 <a ng-click="channelsCtrl.changeChannel(channel)" ng-class="{activeChannel:channel.name===channelsCtrl.channelSelected.name}"> #{{ channel.name}}</a>
             </div>
-            <div class="modal fade" id="createChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title" id="myModalLabel" style="color:white">Create New Channel</h4>
-                            <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px !important;">✕</button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="registerCtrl.errorMessage">{{channelsCtrl.creatChannelError}}</div>
-                            <div class="panel-body">
-                                <form id="loginForm" role="form" ng-submit="channelsCtrl.addChannels()">
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-addon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></span>
-                                        <input id="name" type="text" class="form-control" value="" placeholder="Channel Name" ng-model="channelsCtrl.newChannel.name" required>
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <textarea class="form-control" rows="5" id="comment" maxlength="50" placeholder="Describe your channel..." ng-model="channelsCtrl.newChannel.description" required></textarea>
-                                    </div>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-default" >Lets add your channel</button>
-                                        </div>
-                                    </div>
-                                    <br>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="list-head directMsg">Users</div>
         <div class="channel-list">
@@ -78,15 +49,54 @@
             </div>
         </div>
     </div>
-    <div class='header box'><h2 style="margin-top: 22px; margin-bottom: 0px;">
-        #{{channelsCtrl.channelSelected.name}}</h2>
-        <h3 class="members">{{channelsCtrl.channelSelected.users.length}} members</h3>
-        <h3 class="purpose">created by {{channelsCtrl.channelSelected.createdBy}}</h3>
-        <h3 class="purpose">{{channelsCtrl.channelSelected.description}}</h3>
+    <div class="modal fade" id="createChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel" style="color:white">Create New Channel</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px !important;">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div id="errorMessage" class="alert alert-danger col-sm-12" ng-show="registerCtrl.errorMessage">{{channelsCtrl.creatChannelError}}</div>
+                    <div class="panel-body">
+                        <form id="loginForm" role="form" ng-submit="channelsCtrl.addChannels()">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></span>
+                                <input id="name" type="text" class="form-control" value="" placeholder="Channel Name" ng-model="channelsCtrl.newChannel.name" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" id="comment" maxlength="50" placeholder="Describe your channel..." ng-model="channelsCtrl.newChannel.description" required></textarea>
+                            </div>
+                            <br>
+                            <div class="modal-footer">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-default" >Lets add your channel</button>
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class='messages box' scroll-glue>
+    <div class="main main-layout">
+        <div class='header box row'>
+            <div class="menuToggle" ng-click = "channelsCtrl.responsiveToggle()">
+                <h1><i class="fa fa-bars" aria-hidden="true"></i></h1>
+            </div>
+            <div class="channeltitle">
+                <h2 style="margin-top: 22px; margin-bottom: 0px;">#{{channelsCtrl.channelSelected.name}}</h2>
+                <h3 class="members">{{channelsCtrl.channelSelected.users.length}} members</h3>
+                <h3 class="purpose">created by {{channelsCtrl.channelSelected.createdBy}}</h3>
+                <h3 class="purpose">{{channelsCtrl.channelSelected.description}}</h3>
+            </div>
+        </div>
+        <div class='messages box' scroll-glue>
             <ul class='message-list'>
-               <li ng-repeat="message in channelsCtrl.messages[channelsCtrl.channelSelected.name] track by $index">
+                <li ng-repeat="message in channelsCtrl.messages[channelsCtrl.channelSelected.name] track by $index">
                     <img class="user-pic " ng-src="{{message.userImage}}"/>
                     <div class="message-wrap">
                         <div class="message-info">
@@ -101,10 +111,16 @@
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class='input'>
+            <form ng-submit="channelsCtrl.sendMessage()">
+                <input type='text' placeholder='Type Something here' ng-model="channelsCtrl.message" required>
+            </form>
+        </div>
     </div>
-    <div class='input'>
-        <form ng-submit="channelsCtrl.sendMessage()">
-            <input type='text' placeholder='Type Something here' ng-model="channelsCtrl.message" required>
-        </form>
-    </div>
+
 </div>
+
+
+
+

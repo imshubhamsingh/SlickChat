@@ -218,7 +218,12 @@ angular.module('SlickChatApp')
                 console.log(channelsCtrl.channelSelected.users);
                 channelsCtrl.message = '';
             }
-        }
+        };
 
+        channelsCtrl.responsive = false;
+
+        channelsCtrl.responsiveToggle = function () {
+            channelsCtrl.responsive = (channelsCtrl.responsive === false);
+        }
 
     });

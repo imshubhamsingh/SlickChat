@@ -106,7 +106,7 @@ angular
                             //console.log("Logged In ");
                         },
                         onFailure: function (err) {
-                            $state.go('home');
+                            console.log(err);
                         }
                     });
                     return deferred.promise;
@@ -122,13 +122,13 @@ angular
             channels: function (socket,$q) {
                 var channelsList = [];
                 socket.emit('getChannelsList');
-                console.log("hii in channel load ...request send");
+                //console.log("hii in channel load ...request send");
                 function loadChannels(){
                     var deferred = $q.defer();
                     console.log("getting something");
                     socket.on('ChannelsListReceived',function (data) {
                         //console.log(data);
-                        console.log("hii in channel request complete");
+                        //console.log("hii in channel request complete");
                         channelsList = data.channelList;
                         deferred.resolve(data);
                     });
@@ -148,12 +148,12 @@ angular
 
                 function getUserMessages(){
                     var deferredMessage = $q.defer();
-                    console.log("getting something");
+                   // console.log("getting something");
                     socket.on('initMessages',function (data) {
-                        console.log(data);
+                    //    console.log(data);
                         details.userMessages = data.messages;
                         details.userList = data.userList;
-                        console.log("hii in message request complete");
+                    //    console.log("hii in message request complete");
                         deferredMessage.resolve(data);
                     });
                     return deferredMessage.promise;
@@ -162,41 +162,48 @@ angular
                     var deferred = $q.defer();
                     var userPool = cognitoService.getUserPool();
                     var currentUser = userPool.getCurrentUser();
-                    currentUser.getSession(function(err, session) {
-                        if (err) {
-                            console.log(err);
-                            $state.go('home');
-                        }
-                        console.log('session validity: ' + session.isValid());
-                    });
-                    currentUser.getUserAttributes(function(err, result) {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        }
-                        for (var i = 0; i < result.length; i++) {
-                            if(result[i].getName() === "name"){
-                                details.userDetails.name = result[i].getValue();
-                                details.userDetails.displayName = details.userDetails.name.split(' ')[0];
+                    function getSession() {
+                        var sessioninit = $q.defer();
+                        currentUser.getSession(function(err, session) {
+                            if (err) {
+                                console.log(err);
                             }
-                            if(result[i].getName() === "email"){
-                                details.userDetails.email = result[i].getValue();
-                                details.userDetails.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.userDetails.email) + '?d=retro';
+                            console.log('session validity: ' + session.isValid());
+                            sessioninit.resolve(session);
+                        });
+                        return sessioninit.promise
+                    }
+                    getSession().then(function () {
+                        currentUser.getUserAttributes(function(err, result) {
+                            if (err) {
+                                console.log(err);
+                                //$state.go('home');
                             }
-                        }
-                        deferred.resolve(result);
-                        //console.log(channelsCtrl.allUser);
-                        socket.emit('init', {
-                            name: details.userDetails.displayName,
-                            userImage:details.userDetails.getGravatar
-                        });
+                            for (var i = 0; i < result.length; i++) {
+                                if(result[i].getName() === "name"){
+                                    details.userDetails.name = result[i].getValue();
+                                    details.userDetails.displayName = details.userDetails.name.split(' ')[0];
+                                }
+                                if(result[i].getName() === "email"){
+                                    details.userDetails.email = result[i].getValue();
+                                    details.userDetails.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.userDetails.email) + '?d=retro';
+                                }
+                            }
+                            deferred.resolve(result);
+                            //console.log(channelsCtrl.allUser);
+                            socket.emit('init', {
+                                name: details.userDetails.displayName,
+                                userImage:details.userDetails.getGravatar
+                            });
 
-                        details.userMessages = getUserMessages().then(function (data) {
-                            return data;
-                        });
-                        console.log(details.userMessages);
+                            details.userMessages = getUserMessages().then(function (data) {
+                                return data;
+                            });
+                            // console.log(details.userMessages);
 
+                        });
                     });
+
                     return deferred.promise;
                 }
 
@@ -204,22 +211,6 @@ angular
                     return details
                 })
             }
-            // channels: function (Channels){
-            //     return Channels.$loaded();
-            // },
-            // profile: function ($state, Auth, Users){
-            //     return Auth.$requireSignIn().then(function(auth){
-            //         return Users.getProfile(auth.uid).$loaded().then(function (profile){
-            //             if(profile.displayName){
-            //                 return profile;
-            //             } else {
-            //                 $state.go('profile');
-            //             }
-            //         });
-            //     }, function(error){
-            //         $state.go('home');
-            //     });
-            // }
         },
         params: {
             email: null,
