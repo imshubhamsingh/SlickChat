@@ -1,6 +1,7 @@
 {
-  "name": "angularfireslack",
+  "name": "SlickChat",
   "version": "0.0.0",
+  "author": "Shubham Singh and Naman Gupta",
   "dependencies": {
     "connect-history-api-fallback": "^1.3.0",
     "cors": "^2.8.3",
@@ -9,11 +10,11 @@
     "path": "^0.12.7",
     "socket.io": "^2.0.3"
   },
-  "repository": {},
+  "repository": "https://github.com/imshubhamsingh/SlickChat.git",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "start": "node server.js"
   }
 }
