@@ -134,6 +134,7 @@ angular
                    // console.log("getting something");
                     socket.on('initMessages',function (data) {
                         if(data.messages === undefined || Object.keys(data).length === 0){
+                            console.log("message not received");
                             deferredMessage.reject("not messages received")
                         }
                         console.log(data);
