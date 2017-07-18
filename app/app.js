@@ -133,6 +133,9 @@ angular
                     var deferredMessage = $q.defer();
                    // console.log("getting something");
                     socket.on('initMessages',function (data) {
+                        if(data.messages === undefined){
+                            deferredMessage.reject("not messages received")
+                        }
                         console.log(data);
                         details.userMessages = data.messages;
                         details.userList = data.userList;
