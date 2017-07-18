@@ -192,7 +192,6 @@ angular.module('SlickChatApp')
                 });
                 var alreadyUser = false;
                 for(var i = 0; i<channelsCtrl.channelSelected.users.length;i++){
-                    console.log(channelsCtrl.channelSelected.users[i]);
                     if(channelsCtrl.channelSelected.users[i] === channelsCtrl.userEmail ){
                         alreadyUser = true;
                     }
