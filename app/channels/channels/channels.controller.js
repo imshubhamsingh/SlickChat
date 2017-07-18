@@ -6,7 +6,7 @@ angular.module('SlickChatApp')
     .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages){
         var channelsCtrl = this;
 
-       // console.log(userDetailsAndMessages);
+        console.log(userDetailsAndMessages);
         channelsCtrl.profile = "";
        // console.log(channels.channelsList);
         channelsCtrl.channels = channels.channelsList;
