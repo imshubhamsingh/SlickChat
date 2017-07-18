@@ -8,9 +8,7 @@ angular.module('SlickChatApp')
 
         console.log(userDetailsAndMessages);
         channelsCtrl.profile = "";
-       // console.log(channels.channelsList);
         channelsCtrl.channels = channels.channelsList;
-        //console.log(channelsCtrl.channels);
         channelsCtrl.channelSelected = {
             name:channelsCtrl.channels[0].name,
             createdBy:channelsCtrl.channels[0].createdBy,
@@ -34,16 +32,11 @@ angular.module('SlickChatApp')
 
         channelsCtrl.creatChannelError ="";
 
-        console.log(userDetailsAndMessages);
-
-
         channelsCtrl.changeChannel = function (channel) {
             channelsCtrl.channelSelected.name = channel.name;
             channelsCtrl.channelSelected.createdBy = channel.createdBy;
             channelsCtrl.channelSelected.description = channel.description;
             channelsCtrl.channelSelected.users = channel.users;
-           // console.log(channel.name);
-          //  console.log(channelsCtrl.messages[channel.name]);
         };
 
         channelsCtrl.addChannels = function () {
@@ -54,13 +47,6 @@ angular.module('SlickChatApp')
                     return;
                 }
             }
-
-            // console.log({
-            //     name:channelsCtrl.newChannel.name,
-            //     createdBy:channelsCtrl.fullName,
-            //     description:channelsCtrl.newChannel.description,
-            //     users:[channelsCtrl.userEmail]
-            // });
             socket.emit('send:newChannel', {
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
@@ -78,11 +64,11 @@ angular.module('SlickChatApp')
         };
 
         socket.on('send:newChannel', function (newChannel) {
-            //console.log(message);
+
             if(newChannel.createdBy !==channelsCtrl.displayName){
-                // //console.log(message);
+
                 channelsCtrl.channels.push(newChannel);
-                ////console.log("pushed messages")
+
             }
         });
         channelsCtrl.newChannel = {
@@ -130,9 +116,6 @@ angular.module('SlickChatApp')
             }
         });
 
-        // socket.on('change:name', function (data) {
-        //     changeName(data.oldName, data.newName);
-        // });
         socket.on('user:login', function (data) {
             for(var i=0;i<channelsCtrl.allUser.length;i++){
                 if(data.name === channelsCtrl.allUser[i].name){

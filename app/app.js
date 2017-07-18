@@ -78,15 +78,12 @@ angular
                 var params = $stateParams;
                 var deferred = $q.defer();
                 if(params.activation){
-                    //console.log("email: "+ params.email);
                     var cognitoUser = cognitoService.getUser(params.email);
                     var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
 
                     cognitoUser.authenticateUser(authenticationDetails, {
                         onSuccess: function (result) {
                             deferred.resolve(result);
-                            //console.log(result);
-                            //console.log("Logged In ");
                         },
                         onFailure: function (err) {
                             //console.log(err);
@@ -96,7 +93,6 @@ angular
                 }else{
                     var userPool = cognitoService.getUserPool();
                     var currentUser = userPool.getCurrentUser();
-                        //console.log(currentUser);
                     if(currentUser === null){
                         $state.go('home');
                     }
@@ -105,13 +101,9 @@ angular
             channels: function (socket,$q) {
                 var channelsList = [];
                 socket.emit('getChannelsList');
-                //console.log("hii in channel load ...request send");
                 function loadChannels(){
                     var deferred = $q.defer();
-                   // console.log("getting something");
                     socket.on('ChannelsListReceived',function (data) {
-                        //console.log(data);
-                        //console.log("hii in channel request complete");
                         channelsList = data.channelList;
                         deferred.resolve(data);
                     });
@@ -132,13 +124,9 @@ angular
 
                 function getUserMessages(){
                     var deferredMessage = $q.defer();
-                   // console.log("getting something");
                     socket.on('initMessages',function (data) {
-                        console.log(Object.keys(data).length);
-                        console.log(data);
                         details.userList = data.userList;
                         details.userMessages = data.messages;
-                    //    console.log("hii in message request complete");
                         deferredMessage.resolve(data.messages);
                     });
                     return deferredMessage.promise;
@@ -175,7 +163,6 @@ angular
                                 }
                             }
                             deferred.resolve(result);
-                            //console.log(channelsCtrl.allUser);
                             socket.emit('init', {
                                 name: details.userDetails.displayName,
                                 userImage:details.userDetails.getGravatar
@@ -184,8 +171,6 @@ angular
                             getUserMessages().then(function (data) {
                                 console.log(data);
                             });
-                            // console.log(details.userMessages);
-
                         });
                     });
 
@@ -213,15 +198,12 @@ angular
             requireAuth: function($state,cognitoService,$stateParams){
                 var params = $stateParams;
                 if(params.activation){
-                    //console.log("email: "+ params.email);
                     var cognitoUser = cognitoService.getUser(params.email);
                     var authenticationDetails = cognitoService.getAuthenticationDetails(params.email, params.password);
 
                     cognitoUser.authenticateUser(authenticationDetails, {
                         onSuccess: function (result) {
-                            //console.log(result);
                             params.activation = false;
-                            //console.log("Logged In ");
                             $state.go('channels.welcome');
                         },
                         onFailure: function (err) {
@@ -232,7 +214,6 @@ angular
                 var userPool = cognitoService.getUserPool();
                 var currentUser = userPool.getCurrentUser();
 
-                //console.log("Logged In");
                 if(currentUser === null){
                     $state.go('home');
                 }
