@@ -142,7 +142,7 @@ angular
                         details.userMessages = data.messages;
                         details.userList = data.userList;
                     //    console.log("hii in message request complete");
-                        deferredMessage.resolve(data);
+                        deferredMessage.resolve(data.messages);
                     });
                     console.log(details.userMessages);
                     return deferredMessage.promise;
