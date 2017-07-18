@@ -125,9 +125,7 @@ angular
                 function getUserMessages(){
                     var deferredMessage = $q.defer();
                     socket.on('initMessages',function (data) {
-                        details.userList = data.userList;
-                        details.userMessages = data.messages;
-                        deferredMessage.resolve(data.messages);
+                        deferredMessage.resolve(data);
                     });
                     return deferredMessage.promise;
                 }
@@ -169,7 +167,9 @@ angular
                             });
 
                             getUserMessages().then(function (data) {
-                                //console.log(data);
+                                details.userList = data.userList;
+                                details.userMessages = data.messages;
+                                console.log(data);
                             });
                         });
                     });
