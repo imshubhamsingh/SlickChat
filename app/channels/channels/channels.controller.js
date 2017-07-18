@@ -52,6 +52,12 @@ angular.module('SlickChatApp')
                 description:channelsCtrl.newChannel.description,
                 users:[channelsCtrl.userEmail]
             });
+            console.log({
+                name:channelsCtrl.newChannel.name,
+                createdBy:channelsCtrl.fullName,
+                description:channelsCtrl.newChannel.description,
+                users:[channelsCtrl.email]
+            });
             channelsCtrl.channels.push({
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
@@ -188,7 +194,7 @@ angular.module('SlickChatApp')
                 var alreadyUser = false;
                 for(var i = 0; i<channelsCtrl.channelSelected.users.length;i++){
                     console.log(channelsCtrl.channelSelected.users[i]);
-                    if(channelsCtrl.channelSelected.users[i] === channelsCtrl.userEmail){
+                    if(channelsCtrl.channelSelected.users[i] === channelsCtrl.userEmail ){
                         alreadyUser = true;
                     }
                 }
