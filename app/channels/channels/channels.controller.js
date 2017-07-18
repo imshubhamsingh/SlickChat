@@ -25,7 +25,7 @@ angular.module('SlickChatApp')
         channelsCtrl.userEmail = userDetailsAndMessages.userDetails.email;
         channelsCtrl.fullName = userDetailsAndMessages.userDetails.name;
         console.log(userDetailsAndMessages);
-        console.log(userDetailsAndMessages.userMessages);
+        console.log(userDetailsAndMessages['userMessages']);
         channelsCtrl.messages = userDetailsAndMessages.userMessages;
         channelsCtrl.getGravatar = userDetailsAndMessages.userDetails.getGravatar;
         channelsCtrl.message ="";
