@@ -113,11 +113,9 @@ angular
                     return data;
                 });
             },
-            userDetailsAndMessages: function ($state,cognitoService,$q,md5,socket) {
+            userDetails: function ($state,cognitoService,$q,md5,socket) {
 
-                var details = {
-                    userDetails:{}
-                };
+                var details = {};
                 var deferred = $q.defer();
 
                 function getUserDetails() {
@@ -142,18 +140,18 @@ angular
                             }
                             for (var i = 0; i < result.length; i++) {
                                 if(result[i].getName() === "name"){
-                                    details.userDetails.name = result[i].getValue();
-                                    details.userDetails.displayName = details.userDetails.name.split(' ')[0];
+                                    details.name = result[i].getValue();
+                                    details.displayName = details.userDetails.name.split(' ')[0];
                                 }
                                 if(result[i].getName() === "email"){
-                                    details.userDetails.email = result[i].getValue();
-                                    details.userDetails.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.userDetails.email) + '?d=retro';
+                                    details.email = result[i].getValue();
+                                    details.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.userDetails.email) + '?d=retro';
                                 }
                             }
                             deferred.resolve(result);
                             socket.emit('init', {
-                                name: details.userDetails.displayName,
-                                userImage:details.userDetails.getGravatar
+                                name: details.displayName,
+                                userImage:details.getGravatar
                             });
                         });
                     });
@@ -175,8 +173,7 @@ angular
                 }
 
                        return   getUserMessages().then(function (data) {
-                           console.log(data);
-                          return {
+                           return {
                               userList: data.userList,
                               userMessages: data.messages
                           };

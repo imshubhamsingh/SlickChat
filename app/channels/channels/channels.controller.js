@@ -3,9 +3,9 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages,messages){
+    .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetails,messages){
         var channelsCtrl = this;
-        channelsCtrl.details = userDetailsAndMessages;
+        channelsCtrl.details = userDetails;
         channelsCtrl.profile = "";
         channelsCtrl.channels = channels.channelsList;
         channelsCtrl.channelSelected = {
@@ -19,18 +19,13 @@ angular.module('SlickChatApp')
             createdBy:"",
             description:""
         };
-        console.log(messages);
 
         channelsCtrl.channelSelectedUsers = channelsCtrl.channels[0].users;
-        channelsCtrl.displayName = userDetailsAndMessages.userDetails.displayName;
-        channelsCtrl.userEmail = userDetailsAndMessages.userDetails.email;
-        channelsCtrl.fullName = userDetailsAndMessages.userDetails.name;
-        console.log(userDetailsAndMessages);
-        console.log(userDetailsAndMessages['userMessages']);
-        console.log(Object.keys(userDetailsAndMessages));
-        console.log(JSON.stringify(userDetailsAndMessages));
+        channelsCtrl.displayName = userDetails.displayName;
+        channelsCtrl.userEmail = userDetails.email;
+        channelsCtrl.fullName = userDetails.name;
         channelsCtrl.messages = messages.userMessages;
-        channelsCtrl.getGravatar = userDetailsAndMessages.userDetails.getGravatar;
+        channelsCtrl.getGravatar = userDetails.getGravatar;
         channelsCtrl.message ="";
         channelsCtrl.allUser = messages.userList;
 
