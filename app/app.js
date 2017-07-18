@@ -145,7 +145,7 @@ angular
                                 }
                                 if(result[i].getName() === "email"){
                                     details.email = result[i].getValue();
-                                    details.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.userDetails.email) + '?d=retro';
+                                    details.getGravatar = '//www.gravatar.com/avatar/' + md5.createHash(details.email) + '?d=retro';
                                 }
                             }
                             deferred.resolve(result);
