@@ -165,7 +165,7 @@ angular
                     return details
                 })
             },
-            messages: function ($state,$q) {
+            messages: function (socket, $state,$q) {
                 function getUserMessages() {
                     var deferredMessage = $q.defer();
                     socket.on('initMessages', function (data) {
