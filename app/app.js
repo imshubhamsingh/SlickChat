@@ -139,7 +139,6 @@ angular
                             deferredMessage.reject("not messages received")
                         }
                         console.log(data);
-                        details.userMessages = data.messages;
                         details.userList = data.userList;
                     //    console.log("hii in message request complete");
                         deferredMessage.resolve(data.messages);
