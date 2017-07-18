@@ -34,7 +34,7 @@ angular.module('SlickChatApp')
 
         channelsCtrl.creatChannelError ="";
 
-        console.log(channelsCtrl.messages.$$state.value);
+        console.log(userDetailsAndMessages.userMessages);
 
 
         channelsCtrl.changeChannel = function (channel) {
