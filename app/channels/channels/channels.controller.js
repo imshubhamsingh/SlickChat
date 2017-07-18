@@ -27,19 +27,14 @@ angular.module('SlickChatApp')
         channelsCtrl.displayName = userDetailsAndMessages.userDetails.displayName;
         channelsCtrl.userEmail = userDetailsAndMessages.userDetails.email;
         channelsCtrl.fullName = userDetailsAndMessages.userDetails.name;
-
-        if(userDetailsAndMessages.userMessages === undefined){
-            channelsCtrl.messages = userDetailsAndMessages.$$state.value.messages;
-        }else{
-            channelsCtrl.messages = userDetailsAndMessages.userMessages;
-        }
+        channelsCtrl.messages = userDetailsAndMessages.userMessages;
         channelsCtrl.getGravatar = userDetailsAndMessages.userDetails.getGravatar;
         channelsCtrl.message ="";
         channelsCtrl.allUser = userDetailsAndMessages.userList;
 
         channelsCtrl.creatChannelError ="";
 
-        console.log(channelsCtrl.messages);
+        console.log(channelsCtrl.messages.$$state.value);
 
 
         channelsCtrl.changeChannel = function (channel) {
