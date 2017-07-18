@@ -116,19 +116,9 @@ angular
             userDetailsAndMessages: function ($state,cognitoService,$q,md5,socket) {
 
                 var details = {
-                    userDetails:{},
-                    userList:[],
-                    userMessages:{}
+                    userDetails:{}
                 };
                 var deferred = $q.defer();
-
-                function getUserMessages(){
-                    var deferredMessage = $q.defer();
-                    socket.on('initMessages',function (data) {
-                        deferredMessage.resolve(data);
-                    });
-                    return deferredMessage.promise;
-                }
 
                 function getUserDetails() {
 
@@ -165,12 +155,6 @@ angular
                                 name: details.userDetails.displayName,
                                 userImage:details.userDetails.getGravatar
                             });
-
-                            getUserMessages().then(function (data) {
-                                details.userList = data.userList;
-                                details.userMessages = data.messages;
-                                console.log(data);
-                            });
                         });
                     });
 
@@ -180,7 +164,24 @@ angular
                 return getUserDetails().then(function () {
                     return details
                 })
-            }
+            },
+            messages: function ($state,$q) {
+                function getUserMessages() {
+                    var deferredMessage = $q.defer();
+                    socket.on('initMessages', function (data) {
+                        deferredMessage.resolve(data);
+                    });
+                    return deferredMessage.promise;
+                }
+
+                       return   getUserMessages().then(function (data) {
+                           console.log(data);
+                          return {
+                              userList: data.userList,
+                              userMessages: data.messages
+                          };
+                      })
+           }
         },
         params: {
             email: null,

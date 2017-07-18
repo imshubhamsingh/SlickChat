@@ -3,7 +3,7 @@
  */
 
 angular.module('SlickChatApp')
-    .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages){
+    .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetailsAndMessages,messages){
         var channelsCtrl = this;
         channelsCtrl.details = userDetailsAndMessages;
         channelsCtrl.profile = "";
@@ -19,6 +19,7 @@ angular.module('SlickChatApp')
             createdBy:"",
             description:""
         };
+        console.log(messages);
 
         channelsCtrl.channelSelectedUsers = channelsCtrl.channels[0].users;
         channelsCtrl.displayName = userDetailsAndMessages.userDetails.displayName;
