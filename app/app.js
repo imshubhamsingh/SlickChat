@@ -128,9 +128,9 @@ angular
                     userList:[],
                     userMessages:{}
                 };
-
+                var deferredMessage = $q.defer();
                 function getUserMessages(){
-                    var deferredMessage = $q.defer();
+
                    // console.log("getting something");
                     socket.on('initMessages',function (data) {
                         console.log(Object.keys(data).length);
