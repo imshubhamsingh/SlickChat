@@ -29,10 +29,10 @@ angular.module('SlickChatApp')
         console.log(userDetailsAndMessages['userMessages']);
         console.log(Object.keys(userDetailsAndMessages));
         console.log(JSON.stringify(userDetailsAndMessages));
-        channelsCtrl.messages = userDetailsAndMessages.userMessages;
+        channelsCtrl.messages = messages.userMessages;
         channelsCtrl.getGravatar = userDetailsAndMessages.userDetails.getGravatar;
         channelsCtrl.message ="";
-        channelsCtrl.allUser = userDetailsAndMessages.userList;
+        channelsCtrl.allUser = messages.userList;
 
         channelsCtrl.creatChannelError ="";
 
