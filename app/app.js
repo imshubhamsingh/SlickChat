@@ -128,30 +128,23 @@ angular
                     userList:[],
                     userMessages:{}
                 };
-
+                var deferredMessage = $q.defer();
                 function getUserMessages(){
-                    var deferredMessage = $q.defer();
+
                    // console.log("getting something");
-                    function messages() {
-                        socket.on('initMessages',function (data) {
-                            console.log(Object.keys(data).length);
-                            if(data.messages === undefined || Object.keys(data).length === 0){
-                                console.log("message not received");
-                                deferredMessage.reject("not messages received")
-                            }
-                            console.log(data);
-                            details.userList = data.userList;
-                            //    console.log("hii in message request complete");
-                            deferredMessage.resolve(data.messages);
-                        });
-                        return deferredMessage.promise;
-                    }
-
-                    messages().then(function (data) {
+                    socket.on('initMessages',function (data) {
+                        console.log(Object.keys(data).length);
+                        if(data.messages === undefined || Object.keys(data).length === 0){
+                            console.log("message not received");
+                            deferredMessage.reject("not messages received")
+                        }
                         console.log(data);
-                        return data;
-                    })
-
+                        details.userList = data.userList;
+                    //    console.log("hii in message request complete");
+                        deferredMessage.resolve(data.messages);
+                    });
+                    console.log(details.userMessages);
+                    return deferredMessage.promise;
                 }
                 function getUserDetails() {
                     var deferred = $q.defer();
