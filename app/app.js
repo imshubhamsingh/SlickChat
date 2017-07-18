@@ -148,7 +148,7 @@ angular
                         var sessioninit = $q.defer();
                         currentUser.getSession(function(err, session) {
                             if (err) {
-                                console.log(err);
+                               // console.log(err);
                             }
                            // console.log('session validity: ' + session.isValid());
                             sessioninit.resolve(session);
@@ -158,7 +158,7 @@ angular
                     getSession().then(function () {
                         currentUser.getUserAttributes(function(err, result) {
                             if (err) {
-                                console.log(err);
+                               // console.log(err);
                                 //$state.go('home');
                             }
                             for (var i = 0; i < result.length; i++) {

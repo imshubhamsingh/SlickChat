@@ -34,6 +34,8 @@ angular.module('SlickChatApp')
 
         channelsCtrl.creatChannelError ="";
 
+        console.log(channelsCtrl.messages);
+
 
         channelsCtrl.changeChannel = function (channel) {
             channelsCtrl.channelSelected.name = channel.name;
@@ -211,7 +213,7 @@ angular.module('SlickChatApp')
                     channelsCtrl.channelSelected.users.push(channelsCtrl.userEmail)
                 }
 
-                console.log(channelsCtrl.channelSelected.users);
+                //console.log(channelsCtrl.channelSelected.users);
                 channelsCtrl.message = '';
             }
         };
