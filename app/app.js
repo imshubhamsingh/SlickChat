@@ -128,6 +128,7 @@ angular
                     userList:[],
                     userMessages:{}
                 };
+                var deferred = $q.defer();
                 var deferredMessage = $q.defer();
                 function getUserMessages(){
 
@@ -146,8 +147,9 @@ angular
                     console.log(details.userMessages);
                     return deferredMessage.promise;
                 }
+
                 function getUserDetails() {
-                    var deferred = $q.defer();
+
                     var currentUser = cognitoService.getUserPool().getCurrentUser();
                     function getSession() {
                         var sessioninit = $q.defer();
