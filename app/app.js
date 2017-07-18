@@ -129,9 +129,9 @@ angular
                     userMessages:{}
                 };
                 var deferred = $q.defer();
-                var deferredMessage = $q.defer();
-                function getUserMessages(){
 
+                function getUserMessages(){
+                    var deferredMessage = $q.defer();
                    // console.log("getting something");
                     socket.on('initMessages',function (data) {
                         console.log(Object.keys(data).length);
@@ -196,11 +196,20 @@ angular
 
                     return deferred.promise;
                 }
+                function getDetails() {
+                    var detailsU = $q.defer();
+                    getUserDetails().then(function (data) {
+                        detailsU.resolve(data)
+                    });
+                    return data
+                }
 
-                return getUserDetails().then(function () {
+                return  getDetails().then(function (data) {
+                    console.log(data);
                     console.log(details);
-                    return details
+                    return data
                 })
+
             }
         },
         params: {
