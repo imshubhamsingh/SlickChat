@@ -61,4 +61,7 @@ There is still a lot of room for improvement in the app for example
 * [Amazon Cognito](https://aws.amazon.com/cognito/)
 
 
+## License [![License](https://img.shields.io/github/license/hyperium/hyper.svg)](https://github.com/imshubhamsingh/BookReviewLibrary/blob/master/License.txt)
+
+Copyright (c) 2017 Shubham Singh, This software is licensed under the [MIT License](https://github.com/imshubhamsingh/SlickChat/blob/master/LICENSE.txt).
 
