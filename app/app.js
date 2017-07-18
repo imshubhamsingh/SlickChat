@@ -141,7 +141,7 @@ angular
                             for (var i = 0; i < result.length; i++) {
                                 if(result[i].getName() === "name"){
                                     details.name = result[i].getValue();
-                                    details.displayName = details.userDetails.name.split(' ')[0];
+                                    details.displayName = details.name.split(' ')[0];
                                 }
                                 if(result[i].getName() === "email"){
                                     details.email = result[i].getValue();
