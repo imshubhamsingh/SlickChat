@@ -89,7 +89,7 @@ angular
                             //console.log("Logged In ");
                         },
                         onFailure: function (err) {
-                            console.log(err);
+                            //console.log(err);
                         }
                     });
                     return deferred.promise;
@@ -185,6 +185,7 @@ angular
                             });
 
                             details.userMessages = getUserMessages().then(function (data) {
+                                console.log(data);
                                 return data;
                             });
                             // console.log(details.userMessages);
