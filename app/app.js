@@ -169,7 +169,7 @@ angular
                             });
 
                             getUserMessages().then(function (data) {
-                                console.log(data);
+                                //console.log(data);
                             });
                         });
                     });
@@ -178,7 +178,6 @@ angular
                 }
 
                 return getUserDetails().then(function () {
-                    console.log(details);
                     return details
                 })
             }
