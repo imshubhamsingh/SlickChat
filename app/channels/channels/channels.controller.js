@@ -5,7 +5,6 @@
 angular.module('SlickChatApp')
     .controller('ChannelsCtrl', function($state, Auth,cognitoService,$scope,md5,socket,channels,userDetails,messages){
         var channelsCtrl = this;
-        channelsCtrl.details = userDetails;
         channelsCtrl.profile = "";
         channelsCtrl.channels = channels.channelsList;
         channelsCtrl.channelSelected = {
@@ -62,7 +61,7 @@ angular.module('SlickChatApp')
                 name:channelsCtrl.newChannel.name,
                 createdBy:channelsCtrl.fullName,
                 description:channelsCtrl.newChannel.description,
-                users:[channelsCtrl.email]
+                users:[channelsCtrl.userEmail]
             });
 
             $('#createChannel').modal('hide')
