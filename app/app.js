@@ -196,6 +196,7 @@ angular
                 }
 
                 return getUserDetails().then(function () {
+                    console.log(details);
                     return details
                 })
             }
