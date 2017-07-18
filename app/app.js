@@ -133,12 +133,13 @@ angular
                     var deferredMessage = $q.defer();
                    // console.log("getting something");
                     socket.on('initMessages',function (data) {
-                    //    console.log(data);
+                        console.log(data);
                         details.userMessages = data.messages;
                         details.userList = data.userList;
                     //    console.log("hii in message request complete");
                         deferredMessage.resolve(data);
                     });
+                    console.log(details.userMessages);
                     return deferredMessage.promise;
                 }
                 function getUserDetails() {

@@ -28,7 +28,7 @@ angular.module('SlickChatApp')
         channelsCtrl.userEmail = userDetailsAndMessages.userDetails.email;
         channelsCtrl.fullName = userDetailsAndMessages.userDetails.name;
         if(userDetailsAndMessages.userMessages === undefined){
-            channelsCtrl.messages = userDetailsAndMessages.$$state.values.messages;
+            channelsCtrl.messages = userDetailsAndMessages.$$state.value.messages;
         }else{
             channelsCtrl.messages = userDetailsAndMessages.userMessages;
         }
