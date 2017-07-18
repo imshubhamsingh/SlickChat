@@ -201,7 +201,7 @@ angular
                     getUserDetails().then(function (data) {
                         detailsU.resolve(data)
                     });
-                    return data
+                    return detailsU.promise;
                 }
 
                 return  getDetails().then(function (data) {
