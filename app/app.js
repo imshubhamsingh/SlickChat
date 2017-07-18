@@ -196,20 +196,11 @@ angular
 
                     return deferred.promise;
                 }
-                function getDetails() {
-                    var detailsU = $q.defer();
-                    getUserDetails().then(function (data) {
-                        detailsU.resolve(data)
-                    });
-                    return detailsU.promise;
-                }
 
-                return  getDetails().then(function (data) {
-                    console.log(data);
+                return getUserDetails().then(function () {
                     console.log(details);
-                    return data
+                    return details
                 })
-
             }
         },
         params: {
