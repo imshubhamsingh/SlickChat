@@ -137,6 +137,7 @@ angular
                         console.log(Object.keys(data).length);
                         console.log(data);
                         details.userList = data.userList;
+                        details.userMessages = data.messages;
                     //    console.log("hii in message request complete");
                         deferredMessage.resolve(data.messages);
                     });
@@ -180,9 +181,8 @@ angular
                                 userImage:details.userDetails.getGravatar
                             });
 
-                            details.userMessages = getUserMessages().then(function (data) {
+                            getUserMessages().then(function (data) {
                                 console.log(data);
-                                return data;
                             });
                             // console.log(details.userMessages);
 
